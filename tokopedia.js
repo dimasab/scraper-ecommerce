@@ -93,6 +93,15 @@ app.get('/scrapesemua', async (req, res) => {
     var lazada = [];
     var blibli = [];
     var shopee = [];
+
+    //Mulai define file gabungan sebagai variabel
+    var direktori_file_lazada_gabungan = './hasil/TERBARU/lazada.html';
+    var direktori_file_tokopedia_gabungan = './hasil/TERBARU/tokopedia.html';
+    var direktori_file_blibli_gabungan = './hasil/TERBARU/blibli.html';
+    var direktori_file_shopee_gabungan = './hasil/TERBARU/shopee.html';
+    var direktori_file_cekduplikat = './hasil/TERBARU/cekduplikat.html';
+    //Selesai define file gabungan sebagai variabel
+
     res.set("X-Robots-Tag","noindex, nofollow");
 
     //ambil parameter hanyaecommerec (isi "lazada", "tokopedia", "blibli", atau "shopee")
@@ -610,9 +619,9 @@ app.get('/scrapesemua', async (req, res) => {
             }
         });
 
-        if (fs.existsSync('./hasil/TERBARU/lazada.html')) {
+        if (fs.existsSync(dir)) {
             // Read the old data from /hasil/TERBARU/lazada.html
-            let oldData = JSON.parse(fs.readFileSync('./hasil/TERBARU/lazada.html'));
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_lazada_gabungan));
             // Replace all "statusScrape" values in the old data with +1
             oldData.data.productOfferV2.nodes.forEach(node => {
               node.statusScrape = node.statusScrape + 1;
@@ -636,12 +645,12 @@ app.get('/scrapesemua', async (req, res) => {
               }
             });
 
-            fs.writeFile('./hasil/TERBARU/lazada.html', JSON.stringify(oldData), function(err) {
+            fs.writeFile(direktori_file_lazada_gabungan, JSON.stringify(oldData), function(err) {
               if(err) {
                 return console.log(err);
               }
             });
-        } else {"eror: gak ada file di /hasil/TERBARU/lazada.html"}
+        } else {`eror: gak ada file di ${direktori_file_lazada_gabungan}`}
 
         console.log("File lazada tersimpan!");
     }
@@ -1167,9 +1176,9 @@ app.get('/scrapesemua', async (req, res) => {
             }
         });
 
-        if (fs.existsSync('./hasil/TERBARU/blibli.html')) {
+        if (fs.existsSync(direktori_file_blibli_gabungan)) {
             // Read the old data from /hasil/TERBARU/blibli.html
-            let oldData = JSON.parse(fs.readFileSync('./hasil/TERBARU/blibli.html'));
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_blibli_gabungan));
             // Replace all "statusScrape" values in the old data with +1
             oldData.data.productOfferV2.nodes.forEach(node => {
               node.statusScrape = node.statusScrape + 1;
@@ -1193,12 +1202,12 @@ app.get('/scrapesemua', async (req, res) => {
               }
             });
 
-            fs.writeFile('./hasil/TERBARU/blibli.html', JSON.stringify(oldData), function(err) {
+            fs.writeFile(direktori_file_blibli_gabungan, JSON.stringify(oldData), function(err) {
               if(err) {
                 return console.log(err);
               }
             });
-        } else {"eror: gak ada file di /hasil/TERBARU/blibli.html"}
+        } else {`eror: gak ada file di ${direktori_file_blibli_gabungan}`}
 
         console.log("File blibli tersimpan!");
     }
@@ -1746,9 +1755,9 @@ app.get('/scrapesemua', async (req, res) => {
             }
         });
 
-        if (fs.existsSync('./hasil/TERBARU/tokopedia.html')) {
+        if (fs.existsSync(direktori_file_tokopedia_gabungan)) {
             // Read the old data from /hasil/TERBARU/tokopedia.html
-            let oldData = JSON.parse(fs.readFileSync('./hasil/TERBARU/tokopedia.html'));
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_tokopedia_gabungan));
             // Replace all "statusScrape" values in the old data with +1
             oldData.data.productOfferV2.nodes.forEach(node => {
               node.statusScrape = node.statusScrape + 1;
@@ -1772,12 +1781,12 @@ app.get('/scrapesemua', async (req, res) => {
               }
             });
 
-            fs.writeFile('./hasil/TERBARU/tokopedia.html', JSON.stringify(oldData), function(err) {
+            fs.writeFile(direktori_file_tokopedia_gabungan, JSON.stringify(oldData), function(err) {
               if(err) {
                 return console.log(err);
               }
             });
-        } else {"eror: gak ada file di /hasil/TERBARU/tokopedia.html"}
+        } else {`eror: gak ada file di ${direktori_file_tokopedia_gabungan}`}
 
         console.log("File tokopedia tersimpan!");
     }
@@ -2362,9 +2371,9 @@ app.get('/scrapesemua', async (req, res) => {
             }
         });
 
-        if (fs.existsSync('./hasil/TERBARU/shopee.html')) {
+        if (fs.existsSync(direktori_file_shopee_gabungan)) {
             // Read the old data from /hasil/TERBARU/shopee.html
-            let oldData = JSON.parse(fs.readFileSync('./hasil/TERBARU/shopee.html'));
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_shopee_gabungan));
             // Replace all "statusScrape" values in the old data with +1
             oldData.data.productOfferV2.nodes.forEach(node => {
               node.statusScrape = node.statusScrape + 1;
@@ -2388,12 +2397,12 @@ app.get('/scrapesemua', async (req, res) => {
               }
             });
 
-            fs.writeFile('./hasil/TERBARU/shopee.html', JSON.stringify(oldData), function(err) {
+            fs.writeFile(direktori_file_shopee_gabungan, JSON.stringify(oldData), function(err) {
               if(err) {
                 return console.log(err);
               }
             });
-        } else {"eror: gak ada file di /hasil/TERBARU/shopee.html"}
+        } else {`eror: gak ada file di ${direktori_file_shopee_gabungan}`}
 
         console.log("File shopee tersimpan!");
     }
@@ -2410,7 +2419,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
     // Baca data lama di /hasil/TERBARU/cekduplikat.html
-    const oldData = JSON.parse(fs.readFileSync('./hasil/TERBARU/cekduplikat.html'));
+    const oldData = JSON.parse(fs.readFileSync(direktori_file_cekduplikat));
     // Replace all "statusScrape" values in the old data with +1
     oldData.data.productOfferV2.nodes.forEach(node => {
       node.statusScrape = node.statusScrape + 1;
@@ -2425,7 +2434,7 @@ app.get('/scrapesemua', async (req, res) => {
         oldData.data.productOfferV2.nodes.push(newNode);
       }
     });
-    fs.writeFile('./hasil/TERBARU/cekduplikat.html', JSON.stringify(oldData), function(err) {
+    fs.writeFile(direktori_file_cekduplikat, JSON.stringify(oldData), function(err) {
         if(err) {
             return console.log(err);
         }
