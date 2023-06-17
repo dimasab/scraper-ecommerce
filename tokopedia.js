@@ -1,4 +1,4 @@
-﻿const express = require('express');
+const express = require('express');
 const request = require('request-promise');
 require('dotenv').config({path: './.env'});
 const puppeteer = require('puppeteer');
@@ -209,56 +209,10 @@ app.get('/scrapesemua', async (req, res) => {
                 headless: false,
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
-                // args: [
-                // '--autoplay-policy=user-gesture-required',
-                // '--disable-background-networking',
-                // '--disable-background-timer-throttling',
-                // '--disable-backgrounding-occluded-windows',
-                // '--disable-breakpad',
-                // '--disable-client-side-phishing-detection',
-                // '--disable-component-update',
-                // '--disable-default-apps',
-                // '--disable-dev-shm-usage',
-                // '--disable-domain-reliability',
-                // '--disable-extensions',
-                // '--disable-features=AudioServiceOutOfProcess',
-                // '--disable-hang-monitor',
-                // '--disable-ipc-flooding-protection',
-                // '--disable-notifications',
-                // '--disable-offer-store-unmasked-wallet-cards',
-                // '--disable-popup-blocking',
-                // '--disable-print-preview',
-                // '--disable-prompt-on-repost',
-                // '--disable-renderer-backgrounding',
-                // '--disable-setuid-sandbox',
-                // '--disable-speech-api',
-                // '--disable-sync',
-                // '--hide-scrollbars',
-                // '--ignore-gpu-blacklist',
-                // '--metrics-recording-only',
-                // '--mute-audio',
-                // '--no-default-browser-check',
-                // '--no-first-run',
-                // '--no-pings',
-                // '--no-sandbox',
-                // '--no-zygote'
-                // ]
             })
             const page = await browser.newPage();
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
-
-            //await page.setUserAgent('Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36')
-
-            // await page.setRequestInterception(true);
-            // page.on('request', request => {
-            //   const url = request.url()
-            //   if (blocked_domains.some(domain => url.includes(domain))) {
-            //     request.abort();
-            //   } else {
-            //     request.continue();
-            //   }
-            // });
 
 
             await page.goto(alamat, { waitUntil: "networkidle0" })
@@ -774,60 +728,10 @@ app.get('/scrapesemua', async (req, res) => {
                 executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
-                // args: [
-                // '--autoplay-policy=user-gesture-required',
-                // '--disable-background-networking',
-                // '--disable-background-timer-throttling',
-                // '--disable-backgrounding-occluded-windows',
-                // '--disable-breakpad',
-                // '--disable-client-side-phishing-detection',
-                // '--disable-component-update',
-                // '--disable-default-apps',
-                // '--disable-dev-shm-usage',
-                // '--disable-domain-reliability',
-                // '--disable-extensions',
-                // '--disable-features=AudioServiceOutOfProcess',
-                // '--disable-hang-monitor',
-                // '--disable-ipc-flooding-protection',
-                // '--disable-notifications',
-                // '--disable-offer-store-unmasked-wallet-cards',
-                // '--disable-popup-blocking',
-                // '--disable-print-preview',
-                // '--disable-prompt-on-repost',
-                // '--disable-renderer-backgrounding',
-                // '--disable-setuid-sandbox',
-                // '--disable-speech-api',
-                // '--disable-sync',
-                // '--hide-scrollbars',
-                // '--ignore-gpu-blacklist',
-                // '--metrics-recording-only',
-                // '--mute-audio',
-                // '--no-default-browser-check',
-                // '--no-first-run',
-                // '--no-pings',
-                // '--no-sandbox',
-                // '--no-zygote'
-                // ]
             })
             const page = await browser.newPage();
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
-
-            //await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko)')
-            // await page.setExtraHTTPHeaders({
-            //     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
-            //     'upgrade-insecure-requests': '1',
-            //     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-            //     'accept-encoding': 'gzip, deflate, br',
-            //     'accept-language': 'en-US,en;q=0.9,en;q=0.8',
-            //     'sec-ch-ua-mobile' : '?0',
-            //     'cache-control' : 'max-age=0',
-            //     'sec-ch-ua': '"Chromium";v="104", " Not A;Brand";v="99", "Google Chrome";v="104"',
-            //     'sec-ch-ua-platform': '"Windows"',
-            //     'sec-fetch-dest': 'document',
-            //     'sec-fetch-mode': 'navigate',
-            //     'sec-fetch-site': 'none'
-            // })
 
             await page.setRequestInterception(true);
             page.on('request', request => {
@@ -1430,40 +1334,6 @@ app.get('/scrapesemua', async (req, res) => {
                 executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
-                // args: [
-                // '--autoplay-policy=user-gesture-required',
-                // '--disable-background-networking',
-                // '--disable-background-timer-throttling',
-                // '--disable-backgrounding-occluded-windows',
-                // '--disable-breakpad',
-                // '--disable-client-side-phishing-detection',
-                // '--disable-component-update',
-                // '--disable-default-apps',
-                // '--disable-dev-shm-usage',
-                // '--disable-domain-reliability',
-                // '--disable-extensions',
-                // '--disable-features=AudioServiceOutOfProcess',
-                // '--disable-hang-monitor',
-                // '--disable-ipc-flooding-protection',
-                // '--disable-notifications',
-                // '--disable-offer-store-unmasked-wallet-cards',
-                // '--disable-popup-blocking',
-                // '--disable-print-preview',
-                // '--disable-prompt-on-repost',
-                // '--disable-renderer-backgrounding',
-                // '--disable-setuid-sandbox',
-                // '--disable-speech-api',
-                // '--disable-sync',
-                // '--hide-scrollbars',
-                // '--ignore-gpu-blacklist',
-                // '--metrics-recording-only',
-                // '--mute-audio',
-                // '--no-default-browser-check',
-                // '--no-first-run',
-                // '--no-pings',
-                // '--no-sandbox',
-                // '--no-zygote'
-                // ]
             })
             const page = await browser.newPage();
             await page.emulateTimezone('Asia/Jakarta');
@@ -2053,40 +1923,6 @@ app.get('/scrapesemua', async (req, res) => {
                 executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
-                // args: [
-                //     '--autoplay-policy=user-gesture-required',
-                //     '--disable-background-networking',
-                //     '--disable-background-timer-throttling',
-                //     '--disable-backgrounding-occluded-windows',
-                //     '--disable-breakpad',
-                //     '--disable-client-side-phishing-detection',
-                //     '--disable-component-update',
-                //     '--disable-default-apps',
-                //     '--disable-dev-shm-usage',
-                //     '--disable-domain-reliability',
-                //     '--disable-extensions',
-                //     '--disable-features=AudioServiceOutOfProcess',
-                //     '--disable-hang-monitor',
-                //     '--disable-ipc-flooding-protection',
-                //     '--disable-notifications',
-                //     '--disable-offer-store-unmasked-wallet-cards',
-                //     '--disable-popup-blocking',
-                //     '--disable-print-preview',
-                //     '--disable-prompt-on-repost',
-                //     '--disable-renderer-backgrounding',
-                //     '--disable-setuid-sandbox',
-                //     '--disable-speech-api',
-                //     '--disable-sync',
-                //     '--hide-scrollbars',
-                //     '--ignore-gpu-blacklist',
-                //     '--metrics-recording-only',
-                //     '--mute-audio',
-                //     '--no-default-browser-check',
-                //     '--no-first-run',
-                //     '--no-pings',
-                //     '--no-sandbox',
-                //     '--no-zygote'
-                // ]
             })
             const page = await browser.newPage();
             await page.emulateTimezone('Asia/Jakarta');
