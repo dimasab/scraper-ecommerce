@@ -14,20 +14,19 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-
-            const blocked_domains = [
-              'googlesyndication.com',
-              'adservice.google.com',
-              'googletagmanager.com',
-              'google-analytics.com',
-              'twitter.com',
-              'doubleclick.net',
-              'google.com',
-              'tiktok.com',
-              'facebook.net',
-              'facebook.com',
-              'crazyegg.com'
-            ];
+const blocked_domains = [
+  'googlesyndication.com',
+  'adservice.google.com',
+  'googletagmanager.com',
+  'google-analytics.com',
+  'twitter.com',
+  'doubleclick.net',
+  'google.com',
+  'tiktok.com',
+  'facebook.net',
+  'facebook.com',
+  'crazyegg.com'
+];
 
 
 const schedule = require('node-schedule');
@@ -72,13 +71,11 @@ async function killChrome() {
 //SCRAPE SEMUA akses di http://localhost:5000/scrapesemua         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 app.get('/scrapesemua', async (req, res) => { 
 
-
     //Tutup dulu semua chrome//
     await killChrome();
     //selesai tutup dulu semua chrome//
 
-
-
+    //Untuk bikin folder baru tempat menyimpan hasil scrape-an
     let objekwaktu = new Date();
     let date = ("0" + objekwaktu.getDate()).slice(-2); // tanggal skrg, kasi 9 di tanggal single digit
     let month = ("0" + (objekwaktu.getMonth() + 1)).slice(-2); // bulan skrg
@@ -86,9 +83,10 @@ app.get('/scrapesemua', async (req, res) => {
     let hours = objekwaktu.getHours(); // jam skrg
     var namafoldersekarang = (year + "-" + month + "-" + date + " " + hours); // ngeprint YYYY-MM-DD HH
     var direktoribaru = './hasil/'+namafoldersekarang+'';
-    if (!fs.existsSync(direktoribaru)){
+    if (!fs.existsSync(direktoribaru)) {
         fs.mkdirSync(direktoribaru, { recursive: true });
-    }
+    };
+    //Selesai untuk bikin folder baru tempat menyimpan hasil scrape-an
 
     var cekduplikat = [];
     var tokopedia = [];
@@ -96,8 +94,6 @@ app.get('/scrapesemua', async (req, res) => {
     var blibli = [];
     var shopee = [];
     res.set("X-Robots-Tag","noindex, nofollow");
-
-
 
     //ambil parameter hanyaecommerec (isi "lazada", "tokopedia", "blibli", atau "shopee")
     // akses /scrapesemua?hanyaecommerce=[PILIHANNYA]
@@ -107,11 +103,8 @@ app.get('/scrapesemua', async (req, res) => {
         hanyaecommerce = req.query.hanyaecommerce;
     };
 
-
-
-//SCRAPE LAZADA
+    //SCRAPE LAZADA
     var listalamat = [
-        //['https://www.lazada.co.id', 'TESTER', 'TESTER'],
         ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 1
         ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 2
         ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 3
@@ -280,7 +273,7 @@ app.get('/scrapesemua', async (req, res) => {
        
 
 
-//UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
+            //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
             var tesgambar = await page.evaluate( () => {
 
                     var tessatuproduk = document.querySelectorAll('[data-qa-locator="product-item"]');
@@ -333,10 +326,10 @@ app.get('/scrapesemua', async (req, res) => {
                         
                     })
             }
-//SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
+            //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
 
-//MULAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
+            //MULAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
             const posisi_TIDAK = [];
             let posisi = tesgambar.indexOf("TIDAK");
             while (posisi !== -1) {
@@ -344,7 +337,7 @@ app.get('/scrapesemua', async (req, res) => {
               posisi = tesgambar.indexOf("TIDAK", posisi + 1);
             }
             console.log("Posisi 'TIDAK': ", posisi_TIDAK);
-//SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
+            //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
             
             const array = await page.evaluate( ({lazada, cekduplikat, barang, merek, posisi_TIDAK}) => {
@@ -665,7 +658,6 @@ app.get('/scrapesemua', async (req, res) => {
 //SCRAPE BLIBLI
     //var cekduplikat = [];
     var listalamat = [
-        //['https://www.blibli.com', 'TESTER', 'TESTER'],
         ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 1
         ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 2
         ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 3
@@ -813,7 +805,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-//UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
+            //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
             var tesgambar = await page.evaluate( () => {
 
                     var tessatuproduk = document.querySelectorAll(".product.columns .product__card");
@@ -865,10 +857,10 @@ app.get('/scrapesemua', async (req, res) => {
                         return arraytesurlgambar; 
                     })
             }
-//SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
+            //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
 
-//MULAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
+            //MULAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
             const posisi_TIDAK = [];
             let posisi = tesgambar.indexOf("TIDAK");
             while (posisi !== -1) {
@@ -876,7 +868,7 @@ app.get('/scrapesemua', async (req, res) => {
               posisi = tesgambar.indexOf("TIDAK", posisi + 1);
             }
             console.log("Posisi 'TIDAK': ", posisi_TIDAK);
-//SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
+            //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
 
             const array = await page.evaluate( ({blibli, cekduplikat, barang, merek, posisi_TIDAK}) => {
@@ -1220,9 +1212,8 @@ app.get('/scrapesemua', async (req, res) => {
 
 
     
-//SCRAPE TOKOPEDIA
+    //SCRAPE TOKOPEDIA
     var listalamat = [
-        //['https://www.tokopedia.com', 'TESTER', 'TESTER'],
         ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5030', 'LAPTOP', 'RAZER'], // 1 - LAPTOP RAZER HALAMAN 1
 
         ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4775', 'LAPTOP', 'INFINIX'], // 2 - LAPTOP INFINIX HALAMAN 1
@@ -1416,7 +1407,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-//UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
+            //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
             var tesgambar = await page.evaluate( () => {
 
                     var tessatuproduk = document.querySelectorAll(".css-bk6tzz");
@@ -1468,10 +1459,10 @@ app.get('/scrapesemua', async (req, res) => {
                         return arraytesurlgambar; 
                     })
             }
-//SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
+            //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
 
-//MULAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
+            //MULAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
             const posisi_TIDAK = [];
             let posisi = tesgambar.indexOf("TIDAK");
             while (posisi !== -1) {
@@ -1479,7 +1470,7 @@ app.get('/scrapesemua', async (req, res) => {
               posisi = tesgambar.indexOf("TIDAK", posisi + 1);
             }
             console.log("Posisi 'TIDAK': ", posisi_TIDAK);
-//SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
+            //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
 
             const array = await page.evaluate( ({tokopedia, cekduplikat, barang, merek, posisi_TIDAK}) => {
@@ -1802,10 +1793,8 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-//SCRAPE SHOPEE
-    //var cekduplikat = [];
+    //SCRAPE SHOPEE
     var listalamat = [
-        //['https://shopee.co.id', 'TESTER', 'TESTER'],
         ['https://shopee.co.id/search?facet=11044440&filters=7%2C6%2C5&noCorrection=true&pLabelIds=1000953&ratingFilter=3&sortBy=&&minPrice=1000000&keyword=MSI&page=0', 'LAPTOP', 'MSI'], // 1 - LAPTOP MSI HALAMAN 1
         ['https://shopee.co.id/search?facet=11044440&filters=7%2C6%2C5&noCorrection=true&pLabelIds=1000953&ratingFilter=3&sortBy=&&minPrice=1000000&keyword=MSI&page=1', 'LAPTOP', 'MSI'], // 2 - LAPTOP MSI HALAMAN 2
         ['https://shopee.co.id/search?facet=11044440&filters=7%2C6%2C5&noCorrection=true&pLabelIds=1000953&ratingFilter=3&sortBy=&&minPrice=1000000&keyword=MSI&page=2', 'LAPTOP', 'MSI'], // 3 - LAPTOP MSI HALAMAN 3
@@ -2008,7 +1997,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-//UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
+            //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
             var tesgambar = await page.evaluate( () => {
 
                     var tessatuproduk = document.querySelectorAll(".shopee-search-item-result__item");
@@ -2065,10 +2054,10 @@ app.get('/scrapesemua', async (req, res) => {
                     
                     })
             }
-//SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
+            //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
 
-//MULAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
+            //MULAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
             const posisi_TIDAK = [];
             let posisi = tesgambar.indexOf("TIDAK");
             while (posisi !== -1) {
@@ -2076,7 +2065,7 @@ app.get('/scrapesemua', async (req, res) => {
               posisi = tesgambar.indexOf("TIDAK", posisi + 1);
             }
             console.log("Posisi 'TIDAK': ", posisi_TIDAK);
-//SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
+            //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
 
             const array = await page.evaluate( ({shopee, cekduplikat, barang, merek, posisi_TIDAK}) => {
@@ -2420,14 +2409,14 @@ app.get('/scrapesemua', async (req, res) => {
     });
 
 
-    // Read the old data from /hasil/TERBARU/cekduplikat.html
+    // Baca data lama di /hasil/TERBARU/cekduplikat.html
     const oldData = JSON.parse(fs.readFileSync('./hasil/TERBARU/cekduplikat.html'));
     // Replace all "statusScrape" values in the old data with +1
     oldData.data.productOfferV2.nodes.forEach(node => {
       node.statusScrape = node.statusScrape + 1;
     });
     const newData = bungkusdata_cekduplikat;
-    // Loop through the new data and update the old data
+    // Loop data lama lalu update data lama
     newData.data.productOfferV2.nodes.forEach(newNode => {
       const oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => oldNode.productLink === newNode.productLink);
       if (oldNodeIndex !== -1) {
