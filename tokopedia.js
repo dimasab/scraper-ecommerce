@@ -619,7 +619,7 @@ app.get('/scrapesemua', async (req, res) => {
             }
         });
 
-        if (fs.existsSync(dir)) {
+        if (fs.existsSync(direktori_file_lazada_gabungan)) {
             // Read the old data from /hasil/TERBARU/lazada.html
             let oldData = JSON.parse(fs.readFileSync(direktori_file_lazada_gabungan));
             // Replace all "statusScrape" values in the old data with +1
