@@ -627,15 +627,15 @@ app.get('/scrapesemua', async (req, res) => {
               node.statusScrape = node.statusScrape + 1;
             });
             let newData = bungkusdata_lazada;
-            // Loop through the new data and update the old data
+            // Loop data baru, bandingkan PATH nya dengan data lama, kalau match maka update node nya
             newData.data.productOfferV2.nodes.forEach(newNode => {
-              // Extract the path component of the productLink using the URL module
+              // Ekstrak komponen path dari productLink menggunakan URL module
               let newLinkPath = new URL(newNode.productLink).pathname;
 
               let oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => {
-                // Extract the path component of the productLink from the old data using the URL module
+                // Ekstrak komponen path dari productLink (data lama) menggunakan URL module
                 let oldLinkPath = new URL(oldNode.productLink).pathname;
-                // Compare only the path component of the productLink
+                // Bandingkan path, kalau beda maka return '-1'
                 return oldLinkPath === newLinkPath;
               });
               if (oldNodeIndex !== -1) {
@@ -1184,15 +1184,15 @@ app.get('/scrapesemua', async (req, res) => {
               node.statusScrape = node.statusScrape + 1;
             });
             let newData = bungkusdata_blibli;
-            // Loop through the new data and update the old data
+            // Loop data baru, bandingkan PATH nya dengan data lama, kalau match maka update node nya
             newData.data.productOfferV2.nodes.forEach(newNode => {
-              // Extract the path component of the productLink using the URL module
+              // Ekstrak komponen path dari productLink menggunakan URL module
               let newLinkPath = new URL(newNode.productLink).pathname;
 
               let oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => {
-                // Extract the path component of the productLink from the old data using the URL module
+                // Ekstrak komponen path dari productLink (data lama) menggunakan URL module
                 let oldLinkPath = new URL(oldNode.productLink).pathname;
-                // Compare only the path component of the productLink
+                // Bandingkan path, kalau beda maka return '-1'
                 return oldLinkPath === newLinkPath;
               });
               if (oldNodeIndex !== -1) {
@@ -1763,15 +1763,15 @@ app.get('/scrapesemua', async (req, res) => {
               node.statusScrape = node.statusScrape + 1;
             });
             let newData = bungkusdata_tokopedia;
-            // Loop through the new data and update the old data
+            // Loop data baru, bandingkan PATH nya dengan data lama, kalau match maka update node nya
             newData.data.productOfferV2.nodes.forEach(newNode => {
-              // Extract the path component of the productLink using the URL module
+              // Ekstrak komponen path dari productLink menggunakan URL module
               let newLinkPath = new URL(newNode.productLink).pathname;
 
               let oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => {
-                // Extract the path component of the productLink from the old data using the URL module
+                // Ekstrak komponen path dari productLink (data lama) menggunakan URL module
                 let oldLinkPath = new URL(oldNode.productLink).pathname;
-                // Compare only the path component of the productLink
+                // Bandingkan path, kalau beda maka return '-1'
                 return oldLinkPath === newLinkPath;
               });
               if (oldNodeIndex !== -1) {
@@ -2379,15 +2379,15 @@ app.get('/scrapesemua', async (req, res) => {
               node.statusScrape = node.statusScrape + 1;
             });
             let newData = bungkusdata_shopee;
-            // Loop through the new data and update the old data
+            // Loop data baru, bandingkan PATH nya dengan data lama, kalau match maka update node nya
             newData.data.productOfferV2.nodes.forEach(newNode => {
-              // Extract the path component of the productLink using the URL module
+              // Ekstrak komponen path dari productLink menggunakan URL module
               let newLinkPath = new URL(newNode.productLink).pathname;
 
               let oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => {
-                // Extract the path component of the productLink from the old data using the URL module
+                // Ekstrak komponen path dari productLink (data lama) menggunakan URL module
                 let oldLinkPath = new URL(oldNode.productLink).pathname;
-                // Compare only the path component of the productLink
+                // Bandingkan path, kalau beda maka return '-1'
                 return oldLinkPath === newLinkPath;
               });
               if (oldNodeIndex !== -1) {
