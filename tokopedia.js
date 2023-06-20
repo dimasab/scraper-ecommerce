@@ -620,18 +620,18 @@ app.get('/scrapesemua', async (req, res) => {
         });
 
         if (fs.existsSync(direktori_file_lazada_gabungan)) {
-            // Read the old data from /hasil/TERBARU/lazada.html
-            let oldData = JSON.parse(fs.readFileSync(direktori_file_lazada_gabungan));
-            // Replace all "statusScrape" values in the old data with +1
-            oldData.data.productOfferV2.nodes.forEach(node => {
-              node.statusScrape = node.statusScrape + 1;
-            });
+            
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_lazada_gabungan)); // baca data lama di /hasil/TERBARU/lazada.html
             let newData = bungkusdata_lazada;
+            
+            oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
+              node.statusScrape = node.statusScrape + 1; // +1 semua statusScrape produk lama
+            });
+
             // Loop data baru, bandingkan PATH nya dengan data lama, kalau match maka update node nya
             newData.data.productOfferV2.nodes.forEach(newNode => {
               // Ekstrak komponen path dari productLink menggunakan URL module
               let newLinkPath = new URL(newNode.productLink).pathname;
-
               let oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => {
                 // Ekstrak komponen path dari productLink (data lama) menggunakan URL module
                 let oldLinkPath = new URL(oldNode.productLink).pathname;
@@ -1177,18 +1177,18 @@ app.get('/scrapesemua', async (req, res) => {
         });
 
         if (fs.existsSync(direktori_file_blibli_gabungan)) {
-            // Read the old data from /hasil/TERBARU/blibli.html
-            let oldData = JSON.parse(fs.readFileSync(direktori_file_blibli_gabungan));
-            // Replace all "statusScrape" values in the old data with +1
-            oldData.data.productOfferV2.nodes.forEach(node => {
-              node.statusScrape = node.statusScrape + 1;
-            });
+            
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_blibli_gabungan)); // baca data lama di /hasil/TERBARU/blibli.html
             let newData = bungkusdata_blibli;
+            
+            oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
+              node.statusScrape = node.statusScrape + 1; // +1 semua statusScrape produk lama
+            });
+            
             // Loop data baru, bandingkan PATH nya dengan data lama, kalau match maka update node nya
             newData.data.productOfferV2.nodes.forEach(newNode => {
               // Ekstrak komponen path dari productLink menggunakan URL module
               let newLinkPath = new URL(newNode.productLink).pathname;
-
               let oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => {
                 // Ekstrak komponen path dari productLink (data lama) menggunakan URL module
                 let oldLinkPath = new URL(oldNode.productLink).pathname;
@@ -1756,18 +1756,18 @@ app.get('/scrapesemua', async (req, res) => {
         });
 
         if (fs.existsSync(direktori_file_tokopedia_gabungan)) {
-            // Read the old data from /hasil/TERBARU/tokopedia.html
-            let oldData = JSON.parse(fs.readFileSync(direktori_file_tokopedia_gabungan));
-            // Replace all "statusScrape" values in the old data with +1
-            oldData.data.productOfferV2.nodes.forEach(node => {
-              node.statusScrape = node.statusScrape + 1;
-            });
+            
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_tokopedia_gabungan)); // baca data lama di /hasil/TERBARU/tokopedia.html
             let newData = bungkusdata_tokopedia;
+            
+            oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
+              node.statusScrape = node.statusScrape + 1; // +1 semua statusScrape produk lama
+            });
+            
             // Loop data baru, bandingkan PATH nya dengan data lama, kalau match maka update node nya
             newData.data.productOfferV2.nodes.forEach(newNode => {
               // Ekstrak komponen path dari productLink menggunakan URL module
               let newLinkPath = new URL(newNode.productLink).pathname;
-
               let oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => {
                 // Ekstrak komponen path dari productLink (data lama) menggunakan URL module
                 let oldLinkPath = new URL(oldNode.productLink).pathname;
@@ -2372,18 +2372,18 @@ app.get('/scrapesemua', async (req, res) => {
         });
 
         if (fs.existsSync(direktori_file_shopee_gabungan)) {
-            // Read the old data from /hasil/TERBARU/shopee.html
-            let oldData = JSON.parse(fs.readFileSync(direktori_file_shopee_gabungan));
-            // Replace all "statusScrape" values in the old data with +1
-            oldData.data.productOfferV2.nodes.forEach(node => {
-              node.statusScrape = node.statusScrape + 1;
-            });
+            
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_shopee_gabungan)); // baca data lama di /hasil/TERBARU/shopee.html
             let newData = bungkusdata_shopee;
+            
+            oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
+              node.statusScrape = node.statusScrape + 1; // +1 semua statusScrape produk lama
+            });
+            
             // Loop data baru, bandingkan PATH nya dengan data lama, kalau match maka update node nya
             newData.data.productOfferV2.nodes.forEach(newNode => {
               // Ekstrak komponen path dari productLink menggunakan URL module
               let newLinkPath = new URL(newNode.productLink).pathname;
-
               let oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => {
                 // Ekstrak komponen path dari productLink (data lama) menggunakan URL module
                 let oldLinkPath = new URL(oldNode.productLink).pathname;
@@ -2418,13 +2418,14 @@ app.get('/scrapesemua', async (req, res) => {
     });
 
 
-    // Baca data lama di /hasil/TERBARU/cekduplikat.html
-    const oldData = JSON.parse(fs.readFileSync(direktori_file_cekduplikat));
-    // Replace all "statusScrape" values in the old data with +1
-    oldData.data.productOfferV2.nodes.forEach(node => {
-      node.statusScrape = node.statusScrape + 1;
-    });
+    
+    const oldData = JSON.parse(fs.readFileSync(direktori_file_cekduplikat)); // Baca data lama di /hasil/TERBARU/cekduplikat.html
     const newData = bungkusdata_cekduplikat;
+    
+    oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
+      node.statusScrape = node.statusScrape + 1; // +1 semua statusScrape produk lama
+    });
+    
     // Loop data lama lalu update data lama
     newData.data.productOfferV2.nodes.forEach(newNode => {
       const oldNodeIndex = oldData.data.productOfferV2.nodes.findIndex(oldNode => oldNode.productLink === newNode.productLink);
