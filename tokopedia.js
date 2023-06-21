@@ -2445,7 +2445,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-app.get('/purgeyangtua', async (req, res) => {
+app.get('/bersihkanproduk', async (req, res) => {
 
     let array_file_gabungan = [
         './hasil/TERBARU/lazada.html',
@@ -2463,10 +2463,28 @@ app.get('/purgeyangtua', async (req, res) => {
             let oldData = JSON.parse(fs.readFileSync(array_file_gabungan[i]));
             // Create a Promise to wrap the filtering operation
             const filterPromise = new Promise((resolve, reject) => {
-              oldData.data.productOfferV2.nodes = oldData.data.productOfferV2.nodes.filter(
-                node => node.statusScrape <= batas_maksimum_statusScrape
-              );
-              resolve(oldData);
+                oldData.data.productOfferV2.nodes = oldData.data.productOfferV2.nodes.filter(
+                node => node.statusScrape <= batas_maksimum_statusScrape && 
+                        !(node.namaBarang === "LAPTOP" && /\b(iphone|ipad|airpod|watch)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "ACER" && /\b(apple|asus|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "ASUS" && /\b(acer|apple|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "APPLE" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "AXIOO" && /\b(acer|asus|apple|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "DELL" && /\b(acer|asus|axioo|apple|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "INFINIX" && /\b(acer|asus|axioo|dell|apple|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "LENOVO" && /\b(acer|asus|axioo|dell|infinix|apple|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "RAZER" && /\b(acer|asus|axioo|dell|infinix|lenovo|apple|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "TOSHIBA" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|apple|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "ZYREX" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|apple|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "NOKIA" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|apple|zyrex|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "XIAOMI" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|apple|nokia|zyrex|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "SAMSUNG" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|apple|nokia|xiaomi|zyrex|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "HUAWEI" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|apple|nokia|xiaomi|samsung|zyrex|vivo|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "VIVO" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|apple|nokia|xiaomi|samsung|huawei|zyrex|realme|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "REALME" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|apple|nokia|xiaomi|samsung|huawei|vivo|zyrex|oppo)\b/i.test(node.productName)) &&
+                        !(node.namaMerek === "OPPO" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|apple|nokia|xiaomi|samsung|huawei|vivo|realme|zyrex)\b/i.test(node.productName))
+                );
+                resolve(oldData);
             });
             // Wait for the Promise to resolve and then write the file
             try {
