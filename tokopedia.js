@@ -664,8 +664,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-//SCRAPE BLIBLI
-    //var cekduplikat = [];
+    //SCRAPE BLIBLI
     var listalamat = [
         ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 1
         ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 2
@@ -2442,6 +2441,55 @@ app.get('/scrapesemua', async (req, res) => {
     });
     console.log("File cekduplikat tersimpan!");
 
+});
+
+
+
+app.get('/purgeyangtua', async (req, res) => {
+
+    let array_file_gabungan = [
+        './hasil/TERBARU/lazada.html',
+        './hasil/TERBARU/tokopedia.html',
+        './hasil/TERBARU/blibli.html',
+        './hasil/TERBARU/shopee.html',
+        './hasil/TERBARU/cekduplikat.html'
+    ];
+    let batas_maksimum_statusScrape = 30;
+
+    async function filterDanTulisFile() {
+        for (let i = 0; i < array_file_gabungan.length; i++) {
+          console.log(`membuang ${array_file_gabungan[i]} yang status scrape nya diatas ${batas_maksimum_statusScrape}`);
+          if (fs.existsSync(array_file_gabungan[i])) {
+            let oldData = JSON.parse(fs.readFileSync(array_file_gabungan[i]));
+            // Create a Promise to wrap the filtering operation
+            const filterPromise = new Promise((resolve, reject) => {
+              oldData.data.productOfferV2.nodes = oldData.data.productOfferV2.nodes.filter(
+                node => node.statusScrape <= batas_maksimum_statusScrape
+              );
+              resolve(oldData);
+            });
+            // Wait for the Promise to resolve and then write the file
+            try {
+              const filteredData = await filterPromise;
+              await new Promise((resolve, reject) => {
+                fs.writeFile(array_file_gabungan[i], JSON.stringify(filteredData), function (err) {
+                  if (err) {
+                    reject(err);
+                  } else {
+                    resolve();
+                  }
+                });
+              });
+            } catch (err) {
+              console.log(err);
+            }
+          } else {
+            console.log(`error: no file found at ${array_file_gabungan[i]}`);
+          }
+        }
+      }
+      filterDanTulisFile();
+      res.send(`selesai membuang ${array_file_gabungan.length} file produk yang status scrape nya diatas ${batas_maksimum_statusScrape}`)
 });
 
 
