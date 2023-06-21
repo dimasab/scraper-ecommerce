@@ -2458,9 +2458,12 @@ app.get('/bersihkanproduk', async (req, res) => {
 
     async function filterDanTulisFile() {
         for (let i = 0; i < array_file_gabungan.length; i++) {
-          console.log(`membuang ${array_file_gabungan[i]} yang status scrape nya diatas ${batas_maksimum_statusScrape}`);
           if (fs.existsSync(array_file_gabungan[i])) {
+
             let oldData = JSON.parse(fs.readFileSync(array_file_gabungan[i]));
+            let totalProdukLama = oldData.data.productOfferV2.nodes.length;
+            console.log(`Membuang ${array_file_gabungan[i]} yang status scrape nya diatas ${batas_maksimum_statusScrape}, dan membuang semua produk yang namanya tidak relevan dengan brand nya`);
+            console.log(`- banyaknya produk sebelum dibersihkan adalah ${totalProdukLama}`);
             // Create a Promise to wrap the filtering operation
             const filterPromise = new Promise((resolve, reject) => {
                 oldData.data.productOfferV2.nodes = oldData.data.productOfferV2.nodes.filter(
@@ -2494,6 +2497,8 @@ app.get('/bersihkanproduk', async (req, res) => {
                   if (err) {
                     reject(err);
                   } else {
+                    let totalProdukBaru = filteredData.data.productOfferV2.nodes.length;
+                    console.log(`- banyaknya produk setelah dibersihkan adalah ${totalProdukBaru}`)
                     resolve();
                   }
                 });
@@ -2507,7 +2512,7 @@ app.get('/bersihkanproduk', async (req, res) => {
         }
       }
       filterDanTulisFile();
-      res.send(`selesai membuang ${array_file_gabungan.length} file produk yang status scrape nya diatas ${batas_maksimum_statusScrape}`)
+      res.send(`Selesai membuang semua produk yang status scrape nya diatas ${batas_maksimum_statusScrape}, dan selesai membuang semua produk yang namanya tidak relevan dengan brand nya.`);
 });
 
 
