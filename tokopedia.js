@@ -1494,8 +1494,8 @@ app.get('/scrapesemua', async (req, res) => {
                         continue;
                     }
 
-                    var judulraw = satuproduk[wi].querySelector(".css-1bjwylw").textContent; //judul produk
-                    var hargaraw = satuproduk[wi].querySelector(".css-4u82jy span").textContent; //harga produk
+                    var judulraw = satuproduk[wi].querySelector(".css-20kt3o").textContent; //judul produk
+                    var hargaraw = satuproduk[wi].querySelector(".css-pp6b3e span").textContent; //harga produk
                     var urlgambar = satuproduk[wi].querySelector(".css-16vw0vn img.success").src.split('?')[0]; // url gambar
                     const terjual = Math.floor(Math.random() * 50); //jumlah terjual
                     if (satuproduk[wi].querySelector(".css-vbihp9 span + span")) {//nama toko
