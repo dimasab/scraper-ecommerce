@@ -2015,10 +2015,10 @@ app.get('/scrapesemua', async (req, res) => {
                     if ( tessatuproduk ) {
                         for (vi = 0; vi < tessatuproduk.length; vi++) {
                             if (
-                                tessatuproduk[vi].querySelector("img._7DTxhh") && 
-                                ( tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("down-id.img.susercontent.com") )
-                                ) 
-                            { // url gambar
+                                    tessatuproduk[vi].querySelector("img._7DTxhh") && 
+                                    ( tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("down-id.img.susercontent.com") )
+                               ) 
+                            {
                                 var tesurlgambar = "ADA";
                             } else {
                                 var tesurlgambar = "TIDAK";
@@ -2040,27 +2040,30 @@ app.get('/scrapesemua', async (req, res) => {
                 percobaanscrollke = percobaanscrollke + 1;
                 console.log("percobaan scroll ke "+percobaanscrollke);
 
-                    var tesgambar = await page.evaluate( () => {
-                        var tessatuproduk = document.querySelectorAll(".shopee-search-item-result__item");
-                        var tesurlgambar;
-                        arraytesurlgambar = [];
-                        
-                        if ( tessatuproduk ) {
-                            for (vi = 0; vi < tessatuproduk.length; vi++) {
-                                if (tessatuproduk[vi].querySelector("img._7DTxhh") && tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("shopee.co.id")) { // url gambar
-                                    var tesurlgambar = "ADA";
-                                } else {
-                                    var tesurlgambar = "TIDAK";
-                                } 
-                                arraytesurlgambar.push(tesurlgambar)
-                            }
-                        } else {
-                            var tesurlgambar = "TIDAK";
+                var tesgambar = await page.evaluate( () => {
+                    var tessatuproduk = document.querySelectorAll(".shopee-search-item-result__item");
+                    var tesurlgambar;
+                    arraytesurlgambar = [];
+                    
+                    if ( tessatuproduk ) {
+                        for (vi = 0; vi < tessatuproduk.length; vi++) {
+                            if (
+                                    tessatuproduk[vi].querySelector("img._7DTxhh") && 
+                                    ( tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("down-id.img.susercontent.com") )
+                               ) 
+                            {
+                                var tesurlgambar = "ADA";
+                            } else {
+                                var tesurlgambar = "TIDAK";
+                            } 
                             arraytesurlgambar.push(tesurlgambar)
                         }
-                        return arraytesurlgambar; 
-                    
-                    })
+                    } else {
+                        var tesurlgambar = "TIDAK";
+                        arraytesurlgambar.push(tesurlgambar)
+                    }
+                    return arraytesurlgambar; 
+                })
             }
             //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
