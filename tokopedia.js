@@ -95,11 +95,11 @@ app.get('/scrapesemua', async (req, res) => {
     var shopee = [];
 
     //Mulai define file gabungan sebagai variabel
-    var direktori_file_lazada_gabungan = './hasil/TERBARU/lazada.html';
-    var direktori_file_tokopedia_gabungan = './hasil/TERBARU/tokopedia.html';
-    var direktori_file_blibli_gabungan = './hasil/TERBARU/blibli.html';
-    var direktori_file_shopee_gabungan = './hasil/TERBARU/shopee.html';
-    var direktori_file_cekduplikat = './hasil/TERBARU/cekduplikat.html';
+    var direktori_file_lazada_gabungan = './hasil/TERBARU/lazada.json';
+    var direktori_file_tokopedia_gabungan = './hasil/TERBARU/tokopedia.json';
+    var direktori_file_blibli_gabungan = './hasil/TERBARU/blibli.json';
+    var direktori_file_shopee_gabungan = './hasil/TERBARU/shopee.json';
+    var direktori_file_cekduplikat = './hasil/TERBARU/cekduplikat.json';
     //Selesai define file gabungan sebagai variabel
 
     res.set("X-Robots-Tag","noindex, nofollow");
@@ -587,11 +587,11 @@ app.get('/scrapesemua', async (req, res) => {
                 //cekduplikat.push(array);
                 cekduplikat = cekduplikat.concat(array);
                 lazada = lazada.concat(array)
-                fs.writeFile('./hasil/'+namafoldersekarang+'/lazada-laptop-halaman-'+(x+1)+'.html', JSON.stringify(bungkusdata), function(err) {
+                fs.writeFile('./hasil/'+namafoldersekarang+'/lazada-laptop-halaman-'+(x+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
                     }
-                    console.log("File lazada-laptop-halaman-"+(x+1)+".html tersimpan!");
+                    console.log("File lazada-laptop-halaman-"+(x+1)+".json tersimpan!");
                 });
                 await page.waitForTimeout(5000)
                 await browser.close()
@@ -613,7 +613,7 @@ app.get('/scrapesemua', async (req, res) => {
         bungkusnodes_lazada = {"nodes":lazada};
         bungkusproductOfferV2_lazada = {"productOfferV2":bungkusnodes_lazada};
         bungkusdata_lazada = {"data":bungkusproductOfferV2_lazada};
-        fs.writeFile('./hasil/'+namafoldersekarang+'/lazada.html', JSON.stringify(bungkusdata_lazada), function(err) {
+        fs.writeFile('./hasil/'+namafoldersekarang+'/lazada.json', JSON.stringify(bungkusdata_lazada), function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -621,7 +621,7 @@ app.get('/scrapesemua', async (req, res) => {
 
         if (fs.existsSync(direktori_file_lazada_gabungan)) {
             
-            let oldData = JSON.parse(fs.readFileSync(direktori_file_lazada_gabungan)); // baca data lama di /hasil/TERBARU/lazada.html
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_lazada_gabungan)); // baca data lama di /hasil/TERBARU/lazada.json
             let newData = bungkusdata_lazada;
             
             oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
@@ -1143,11 +1143,11 @@ app.get('/scrapesemua', async (req, res) => {
                 //cekduplikat.push(array);
                 cekduplikat = cekduplikat.concat(array);
                 blibli = blibli.concat(array);
-                fs.writeFile('./hasil/'+namafoldersekarang+'/blibli-laptop-halaman-'+(z+1)+'.html', JSON.stringify(bungkusdata), function(err) {
+                fs.writeFile('./hasil/'+namafoldersekarang+'/blibli-laptop-halaman-'+(z+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
                     }
-                    console.log("File blibli-laptop-halaman-"+(z+1)+".html tersimpan!");
+                    console.log("File blibli-laptop-halaman-"+(z+1)+".json tersimpan!");
                 });
                 await page.waitForTimeout(5000)
                 await browser.close()
@@ -1169,7 +1169,7 @@ app.get('/scrapesemua', async (req, res) => {
         bungkusnodes_blibli = {"nodes":blibli};
         bungkusproductOfferV2_blibli = {"productOfferV2":bungkusnodes_blibli};
         bungkusdata_blibli = {"data":bungkusproductOfferV2_blibli};
-        fs.writeFile('./hasil/'+namafoldersekarang+'/blibli.html', JSON.stringify(bungkusdata_blibli), function(err) {
+        fs.writeFile('./hasil/'+namafoldersekarang+'/blibli.json', JSON.stringify(bungkusdata_blibli), function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -1177,7 +1177,7 @@ app.get('/scrapesemua', async (req, res) => {
 
         if (fs.existsSync(direktori_file_blibli_gabungan)) {
             
-            let oldData = JSON.parse(fs.readFileSync(direktori_file_blibli_gabungan)); // baca data lama di /hasil/TERBARU/blibli.html
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_blibli_gabungan)); // baca data lama di /hasil/TERBARU/blibli.json
             let newData = bungkusdata_blibli;
             
             oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
@@ -1722,12 +1722,12 @@ app.get('/scrapesemua', async (req, res) => {
                 //cekduplikat.push(array);
                 cekduplikat = cekduplikat.concat(array);
                 tokopedia = tokopedia.concat(array);
-                fs.writeFile('./hasil/'+namafoldersekarang+'/tokopedia-laptop-halaman-'+(w+1)+'.html', JSON.stringify(bungkusdata), function(err) {
+                fs.writeFile('./hasil/'+namafoldersekarang+'/tokopedia-laptop-halaman-'+(w+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
                     }
                 }); 
-                console.log("File tokopedia-laptop-halaman-"+(w+1)+".html tersimpan!");
+                console.log("File tokopedia-laptop-halaman-"+(w+1)+".json tersimpan!");
                 await page.waitForTimeout(5000)
                 await browser.close()
                 //await killChrome();
@@ -1748,7 +1748,7 @@ app.get('/scrapesemua', async (req, res) => {
         bungkusnodes_tokopedia = {"nodes":tokopedia};
         bungkusproductOfferV2_tokopedia = {"productOfferV2":bungkusnodes_tokopedia};
         bungkusdata_tokopedia = {"data":bungkusproductOfferV2_tokopedia};
-        fs.writeFile('./hasil/'+namafoldersekarang+'/tokopedia.html', JSON.stringify(bungkusdata_tokopedia), function(err) {
+        fs.writeFile('./hasil/'+namafoldersekarang+'/tokopedia.json', JSON.stringify(bungkusdata_tokopedia), function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -1756,7 +1756,7 @@ app.get('/scrapesemua', async (req, res) => {
 
         if (fs.existsSync(direktori_file_tokopedia_gabungan)) {
             
-            let oldData = JSON.parse(fs.readFileSync(direktori_file_tokopedia_gabungan)); // baca data lama di /hasil/TERBARU/tokopedia.html
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_tokopedia_gabungan)); // baca data lama di /hasil/TERBARU/tokopedia.json
             let newData = bungkusdata_tokopedia;
             
             oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
@@ -2339,12 +2339,12 @@ app.get('/scrapesemua', async (req, res) => {
                 //cekduplikat.push(array);
                 cekduplikat = cekduplikat.concat(array);
                 shopee = shopee.concat(array);
-                fs.writeFile('./hasil/'+namafoldersekarang+'/shopee-laptop-halaman-'+(v+1)+'.html', JSON.stringify(bungkusdata), function(err) {
+                fs.writeFile('./hasil/'+namafoldersekarang+'/shopee-laptop-halaman-'+(v+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
                     }
                 }); 
-                console.log("File shopee-laptop-halaman-"+(v+1)+".html tersimpan!");
+                console.log("File shopee-laptop-halaman-"+(v+1)+".json tersimpan!");
                 await page.waitForTimeout(5000)
                 await browser.close()
                 //await killChrome();
@@ -2367,7 +2367,7 @@ app.get('/scrapesemua', async (req, res) => {
         bungkusnodes_shopee = {"nodes":shopee};
         bungkusproductOfferV2_shopee = {"productOfferV2":bungkusnodes_shopee};
         bungkusdata_shopee = {"data":bungkusproductOfferV2_shopee};
-        fs.writeFile('./hasil/'+namafoldersekarang+'/shopee.html', JSON.stringify(bungkusdata_shopee), function(err) {
+        fs.writeFile('./hasil/'+namafoldersekarang+'/shopee.json', JSON.stringify(bungkusdata_shopee), function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -2375,7 +2375,7 @@ app.get('/scrapesemua', async (req, res) => {
 
         if (fs.existsSync(direktori_file_shopee_gabungan)) {
             
-            let oldData = JSON.parse(fs.readFileSync(direktori_file_shopee_gabungan)); // baca data lama di /hasil/TERBARU/shopee.html
+            let oldData = JSON.parse(fs.readFileSync(direktori_file_shopee_gabungan)); // baca data lama di /hasil/TERBARU/shopee.json
             let newData = bungkusdata_shopee;
             
             oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
@@ -2413,7 +2413,7 @@ app.get('/scrapesemua', async (req, res) => {
     bungkusnodes_cekduplikat = {"nodes":cekduplikat};
     bungkusproductOfferV2_cekduplikat = {"productOfferV2":bungkusnodes_cekduplikat};
     bungkusdata_cekduplikat = {"data":bungkusproductOfferV2_cekduplikat};
-    fs.writeFile('./hasil/'+namafoldersekarang+'/cekduplikat.html', JSON.stringify(bungkusdata_cekduplikat), function(err) {
+    fs.writeFile('./hasil/'+namafoldersekarang+'/cekduplikat.json', JSON.stringify(bungkusdata_cekduplikat), function(err) {
         if(err) {
             return console.log(err);
         }
@@ -2421,7 +2421,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
     
-    const oldData = JSON.parse(fs.readFileSync(direktori_file_cekduplikat)); // Baca data lama di /hasil/TERBARU/cekduplikat.html
+    const oldData = JSON.parse(fs.readFileSync(direktori_file_cekduplikat)); // Baca data lama di /hasil/TERBARU/cekduplikat.json
     const newData = bungkusdata_cekduplikat;
     
     oldData.data.productOfferV2.nodes.forEach(node => { // loop semua produk lama
@@ -2451,11 +2451,11 @@ app.get('/scrapesemua', async (req, res) => {
 app.get('/bersihkanproduk', async (req, res) => {
 
     let array_file_gabungan = [
-        './hasil/TERBARU/lazada.html',
-        './hasil/TERBARU/tokopedia.html',
-        './hasil/TERBARU/blibli.html',
-        './hasil/TERBARU/shopee.html',
-        './hasil/TERBARU/cekduplikat.html'
+        './hasil/TERBARU/lazada.json',
+        './hasil/TERBARU/tokopedia.json',
+        './hasil/TERBARU/blibli.json',
+        './hasil/TERBARU/shopee.json',
+        './hasil/TERBARU/cekduplikat.json'
     ];
     let batas_maksimum_statusScrape = 30;
 
