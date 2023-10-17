@@ -913,12 +913,21 @@ app.get('/scrapesemua', async (req, res) => {
                         var lokasitokoraw = "Jakarta";
                     }
 
-                    if (satuproduk[zi].querySelector(".product__add-to-cart-section a")) {//url produk
-                        var urlproduk = satuproduk[zi].querySelector(".product__add-to-cart-section a").href.split('?')[0];
-                    } else {
-                        var idproduk = satuproduk[zi].querySelector("div").id;
-                        var urlproduk = "https://www.blibli.com/p/id/ps--"+idproduk;
-                    }
+                    // if (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}) {
+                    //     var urlproduk = (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}).itemListElement[zi].item.url;
+                    // } else {
+                    //     var urlproduk = "https://www.blibli.com"
+                    // }
+
+                    var urlproduk = "https://www.blibli.com";
+
+
+                    // if (satuproduk[zi].querySelector(".product__add-to-cart-section a")) {//url produk
+                    //     var urlproduk = satuproduk[zi].querySelector(".product__add-to-cart-section a").href.split('?')[0];
+                    // } else {
+                    //     var idproduk = satuproduk[zi].querySelector("div").id;
+                    //     var urlproduk = "https://www.blibli.com/p/id/ps--"+idproduk;
+                    // }
 
 
                     //UNTUK HAPUS 
