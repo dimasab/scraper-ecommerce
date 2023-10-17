@@ -822,7 +822,7 @@ app.get('/scrapesemua', async (req, res) => {
 
                     if ( tessatuproduk ) {
                         for (zi = 0; zi < tessatuproduk.length; zi++) {
-                            if (tessatuproduk[zi].querySelector(".product__image .product__itemImage>img") || tessatuproduk[zi].querySelector(".product__image .product__itemImage img.carousel-container__slide__content[lazy~='loaded']")) { // cek url gambar kalau src nya sudah ada class loaded
+                            if (tessatuproduk[zi].querySelector(".blu-product__img-wrapper img.blu-product__img-main[lazy~='loaded']") || tessatuproduk[zi].querySelector(".blu-product__img-wrapper img.carousel-container__slide__content[lazy~='loaded']")) { // cek url gambar kalau src nya sudah ada class loaded
                                 var tesurlgambar = "ADA";
                             } else {
                                 var tesurlgambar = "TIDAK";
@@ -851,7 +851,7 @@ app.get('/scrapesemua', async (req, res) => {
 
                         if ( tessatuproduk ) {
                             for (zi = 0; zi < tessatuproduk.length; zi++) {
-                                if (tessatuproduk[zi].querySelector(".product__image .product__itemImage>img") || tessatuproduk[zi].querySelector(".product__image .product__itemImage img.carousel-container__slide__content[lazy~='loaded']")) { // cek url gambar kalau src nya sudah ada class loaded
+                                if (tessatuproduk[zi].querySelector(".blu-product__img-wrapper img.blu-product__img-main[lazy~='loaded']") || tessatuproduk[zi].querySelector(".blu-product__img-wrapper img.carousel-container__slide__content[lazy~='loaded']")) { // cek url gambar kalau src nya sudah ada class loaded
                                     var tesurlgambar = "ADA";
                                 } else {
                                     var tesurlgambar = "TIDAK";
@@ -892,23 +892,23 @@ app.get('/scrapesemua', async (req, res) => {
                         continue;
                     }
 
-                    var judulraw = satuproduk[zi].querySelector(".product__title").textContent; //nama barang
-                    var hargaraw = satuproduk[zi].querySelector(".product__body__price__display").textContent; //harga barang 
+                    var judulraw = satuproduk[zi].querySelector(".blu-product__name").textContent; //nama barang
+                    var hargaraw = satuproduk[zi].querySelector(".blu-product__price-after").textContent; //harga barang 
 
-                    if (satuproduk[zi].querySelector(".product__image .product__itemImage>img")) {
-                        var urlgambar = satuproduk[zi].querySelector(".product__image .product__itemImage>img").src.split('?')[0];
+                    if (satuproduk[zi].querySelector(".blu-product__img-wrapper img.blu-product__img-main[lazy~='loaded']")) {
+                        var urlgambar = satuproduk[zi].querySelector(".blu-product__img-wrapper img.blu-product__img-main[lazy~='loaded']").src.split('?')[0];
                     } else { 
-                        var urlgambar = satuproduk[zi].querySelector(".product__image .product__itemImage img.carousel-container__slide__content[lazy~='loaded']").src.split('?')[0];
+                        var urlgambar = satuproduk[zi].querySelector(".blu-product__img-wrapper img.carousel-container__slide__content[lazy~='loaded']").src.split('?')[0];
                     }
 
-                    if (satuproduk[zi].querySelector(".product__body__rating__sold__count")) {//jumlah terjual
-                        var terjualraw = satuproduk[zi].querySelector(".product__body__rating__sold__count").textContent.trim();
+                    if (satuproduk[zi].querySelector(".blu-product__sold")) {//jumlah terjual
+                        var terjualraw = satuproduk[zi].querySelector(".blu-product__sold").textContent.trim();
                     } else {
                         var terjualraw = Math.floor(Math.random() * 50);
                     }
 
-                    if (satuproduk[zi].querySelector(".product__body__location__text")) {//lokasi toko
-                        var lokasitokoraw = satuproduk[zi].querySelector(".product__body__location__text").textContent.trim();
+                    if (satuproduk[zi].querySelector(".blu-product__location-text")) {//lokasi toko
+                        var lokasitokoraw = satuproduk[zi].querySelector(".blu-product__location-text span:nth-child(2)").textContent.trim();
                     } else {
                         var lokasitokoraw = "Jakarta";
                     }
