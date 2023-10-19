@@ -816,7 +816,7 @@ app.get('/scrapesemua', async (req, res) => {
             //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
             var tesgambar = await page.evaluate( () => {
 
-                    var tessatuproduk = document.querySelectorAll(".product.columns .product__card");
+                    var tessatuproduk = document.querySelectorAll("#productContentDiv .product .product__card .product__container");
                     var tesurlgambar;
                     arraytesurlgambar = [];
 
@@ -845,7 +845,7 @@ app.get('/scrapesemua', async (req, res) => {
                 console.log("percobaan scroll ke "+percobaanscrollke);
 
                     var tesgambar = await page.evaluate( () => {
-                        var tessatuproduk = document.querySelectorAll(".product.columns .product__card");
+                        var tessatuproduk = document.querySelectorAll("#productContentDiv .product .product__card .product__container");
                         var tesurlgambar;
                         arraytesurlgambar = [];
 
@@ -881,7 +881,7 @@ app.get('/scrapesemua', async (req, res) => {
 
             const array = await page.evaluate( ({blibli, cekduplikat, barang, merek, posisi_TIDAK}) => {
                 
-                const satuproduk = document.querySelectorAll(".product.columns .product__card");
+                const satuproduk = document.querySelectorAll("#productContentDiv .product .product__card .product__container");
                 arrayproduk = [];
                 cekduplikat = JSON.stringify(cekduplikat)
                 blibli = JSON.stringify(blibli)
@@ -907,27 +907,26 @@ app.get('/scrapesemua', async (req, res) => {
                         var terjualraw = Math.floor(Math.random() * 50);
                     }
 
-                    if (satuproduk[zi].querySelector(".blu-product__location-text")) {//lokasi toko
-                        var lokasitokoraw = satuproduk[zi].querySelector(".blu-product__location-text span:nth-child(2)").textContent.trim();
+                    if (satuproduk[zi].querySelector(".blu-product__location-text")) {//pembungkus nama toko (span pertama) dan lokasi toko (span kedua)
+                        if (satuproduk[zi].querySelector(".blu-product__location-text span:nth-child(2)")) { //lokasi toko ada di span kedua
+                            var lokasitokoraw = satuproduk[zi].querySelector(".blu-product__location-text span:nth-child(2)").textContent.trim();
+                        } else if (satuproduk[zi].querySelector(".blu-product__location-text span:nth-child(1)")) { //kalau tidak ada nama toko, maka lokasi toko ada di span pertama 
+                            var lokasitokoraw = satuproduk[zi].querySelector(".blu-product__location-text span:nth-child(1)").textContent.trim();
+                        }
                     } else {
                         var lokasitokoraw = "Jakarta";
                     }
 
-                    // if (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}) {
-                    //     var urlproduk = (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}).itemListElement[zi].item.url;
-                    // } else {
-                    //     var urlproduk = "https://www.blibli.com"
-                    // }
-
-                    var urlproduk = "https://www.blibli.com";
-
-
-                    // if (satuproduk[zi].querySelector(".product__add-to-cart-section a")) {//url produk
-                    //     var urlproduk = satuproduk[zi].querySelector(".product__add-to-cart-section a").href.split('?')[0];
-                    // } else {
-                    //     var idproduk = satuproduk[zi].querySelector("div").id;
-                    //     var urlproduk = "https://www.blibli.com/p/id/ps--"+idproduk;
-                    // }
+                    if (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}) {
+                        var urlprodukraw = (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}).itemListElement[zi].item.url;
+                        // Check if urlproduk contains "blibli.com"
+                        if (urlprodukraw.indexOf("blibli.com") === -1) {
+                            // If it doesn't contain "blibli.com", add "https://www.blibli.com" at the beginning and only get the part before query params (before "?")
+                            var urlproduk = "https://www.blibli.com" + urlprodukraw.split("?")[0];
+                        } else {
+                            var urlproduk = urlprodukraw.split("?")[0];
+                        }
+                    }
 
 
                     //UNTUK HAPUS 
