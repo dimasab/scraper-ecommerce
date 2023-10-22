@@ -2527,5 +2527,105 @@ app.get('/bersihkanproduk', async (req, res) => {
 });
 
 
+app.get('/downloadgambar', async (req, res) => {
+
+    //Tutup dulu semua chrome//
+    await killChrome();
+    //selesai tutup dulu semua chrome//
+
+    res.set("X-Robots-Tag","noindex, nofollow");
+
+    let array_file_gabungan = [
+        './hasil/TERBARU/lazada.json',
+        './hasil/TERBARU/tokopedia.json',
+        './hasil/TERBARU/blibli.json',
+        './hasil/TERBARU/shopee.json',
+    ];
+
+    const folder_gambar = './hasil/GAMBAR';
+    const folder_gambar_lazada = './hasil/GAMBAR/l';
+    const folder_gambar_tokopedia = './hasil/GAMBAR/t';
+    const folder_gambar_blibli = './hasil/GAMBAR/b';
+    const folder_gambar_shopee = './hasil/GAMBAR/s';
+    
+    if (!fs.existsSync(folder_gambar)) {
+      fs.mkdirSync(folder_gambar);
+    }
+    if (!fs.existsSync(folder_gambar_lazada)) {
+        fs.mkdirSync(folder_gambar_lazada);
+    }
+    if (!fs.existsSync(folder_gambar_tokopedia)) {
+        fs.mkdirSync(folder_gambar_tokopedia);
+    }
+    if (!fs.existsSync(folder_gambar_blibli)) {
+        fs.mkdirSync(folder_gambar_blibli);
+    }
+    if (!fs.existsSync(folder_gambar_shopee)) {
+        fs.mkdirSync(folder_gambar_shopee);
+    }
+
+    for (let i = 0; i < array_file_gabungan.length; i++) {
+        if (fs.existsSync(array_file_gabungan[i])) {
+            let fileSekarang = JSON.parse(fs.readFileSync(array_file_gabungan[i]));
+            let produk = fileSekarang.data.productOfferV2.nodes;
+
+            if (array_file_gabungan[i].includes('lazada')) {
+                var folderSimpanSekarang = folder_gambar_lazada;
+            } else if (array_file_gabungan[i].includes('tokopedia')) {
+                var folderSimpanSekarang = folder_gambar_tokopedia;
+            } else if (array_file_gabungan[i].includes('blibli')) {
+                var folderSimpanSekarang = folder_gambar_blibli;
+            } else if (array_file_gabungan[i].includes('shopee')) {
+                var folderSimpanSekarang = folder_gambar_shopee;
+            }
+
+            for (let j = 0; j < produk.length; j++) {
+                let alamatGambar = produk[j].imageUrl;
+                let namaGambar = alamatGambar.split('/').pop();
+                let filePath = `${folderSimpanSekarang}/${namaGambar}`;
+
+                // Check if the file already exists, and skip if it does
+                if (fs.existsSync(filePath)) {
+                    console.log(`File ${namaGambar} already exists. Skipping.`);
+                    continue;
+                }
+
+                try {
+                    const browser = await puppeteer.launch({
+                        dumpio: true,
+                        defaultViewport: null,
+                        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+                        headless: false,
+                        userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
+                        ignoreDefaultArgs: ['--enable-automation'],
+                    })
+                    const page = await browser.newPage();
+                    await page.emulateTimezone('Asia/Jakarta');
+                    await page.setDefaultNavigationTimeout(0); 
+                    await page.goto(alamatGambar, { waitUntil: "networkidle0" })
+
+                    let randomX = Math.floor(Math.random() * 501) + 400;
+                    let randomY = Math.floor(Math.random() * 501) + 400;
+                    // Move the mouse cursor to the random coordinates
+                    await page.mouse.move(randomX,randomY);
+                    await page.waitForTimeout(Math.floor(Math.random() * 501) + 1000) //random 1000-1500
+
+                    await page.screenshot({ path: filePath });
+                    await page.waitForTimeout(1000)
+                    await browser.close();
+                    console.log(`terdownload gambar ${j} dari total ${produk.length} di ${array_file_gabungan[i]} dengan judul ${namaGambar}`);
+                } catch (err) {
+                    await killChrome();
+                    console.error(err);
+                } 
+            }
+        } else {
+        console.log(`error: no file found at ${array_file_gabungan[i]}`);
+        }
+    }
+      res.send(`Selesai download semua gambar`);
+});
+
+
 
 app.listen(PORT, () => console.log(`server berjalan di port ${PORT}`));
