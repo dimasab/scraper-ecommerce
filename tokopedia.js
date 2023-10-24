@@ -5,6 +5,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs')
 var Promise = require('promise');
 const { URL } = require('url');
+const axios = require('axios'); // Import the axios library
 
 
 
@@ -2536,26 +2537,26 @@ app.get('/downloadgambar', async (req, res) => {
     res.set("X-Robots-Tag","noindex, nofollow");
 
     let array_file_gabungan = [
-        './hasil/TERBARU/lazada.json',
         './hasil/TERBARU/tokopedia.json',
+        './hasil/TERBARU/lazada.json',
         './hasil/TERBARU/blibli.json',
         './hasil/TERBARU/shopee.json',
     ];
 
     const folder_gambar = './hasil/GAMBAR';
-    const folder_gambar_lazada = './hasil/GAMBAR/l';
     const folder_gambar_tokopedia = './hasil/GAMBAR/t';
+    const folder_gambar_lazada = './hasil/GAMBAR/l';
     const folder_gambar_blibli = './hasil/GAMBAR/b';
     const folder_gambar_shopee = './hasil/GAMBAR/s';
     
     if (!fs.existsSync(folder_gambar)) {
       fs.mkdirSync(folder_gambar);
     }
-    if (!fs.existsSync(folder_gambar_lazada)) {
-        fs.mkdirSync(folder_gambar_lazada);
-    }
     if (!fs.existsSync(folder_gambar_tokopedia)) {
         fs.mkdirSync(folder_gambar_tokopedia);
+    }
+    if (!fs.existsSync(folder_gambar_lazada)) {
+        fs.mkdirSync(folder_gambar_lazada);
     }
     if (!fs.existsSync(folder_gambar_blibli)) {
         fs.mkdirSync(folder_gambar_blibli);
@@ -2604,14 +2605,18 @@ app.get('/downloadgambar', async (req, res) => {
                     await page.setDefaultNavigationTimeout(0); 
                     await page.goto(alamatGambar, { waitUntil: "networkidle0" })
 
-                    let randomX = Math.floor(Math.random() * 501) + 400;
-                    let randomY = Math.floor(Math.random() * 501) + 400;
-                    // Move the mouse cursor to the random coordinates
-                    await page.mouse.move(randomX,randomY);
-                    await page.waitForTimeout(Math.floor(Math.random() * 501) + 1000) //random 1000-1500
+                    // Download and save the image
+                    const response = await axios.get(alamatGambar, { responseType: 'stream' });
+                    const imageStream = response.data;
+                    const imageWriteStream = fs.createWriteStream(filePath);
+                    imageStream.pipe(imageWriteStream);
 
-                    await page.screenshot({ path: filePath });
-                    await page.waitForTimeout(1000)
+                    // Wait for the image to finish downloading
+                    await new Promise((resolve, reject) => {
+                        imageWriteStream.on('finish', resolve);
+                        imageWriteStream.on('error', reject);
+                    });
+
                     await browser.close();
                     console.log(`terdownload gambar ${j} dari total ${produk.length} di ${array_file_gabungan[i]} dengan judul ${namaGambar}`);
                 } catch (err) {
