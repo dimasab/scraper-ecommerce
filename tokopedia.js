@@ -2480,7 +2480,7 @@ app.get('/bersihkanproduk', async (req, res) => {
             const filterPromise = new Promise((resolve, reject) => {
                 oldData.data.productOfferV2.nodes = oldData.data.productOfferV2.nodes.filter(
                 node => node.statusScrape <= batas_maksimum_statusScrape && 
-                        !(node.namaBarang === "LAPTOP" && /\b(iphone|ipad|imac|airpod|airpods|magsafe|watch)\b/i.test(node.productName)) &&
+                        !(node.namaBarang === "LAPTOP" && /\b(iphone|ipad|imac|airpod|airpods|magsafe|watch|testing)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "ACER" && /\b(apple|asus|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "ASUS" && /\b(acer|apple|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "APPLE" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
