@@ -1,14 +1,13 @@
 const express = require('express');
 const request = require('request-promise');
 require('dotenv').config({path: './.env'});
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
 const fs = require('fs')
 var Promise = require('promise');
 const { URL } = require('url');
 const axios = require('axios'); // Import the axios library
-
-
-
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppeteer.use(StealthPlugin());
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -1948,7 +1947,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
             await page.goto(alamat, { waitUntil: "networkidle0" });
-
+            
             async function autoScroll(page){
                 await page.evaluate(async () => {
                     await new Promise((resolve, reject) => {
@@ -1963,6 +1962,7 @@ app.get('/scrapesemua', async (req, res) => {
                                 clearInterval(timer);
                                 resolve();
                             }
+                            document.body.style.width = "auto";
                         }, Math.floor(Math.random() * 6) + 20 ); //random 20-25
                     });
                 });
@@ -1982,6 +1982,7 @@ app.get('/scrapesemua', async (req, res) => {
                                 clearInterval(timer);
                                 resolve();
                             }
+                            document.body.style.width = "auto";
                         }, Math.floor(Math.random() * 3) + 1 ); //random 1 - 3;
                     });
                 });
@@ -2480,7 +2481,7 @@ app.get('/bersihkanproduk', async (req, res) => {
             const filterPromise = new Promise((resolve, reject) => {
                 oldData.data.productOfferV2.nodes = oldData.data.productOfferV2.nodes.filter(
                 node => node.statusScrape <= batas_maksimum_statusScrape && 
-                        !(node.namaBarang === "LAPTOP" && /\b(iphone|ipad|imac|airpod|airpods|magsafe|watch|testing)\b/i.test(node.productName)) &&
+                        !(node.namaBarang === "LAPTOP" && /\b(iphone|ipad|imac|airpod|magsafe|watch|testing|purifier|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "ACER" && /\b(apple|asus|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "ASUS" && /\b(acer|apple|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "APPLE" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
@@ -2629,6 +2630,7 @@ app.get('/downloadgambar', async (req, res) => {
         }
     }
       res.send(`Selesai download semua gambar`);
+      console.log('Selesai download semua gambar')
 });
 
 
