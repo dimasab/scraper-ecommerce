@@ -212,7 +212,12 @@ app.get('/scrapesemua', async (req, res) => {
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
             })
+            const pages = await browser.pages();
             const page = await browser.newPage();
+            if (pages.length > 0) {
+                const firstPage = pages[0];
+                await firstPage.close(); // Close the first tab
+              }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
 
@@ -729,7 +734,12 @@ app.get('/scrapesemua', async (req, res) => {
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
             })
+            const pages = await browser.pages();
             const page = await browser.newPage();
+            if (pages.length > 0) {
+                const firstPage = pages[0];
+                await firstPage.close(); // Close the first tab
+              }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
 
@@ -1342,7 +1352,12 @@ app.get('/scrapesemua', async (req, res) => {
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
             })
+            const pages = await browser.pages();
             const page = await browser.newPage();
+            if (pages.length > 0) {
+                const firstPage = pages[0];
+                await firstPage.close(); // Close the first tab
+              }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
 
@@ -1929,7 +1944,12 @@ app.get('/scrapesemua', async (req, res) => {
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
             })
+            const pages = await browser.pages();
             const page = await browser.newPage();
+            if (pages.length > 0) {
+                const firstPage = pages[0];
+                await firstPage.close(); // Close the first tab
+              }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
 
@@ -2601,7 +2621,12 @@ app.get('/downloadgambar', async (req, res) => {
                         userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                         ignoreDefaultArgs: ['--enable-automation'],
                     })
+                    const pages = await browser.pages();
                     const page = await browser.newPage();
+                    if (pages.length > 0) {
+                        const firstPage = pages[0];
+                        await firstPage.close(); // Close the first tab
+                      }
                     await page.emulateTimezone('Asia/Jakarta');
                     await page.setDefaultNavigationTimeout(0); 
                     await page.goto(alamatGambar, { waitUntil: "networkidle0" })
