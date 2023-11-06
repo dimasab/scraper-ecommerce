@@ -219,7 +219,8 @@ app.get('/scrapesemua', async (req, res) => {
                 await firstPage.close(); // Close the first tab
               }
             await page.emulateTimezone('Asia/Jakarta');
-            await page.setDefaultNavigationTimeout(0); 
+            await page.setDefaultNavigationTimeout(0);
+            await page.waitForTimeout(2500);
 
 
             await page.goto(alamat, { waitUntil: "networkidle0" })
@@ -598,7 +599,7 @@ app.get('/scrapesemua', async (req, res) => {
                     }
                     console.log("File lazada-laptop-halaman-"+(x+1)+".json tersimpan!");
                 });
-                await page.waitForTimeout(5000)
+                await page.waitForTimeout(2500)
                 await browser.close()
                 //await killChrome();
             } else {
@@ -742,6 +743,7 @@ app.get('/scrapesemua', async (req, res) => {
               }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
+            await page.waitForTimeout(2500);
 
             await page.setRequestInterception(true);
             page.on('request', request => {
@@ -1167,7 +1169,7 @@ app.get('/scrapesemua', async (req, res) => {
                     }
                     console.log("File blibli-laptop-halaman-"+(z+1)+".json tersimpan!");
                 });
-                await page.waitForTimeout(5000)
+                await page.waitForTimeout(2500)
                 await browser.close()
                 //await killChrome();
             } else {
@@ -1360,6 +1362,7 @@ app.get('/scrapesemua', async (req, res) => {
               }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
+            await page.waitForTimeout(2500);
 
             await page.setRequestInterception(true);
             page.on('request', request => {
@@ -1751,7 +1754,7 @@ app.get('/scrapesemua', async (req, res) => {
                     }
                 }); 
                 console.log("File tokopedia-laptop-halaman-"+(w+1)+".json tersimpan!");
-                await page.waitForTimeout(5000)
+                await page.waitForTimeout(2500)
                 await browser.close()
                 //await killChrome();
             } else { //kalau arraynya kosong
@@ -1952,6 +1955,7 @@ app.get('/scrapesemua', async (req, res) => {
               }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
+            await page.waitForTimeout(2500);
 
             //await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36')            
 
@@ -2375,7 +2379,7 @@ app.get('/scrapesemua', async (req, res) => {
                     }
                 }); 
                 console.log("File shopee-laptop-halaman-"+(v+1)+".json tersimpan!");
-                await page.waitForTimeout(5000)
+                await page.waitForTimeout(2500)
                 await browser.close()
                 //await killChrome();
             } else {
