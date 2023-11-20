@@ -212,12 +212,7 @@ app.get('/scrapesemua', async (req, res) => {
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
             })
-            const pages = await browser.pages();
             const page = await browser.newPage();
-            if (pages.length > 0) {
-                const firstPage = pages[0];
-                await firstPage.close(); // Close the first tab
-              }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0);
             await page.waitForTimeout(2500);
@@ -371,7 +366,11 @@ app.get('/scrapesemua', async (req, res) => {
                     var judulraw = satuproduk[xi].querySelector(".RfADt a").textContent;
                     var hargaraw = satuproduk[xi].querySelector(".aBrP0 span").textContent;
                     var urlgambar = satuproduk[xi].querySelector(".picture-wrapper img").src.split('?')[0]; //url gambar
-                    const terjual = Math.floor(Math.random() * 50);
+                    if (satuproduk[xi].querySelector("._6uN7R ._1cEkb")) {//jumlah terjual
+                        var terjualraw = satuproduk[xi].querySelector("._6uN7R ._1cEkb").textContent.trim();
+                    } else {
+                        var terjualraw = Math.floor(Math.random() * 50);
+                    }
                     if (satuproduk[xi].querySelector(".oa6ri")) {//lokasi toko
                         var lokasitokoraw = satuproduk[xi].querySelector(".oa6ri").textContent.trim();
                     } else {
@@ -563,6 +562,12 @@ app.get('/scrapesemua', async (req, res) => {
                     const harga = hargaraw.trim();
 
 
+                    var terjualraw = terjualraw.toString();
+                    var terjualraw = terjualraw.replace(/,.*/, '000'); //kalau ada koma, ganti koma dan semua setelahnya jadi '000' karena koma berarti ribu
+                    var terjualraw = terjualraw.replace(/\D/g, ''); //hapus semua karakter non-numeric
+                    const terjual = terjualraw.trim(); //trim spasi depan belakang
+
+
                     if (!cekduplikat.includes(urlproduk)) {
                         arrayproduk.push(JSON.parse(JSON.stringify({
                             productName:judul,
@@ -735,12 +740,7 @@ app.get('/scrapesemua', async (req, res) => {
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
             })
-            const pages = await browser.pages();
             const page = await browser.newPage();
-            if (pages.length > 0) {
-                const firstPage = pages[0];
-                await firstPage.close(); // Close the first tab
-              }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
             await page.waitForTimeout(2500);
@@ -1118,11 +1118,11 @@ app.get('/scrapesemua', async (req, res) => {
                     var hargaraw = hargaraw.replace(/[^0-9]/g, "");
                     const harga = hargaraw.trim();
 
+
                     var terjualraw = terjualraw.toString();
-                    var terjualraw = terjualraw.replace(/terjual/gi, ""); //hilangkan teks Terjual
-                    var terjualraw = terjualraw.split(',')[0] //ambil yang sebelum koma kalau ada komanya misal 3,3 rb
-                    var terjualraw = terjualraw.replace(/rb/gi, "000") //ganti rb jadi 000
-                    const terjual = terjualraw.replace(/\s/g, "") //hilangkan spasi
+                    var terjualraw = terjualraw.replace(/,.*/, '000'); //kalau ada koma, ganti koma dan semua setelahnya jadi '000' karena koma berarti ribu
+                    var terjualraw = terjualraw.replace(/\D/g, ''); //hapus semua karakter non-numeric
+                    const terjual = terjualraw.trim(); //trim spasi depan belakang
 
 
                     var lokasitokoraw = lokasitokoraw.split('&')[0]
@@ -1354,12 +1354,7 @@ app.get('/scrapesemua', async (req, res) => {
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
             })
-            const pages = await browser.pages();
             const page = await browser.newPage();
-            if (pages.length > 0) {
-                const firstPage = pages[0];
-                await firstPage.close(); // Close the first tab
-              }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
             await page.waitForTimeout(2500);
@@ -1523,7 +1518,11 @@ app.get('/scrapesemua', async (req, res) => {
                     var judulraw = satuproduk[wi].querySelector(".css-20kt3o").textContent; //judul produk
                     var hargaraw = satuproduk[wi].querySelector(".css-pp6b3e span").textContent; //harga produk
                     var urlgambar = satuproduk[wi].querySelector(".css-16vw0vn img.success").src.split('?')[0]; // url gambar
-                    const terjual = Math.floor(Math.random() * 50); //jumlah terjual
+                    if (satuproduk[xi].querySelector(".css-1riykrk")) {//jumlah terjual
+                        var terjualraw = satuproduk[xi].querySelector(".css-1riykrk").textContent.trim();
+                    } else {
+                        var terjualraw = Math.floor(Math.random() * 50);
+                    }
                     if (satuproduk[wi].querySelector(".css-vbihp9 span + span")) {//nama toko
                         var namatokoraw = satuproduk[wi].querySelector(".css-vbihp9 span + span").textContent;
                     } else {
@@ -1717,6 +1716,12 @@ app.get('/scrapesemua', async (req, res) => {
                     var lokasitokoraw = lokasitokoraw.replace(/\./gi, "")
                     var lokasitokoraw = lokasitokoraw.trim();
                     const namatoko = namatokoraw+" - "+lokasitokoraw;
+
+
+                    var terjualraw = terjualraw.toString();
+                    var terjualraw = terjualraw.replace(/,.*/, '000'); //kalau ada koma, ganti koma dan semua setelahnya jadi '000' karena koma berarti ribu
+                    var terjualraw = terjualraw.replace(/\D/g, ''); //hapus semua karakter non-numeric
+                    const terjual = terjualraw.trim(); //trim spasi depan belakang
 
 
                     if (urlproduk.indexOf("/promo/") < 0 && !cekduplikat.includes(urlproduk)) {
@@ -1947,12 +1952,7 @@ app.get('/scrapesemua', async (req, res) => {
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                 ignoreDefaultArgs: ['--enable-automation'],
             })
-            const pages = await browser.pages();
             const page = await browser.newPage();
-            if (pages.length > 0) {
-                const firstPage = pages[0];
-                await firstPage.close(); // Close the first tab
-              }
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
             await page.waitForTimeout(2500);
@@ -2049,8 +2049,8 @@ app.get('/scrapesemua', async (req, res) => {
                     if ( tessatuproduk ) {
                         for (vi = 0; vi < tessatuproduk.length; vi++) {
                             if (
-                                    tessatuproduk[vi].querySelector("img._7DTxhh") && 
-                                    ( tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("down-id.img.susercontent.com") )
+                                    tessatuproduk[vi].querySelector("img.nTGAS-") && 
+                                    ( tessatuproduk[vi].querySelector("img.nTGAS-").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img.nTGAS-").src.includes("down-id.img.susercontent.com") )
                                ) 
                             {
                                 var tesurlgambar = "ADA";
@@ -2082,8 +2082,8 @@ app.get('/scrapesemua', async (req, res) => {
                     if ( tessatuproduk ) {
                         for (vi = 0; vi < tessatuproduk.length; vi++) {
                             if (
-                                    tessatuproduk[vi].querySelector("img._7DTxhh") && 
-                                    ( tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img._7DTxhh").src.includes("down-id.img.susercontent.com") )
+                                    tessatuproduk[vi].querySelector("img.nTGAS-") && 
+                                    ( tessatuproduk[vi].querySelector("img.nTGAS-").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img.nTGAS-").src.includes("down-id.img.susercontent.com") )
                                ) 
                             {
                                 var tesurlgambar = "ADA";
@@ -2126,19 +2126,19 @@ app.get('/scrapesemua', async (req, res) => {
                         continue;
                     }
 
-                    var judulraw = satuproduk[vi].querySelector(".Cve6sh").textContent; //judul produk
-                    var hargaraw = satuproduk[vi].querySelector(".ZEgDH9").textContent; //harga produk
-                    var urlgambar = satuproduk[vi].querySelector("img._7DTxhh").src.split('?')[0]; // url gambar
+                    var judulraw = satuproduk[vi].querySelector(".IXhE9E").textContent; //judul produk
+                    var hargaraw = satuproduk[vi].querySelector(".sHnxNa").textContent; //harga produk
+                    var urlgambar = satuproduk[vi].querySelector("img.nTGAS-").src.split('?')[0]; // url gambar
                     var namatokoraw = "Shopee";
                     
-                    if (satuproduk[vi].querySelector(".r6HknA").textContent.length < 1) {
+                    if (satuproduk[vi].querySelector(".sdJLPr").textContent.length < 1) {
                         var terjualraw = "0"; //jumlah terjual
                     } else {
-                        var terjualraw = satuproduk[vi].querySelector(".r6HknA").textContent //jumlah terjual
+                        var terjualraw = satuproduk[vi].querySelector(".sdJLPr").textContent //jumlah terjual
                     }
 
-                    if (satuproduk[vi].querySelector(".zGGwiV")) { //lokasi toko
-                        var lokasitokoraw = satuproduk[vi].querySelector(".zGGwiV").textContent;
+                    if (satuproduk[vi].querySelector(".MML2bA")) { //lokasi toko
+                        var lokasitokoraw = satuproduk[vi].querySelector(".MML2bA").textContent;
                     } else {
                         var lokasitokoraw = "Indonesia";
                     }
@@ -2322,14 +2322,12 @@ app.get('/scrapesemua', async (req, res) => {
                     var hargaraw = hargaraw.replace(/[^0-9]/g, "");
                     const harga = hargaraw.trim();
 
-                    var terjualraw = terjualraw.split(" ")[0]; //ambil sebelum spasi
-                    var terjualraw = terjualraw.replace(/Terjual/gi, ""); //hapus teks Terjual untuk jaga2
-                    var terjualraw = terjualraw.replace(/Bulan/gi, ""); //hapus teks Bulan untuk jaga2
-                    var terjualraw = terjualraw.replace(/RB/gi, "0"); //hapus teks RB dan ganti jadi 0 - kalau misal 2,9RB
-                    var terjualraw = terjualraw.replace(/,/g, "0"); //hapus koma dan ganti jadi 0 - kalau misal 2,9RB
-                    var terjualraw = terjualraw.replace(/\./g, ""); //hapus titik untuk jaga2
-                    var terjualraw = terjualraw.trim(); //trim spasi depan belakang
-                    var terjual = Math.floor((terjualraw / 4) + 9);
+
+                    var terjualraw = terjualraw.toString();
+                    var terjualraw = terjualraw.replace(/,.*/, '000'); //kalau ada koma, ganti koma dan semua setelahnya jadi '000' karena koma berarti ribu
+                    var terjualraw = terjualraw.replace(/\D/g, ''); //hapus semua karakter non-numeric
+                    const terjual = terjualraw.trim(); //trim spasi depan belakang
+
 
                     var lokasitokoraw = lokasitokoraw.replace(/kota/gi, "")
                     var lokasitokoraw = lokasitokoraw.replace(/kab/gi, "")
@@ -2625,12 +2623,7 @@ app.get('/downloadgambar', async (req, res) => {
                         userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
                         ignoreDefaultArgs: ['--enable-automation'],
                     })
-                    const pages = await browser.pages();
                     const page = await browser.newPage();
-                    if (pages.length > 0) {
-                        const firstPage = pages[0];
-                        await firstPage.close(); // Close the first tab
-                      }
                     await page.emulateTimezone('Asia/Jakarta');
                     await page.setDefaultNavigationTimeout(0); 
                     await page.goto(alamatGambar, { waitUntil: "networkidle0" })
