@@ -1518,7 +1518,7 @@ app.get('/scrapesemua', async (req, res) => {
                     var judulraw = satuproduk[wi].querySelector(".css-20kt3o").textContent; //judul produk
                     var hargaraw = satuproduk[wi].querySelector(".css-pp6b3e span").textContent; //harga produk
                     var urlgambar = satuproduk[wi].querySelector(".css-16vw0vn img.success").src.split('?')[0]; // url gambar
-                    if (satuproduk[xi].querySelector(".css-1riykrk")) {//jumlah terjual
+                    if (satuproduk[wi].querySelector(".css-1riykrk")) {//jumlah terjual
                         var terjualraw = satuproduk[xi].querySelector(".css-1riykrk").textContent.trim();
                     } else {
                         var terjualraw = Math.floor(Math.random() * 50);
