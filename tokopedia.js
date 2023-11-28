@@ -207,6 +207,7 @@ app.get('/scrapesemua', async (req, res) => {
             const browser = await puppeteer.launch({
                 dumpio: true,
                 defaultViewport: null,
+                args: ['--start-maximized'],
                 executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
                 headless: false,
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
@@ -735,6 +736,7 @@ app.get('/scrapesemua', async (req, res) => {
             const browser = await puppeteer.launch({
                 dumpio: true,
                 defaultViewport: null,
+                args: ['--start-maximized'],
                 headless: false,
                 executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
@@ -1349,6 +1351,7 @@ app.get('/scrapesemua', async (req, res) => {
             const browser = await puppeteer.launch({
                 dumpio: true,
                 defaultViewport: null,
+                args: ['--start-maximized'],
                 headless: false,
                 executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
@@ -1947,6 +1950,7 @@ app.get('/scrapesemua', async (req, res) => {
             const browser = await puppeteer.launch({
                 dumpio: true,
                 defaultViewport: null,
+                args: ['--start-maximized'],
                 headless: false,
                 executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
                 userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
@@ -2618,6 +2622,7 @@ app.get('/downloadgambar', async (req, res) => {
                     const browser = await puppeteer.launch({
                         dumpio: true,
                         defaultViewport: null,
+                        args: ['--start-maximized'],
                         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
                         headless: false,
                         userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
