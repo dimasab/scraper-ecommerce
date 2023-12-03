@@ -2507,11 +2507,11 @@ app.get('/bersihkanproduk', async (req, res) => {
             const filterPromise = new Promise((resolve, reject) => {
                 oldData.data.productOfferV2.nodes = oldData.data.productOfferV2.nodes.filter(
                 node => node.statusScrape <= batas_maksimum_statusScrape && 
-                        !(node.namaBarang === "LAPTOP" && /\b(iphone|ipad|imac|airpod|magsafe|watch|testing|purifier|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
-                        !(node.namaBarang === "KEYBOARD" && /\b(iphone|ipad|imac|airpod|magsafe|watch|testing|purifier|harman kardon|pencil|adapter)\b/i.test(node.productName)) &&
-                        !(node.namaBarang === "SMARTPHONE" && /\b(imac|airpod|magsafe|watch|testing|purifier|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
-                        !(node.namaBarang === "SSD" && /\b(iphone|ipad|imac|airpod|magsafe|watch|testing|purifier|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
-                        !(node.namaBarang === "RAM" && /\b(iphone|ipad|imac|airpod|magsafe|watch|testing|purifier|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
+                        !(node.namaBarang === "LAPTOP" && /\b(iphone|ipad|imac|airpod|airpods|magsafe|watch|testing|purifier|purifer|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
+                        !(node.namaBarang === "KEYBOARD" && /\b(iphone|ipad|imac|airpod|airpods|magsafe|watch|testing|purifier|purifer|harman kardon|pencil|adapter)\b/i.test(node.productName)) &&
+                        !(node.namaBarang === "SMARTPHONE" && /\b(imac|airpod|airpods|magsafe|watch|testing|purifier|purifer|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
+                        !(node.namaBarang === "SSD" && /\b(iphone|ipad|imac|airpod|airpods|magsafe|watch|testing|purifier|purifer|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
+                        !(node.namaBarang === "RAM" && /\b(iphone|ipad|imac|airpod|airpods|magsafe|watch|testing|purifier|purifer|harman kardon|pencil|keyboard|adapter)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "ACER" && /\b(apple|asus|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "ASUS" && /\b(acer|apple|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
                         !(node.namaMerek === "APPLE" && /\b(acer|asus|axioo|dell|infinix|lenovo|razer|toshiba|zyrex|nokia|xiaomi|samsung|huawei|vivo|realme|oppo)\b/i.test(node.productName)) &&
