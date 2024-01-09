@@ -2053,9 +2053,8 @@ app.get('/scrapesemua', async (req, res) => {
                     if ( tessatuproduk ) {
                         for (vi = 0; vi < tessatuproduk.length; vi++) {
                             if (
-                                    tessatuproduk[vi].querySelector("img.nTGAS-") && 
-                                    ( tessatuproduk[vi].querySelector("img.nTGAS-").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img.nTGAS-").src.includes("down-id.img.susercontent.com") )
-                               ) 
+                                tessatuproduk[vi].querySelector("img.QPVlig")?.src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img.QPVlig")?.src.includes("down-id.img.susercontent.com")
+                                ) 
                             {
                                 var tesurlgambar = "ADA";
                             } else {
@@ -2085,10 +2084,9 @@ app.get('/scrapesemua', async (req, res) => {
                     
                     if ( tessatuproduk ) {
                         for (vi = 0; vi < tessatuproduk.length; vi++) {
-                            if (
-                                    tessatuproduk[vi].querySelector("img.nTGAS-") && 
-                                    ( tessatuproduk[vi].querySelector("img.nTGAS-").src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img.nTGAS-").src.includes("down-id.img.susercontent.com") )
-                               ) 
+                               if (
+                                tessatuproduk[vi].querySelector("img.QPVlig")?.src.includes("shopee.co.id") || tessatuproduk[vi].querySelector("img.QPVlig")?.src.includes("down-id.img.susercontent.com")
+                                ) 
                             {
                                 var tesurlgambar = "ADA";
                             } else {
@@ -2130,19 +2128,19 @@ app.get('/scrapesemua', async (req, res) => {
                         continue;
                     }
 
-                    var judulraw = satuproduk[vi].querySelector(".IXhE9E").textContent; //judul produk
-                    var hargaraw = satuproduk[vi].querySelector(".sHnxNa").textContent; //harga produk
-                    var urlgambar = satuproduk[vi].querySelector("img.nTGAS-").src.split('?')[0]; // url gambar
+                    var judulraw = satuproduk[vi].querySelector(".uR5B0O").textContent; //judul produk
+                    var hargaraw = satuproduk[vi].querySelector(".fcuizU").textContent; //harga produk
+                    var urlgambar = satuproduk[vi].querySelector("img.QPVlig").src.split('?')[0]; // url gambar
                     var namatokoraw = "Shopee";
                     
-                    if (satuproduk[vi].querySelector(".sdJLPr").textContent.length < 1) {
+                    if (satuproduk[vi].querySelector(".njN-1c").textContent.length < 1) {
                         var terjualraw = "0"; //jumlah terjual
                     } else {
-                        var terjualraw = satuproduk[vi].querySelector(".sdJLPr").textContent //jumlah terjual
+                        var terjualraw = satuproduk[vi].querySelector(".njN-1c").textContent //jumlah terjual
                     }
 
-                    if (satuproduk[vi].querySelector(".MML2bA")) { //lokasi toko
-                        var lokasitokoraw = satuproduk[vi].querySelector(".MML2bA").textContent;
+                    if (satuproduk[vi].querySelector(".iMriCi")) { //lokasi toko
+                        var lokasitokoraw = satuproduk[vi].querySelector(".iMriCi").textContent;
                     } else {
                         var lokasitokoraw = "Indonesia";
                     }
