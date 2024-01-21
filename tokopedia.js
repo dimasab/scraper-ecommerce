@@ -327,18 +327,19 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-            var selectorGambarShopee = "img.MX65be";
-            var selectorJudulShopee = ".kieGYp";
-            var selectorHargaShopee = ".wT9Rlu";
-            var selectorTerjualShopee = ".hlb67y";
-            var selectorLokasiShopee = ".D45qEQ";
-            var selectorUrlShopee = "a";
+            var selectorSingleItemShopee = `.shopee-search-item-result__item`;
+            var selectorGambarShopee = `img.MX65be`;
+            var selectorJudulShopee = `.kieGYp`;
+            var selectorHargaShopee = `.wT9Rlu`;
+            var selectorTerjualShopee = `.hlb67y`;
+            var selectorLokasiShopee = `.D45qEQ`;
+            var selectorUrlShopee = `a`;
 
 
 
             //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
-            var tesgambar = await page.evaluate( (selectorGambarShopee) => {
-                var tessatuproduk = document.querySelectorAll(".shopee-search-item-result__item");
+            var tesgambar = await page.evaluate( ({selectorSingleItemShopee, selectorGambarShopee}) => {
+                var tessatuproduk = document.querySelectorAll(selectorSingleItemShopee);
                 var tesurlgambar;
                 arraytesurlgambar = [];
                 
@@ -359,17 +360,17 @@ app.get('/scrapesemua', async (req, res) => {
                     arraytesurlgambar.push(tesurlgambar)
                 }
                 return arraytesurlgambar;
-            }, selectorGambarShopee)
+            }, {selectorSingleItemShopee, selectorGambarShopee})
 
             console.log(tesgambar);
             var percobaanscrollke = 1;
-            while (tesgambar.includes("TIDAK") && percobaanscrollke < 10) {
+            while (tesgambar.includes("TIDAK") && percobaanscrollke < 3) {
                 await autoScroll(page);
                 await autoScrollNaik(page);
                 percobaanscrollke = percobaanscrollke + 1;
                 console.log("percobaan scroll ke "+percobaanscrollke);
-                var tesgambar = await page.evaluate( (selectorGambarShopee) => {
-                    var tessatuproduk = document.querySelectorAll(".shopee-search-item-result__item");
+                var tesgambar = await page.evaluate( ({selectorSingleItemShopee, selectorGambarShopee}) => {
+                    var tessatuproduk = document.querySelectorAll(selectorSingleItemShopee);
                     var tesurlgambar;
                     arraytesurlgambar = [];
                     if ( tessatuproduk ) {
@@ -389,7 +390,7 @@ app.get('/scrapesemua', async (req, res) => {
                         arraytesurlgambar.push(tesurlgambar)
                     }
                     return arraytesurlgambar; 
-                }, selectorGambarShopee)
+                }, {selectorSingleItemShopee, selectorGambarShopee})
             }
             //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
@@ -405,9 +406,9 @@ app.get('/scrapesemua', async (req, res) => {
             //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
 
-            const array = await page.evaluate( ({shopee, cekduplikat, barang, merek, posisi_TIDAK, selectorGambarShopee, selectorLokasiShopee, selectorTerjualShopee, selectorHargaShopee, selectorJudulShopee, selectorUrlShopee}) => {
+            const array = await page.evaluate( ({shopee, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemShopee, selectorGambarShopee, selectorLokasiShopee, selectorTerjualShopee, selectorHargaShopee, selectorJudulShopee, selectorUrlShopee}) => {
                 
-                const satuproduk = document.querySelectorAll(".shopee-search-item-result__item");
+                const satuproduk = document.querySelectorAll(selectorSingleItemShopee);
                 arrayproduk = [];
                 cekduplikat = JSON.stringify(cekduplikat)
                 shopee = JSON.stringify(shopee)
@@ -654,7 +655,7 @@ app.get('/scrapesemua', async (req, res) => {
 
                 return arrayproduk;
                 
-            }, {shopee, cekduplikat, barang, merek, posisi_TIDAK, selectorGambarShopee, selectorLokasiShopee, selectorTerjualShopee, selectorHargaShopee, selectorJudulShopee, selectorUrlShopee})
+            }, {shopee, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemShopee, selectorGambarShopee, selectorLokasiShopee, selectorTerjualShopee, selectorHargaShopee, selectorJudulShopee, selectorUrlShopee})
 
 
 
@@ -672,11 +673,7 @@ app.get('/scrapesemua', async (req, res) => {
                 }); 
                 console.log("File shopee-laptop-halaman-"+(v+1)+".json tersimpan!");
                 await page.waitForTimeout(1000)
-            } else {
-            }
-
-
-
+            } else {}
 
         } catch (err) {
             console.error(err);
@@ -910,19 +907,20 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-            var selectorGambarTokopedia = ".css-16vw0vn img.success";
-            var selectorJudulTokopedia = ".css-20kt3o";
-            var selectorHargaTokopedia = ".css-pp6b3e span";
-            var selectorTerjualTokopedia = ".css-1riykrk";
-            var selectorTokoTokopedia = ".css-vbihp9 span + span";
-            var selectorLokasiTokopedia = ".css-vbihp9 span";
-            var selectorUrlTokopedia = "a";
+            var selectorSingleItemTokopedia = `.css-bk6tzz`;
+            var selectorGambarTokopedia = `.css-16vw0vn img.success`;
+            var selectorJudulTokopedia = `.css-20kt3o`;
+            var selectorHargaTokopedia = `.css-pp6b3e span`;
+            var selectorTerjualTokopedia = `.css-1riykrk`;
+            var selectorTokoTokopedia = `.css-vbihp9 span + span`;
+            var selectorLokasiTokopedia = `.css-vbihp9 span`;
+            var selectorUrlTokopedia = `a`;
 
 
 
             //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
-            var tesgambar = await page.evaluate( (selectorGambarTokopedia) => {
-                var tessatuproduk = document.querySelectorAll(".css-bk6tzz");
+            var tesgambar = await page.evaluate( ({selectorSingleItemTokopedia, selectorGambarTokopedia}) => {
+                var tessatuproduk = document.querySelectorAll(selectorSingleItemTokopedia);
                 var tesurlgambar;
                 arraytesurlgambar = [];
 
@@ -940,17 +938,17 @@ app.get('/scrapesemua', async (req, res) => {
                     arraytesurlgambar.push(tesurlgambar)
                 }
                 return arraytesurlgambar;
-            }, selectorGambarTokopedia)
+            }, {selectorSingleItemTokopedia, selectorGambarTokopedia})
 
             console.log(tesgambar);
             var percobaanscrollke = 1;
-            while (tesgambar.includes("TIDAK") && percobaanscrollke < 10) {
+            while (tesgambar.includes("TIDAK") && percobaanscrollke < 3) {
                 await autoScroll(page);
                 await autoScrollNaik(page);
                 percobaanscrollke = percobaanscrollke + 1;
                 console.log("percobaan scroll ke "+percobaanscrollke);
-                var tesgambar = await page.evaluate( (selectorGambarTokopedia) => {
-                    var tessatuproduk = document.querySelectorAll(".css-bk6tzz");
+                var tesgambar = await page.evaluate( ({selectorSingleItemTokopedia, selectorGambarTokopedia}) => {
+                    var tessatuproduk = document.querySelectorAll(selectorSingleItemTokopedia);
                     var tesurlgambar;
                     arraytesurlgambar = [];
                     
@@ -968,7 +966,7 @@ app.get('/scrapesemua', async (req, res) => {
                         arraytesurlgambar.push(tesurlgambar)
                     }
                     return arraytesurlgambar; 
-                }, selectorGambarTokopedia)
+                }, {selectorSingleItemTokopedia, selectorGambarTokopedia})
             }
             //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
@@ -984,9 +982,9 @@ app.get('/scrapesemua', async (req, res) => {
             //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
 
-            const array = await page.evaluate( ({tokopedia, cekduplikat, barang, merek, posisi_TIDAK, selectorGambarTokopedia, selectorJudulTokopedia, selectorHargaTokopedia, selectorTerjualTokopedia, selectorTokoTokopedia, selectorLokasiTokopedia, selectorUrlTokopedia}) => {
+            const array = await page.evaluate( ({tokopedia, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemTokopedia, selectorGambarTokopedia, selectorJudulTokopedia, selectorHargaTokopedia, selectorTerjualTokopedia, selectorTokoTokopedia, selectorLokasiTokopedia, selectorUrlTokopedia}) => {
                 
-                const satuproduk = document.querySelectorAll(".css-bk6tzz");
+                const satuproduk = document.querySelectorAll(selectorSingleItemTokopedia);
                 arrayproduk = [];
                 cekduplikat = JSON.stringify(cekduplikat)
                 tokopedia = JSON.stringify(tokopedia)
@@ -1229,7 +1227,7 @@ app.get('/scrapesemua', async (req, res) => {
 
                 return arrayproduk; 
                 
-            }, {tokopedia, cekduplikat, barang, merek, posisi_TIDAK, selectorGambarTokopedia, selectorJudulTokopedia, selectorHargaTokopedia, selectorTerjualTokopedia, selectorTokoTokopedia, selectorLokasiTokopedia, selectorUrlTokopedia})
+            }, {tokopedia, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemTokopedia, selectorGambarTokopedia, selectorJudulTokopedia, selectorHargaTokopedia, selectorTerjualTokopedia, selectorTokoTokopedia, selectorLokasiTokopedia, selectorUrlTokopedia})
             
             
             if (array.length > 0) { //cek arraynya kosong atau tidak , bisa aja kosong kalau diblokir, kalau kosong ya jangan sampe jadi file.
@@ -1246,10 +1244,7 @@ app.get('/scrapesemua', async (req, res) => {
                 }); 
                 console.log("File tokopedia-laptop-halaman-"+(w+1)+".json tersimpan!");
                 await page.waitForTimeout(1000)
-            } else { //kalau arraynya kosong
-            }
-
-
+            } else {}
 
         } catch (err) {
             console.error(err);
@@ -1466,20 +1461,21 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-            var selectorGambarLazada = ".picture-wrapper img";
-            var selectorJudulLazada = ".RfADt a";
-            var selectorHargaLazada = ".aBrP0 span";
-            var selectorTerjualLazada = "._6uN7R ._1cEkb";
-            var selectorLokasiLazada = ".oa6ri";
-            var selectorUrlLazada = ".RfADt a";
+            var selectorSingleItemLazada = `[data-qa-locator="product-item"]`;
+            var selectorGambarLazada = `.picture-wrapper img`;
+            var selectorJudulLazada = `.RfADt a`;
+            var selectorHargaLazada = `.aBrP0 span`;
+            var selectorTerjualLazada = `._6uN7R ._1cEkb`;
+            var selectorLokasiLazada = `.oa6ri`;
+            var selectorUrlLazada = `.RfADt a`;
 
        
 
 
             //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
-            var tesgambar = await page.evaluate( (selectorGambarLazada) => {
+            var tesgambar = await page.evaluate( ({selectorSingleItemLazada, selectorGambarLazada}) => {
 
-                    var tessatuproduk = document.querySelectorAll('[data-qa-locator="product-item"]');
+                    var tessatuproduk = document.querySelectorAll(selectorSingleItemLazada);
                     var tesurlgambar;
                     arraytesurlgambar = [];
 
@@ -1497,18 +1493,18 @@ app.get('/scrapesemua', async (req, res) => {
                         arraytesurlgambar.push(tesurlgambar)
                     }
                     return arraytesurlgambar;
-            }, selectorGambarLazada)
+            }, {selectorSingleItemLazada, selectorGambarLazada})
 
             console.log(tesgambar);
             var percobaanscrollke = 1;
-            while (tesgambar.includes("TIDAK") && percobaanscrollke < 10) {
+            while (tesgambar.includes("TIDAK") && percobaanscrollke < 3) {
                 await autoScroll(page);
                 await autoScrollNaik(page);
                 percobaanscrollke = percobaanscrollke + 1;
                 console.log("percobaan scroll ke "+percobaanscrollke);
 
-                    var tesgambar = await page.evaluate( (selectorGambarLazada) => {
-                        var tessatuproduk = document.querySelectorAll('[data-qa-locator="product-item"]');
+                    var tesgambar = await page.evaluate( ({selectorSingleItemLazada, selectorGambarLazada}) => {
+                        var tessatuproduk = document.querySelectorAll(selectorSingleItemLazada);
                         var tesurlgambar;
                         arraytesurlgambar = [];
 
@@ -1527,7 +1523,7 @@ app.get('/scrapesemua', async (req, res) => {
                         }
                         return arraytesurlgambar; 
                         
-                    }, selectorGambarLazada)
+                    }, {selectorSingleItemLazada, selectorGambarLazada})
             }
             //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
@@ -1543,9 +1539,9 @@ app.get('/scrapesemua', async (req, res) => {
             //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
             
-            const array = await page.evaluate( ({lazada, cekduplikat, barang, merek, posisi_TIDAK, selectorGambarLazada, selectorJudulLazada, selectorHargaLazada, selectorTerjualLazada, selectorLokasiLazada, selectorUrlLazada}) => {
+            const array = await page.evaluate( ({lazada, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemLazada, selectorGambarLazada, selectorJudulLazada, selectorHargaLazada, selectorTerjualLazada, selectorLokasiLazada, selectorUrlLazada}) => {
                 
-                const satuproduk = document.querySelectorAll('[data-qa-locator="product-item"]');
+                const satuproduk = document.querySelectorAll(selectorSingleItemLazada);
                 arrayproduk = [];
                 cekduplikat = JSON.stringify(cekduplikat)
                 lazada = JSON.stringify(lazada)
@@ -1784,7 +1780,7 @@ app.get('/scrapesemua', async (req, res) => {
 
                 return arrayproduk;
                 
-            }, {lazada, cekduplikat, barang, merek, posisi_TIDAK, selectorGambarLazada, selectorJudulLazada, selectorHargaLazada, selectorTerjualLazada, selectorLokasiLazada, selectorUrlLazada})
+            }, {lazada, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemLazada, selectorGambarLazada, selectorJudulLazada, selectorHargaLazada, selectorTerjualLazada, selectorLokasiLazada, selectorUrlLazada})
 
 
             
@@ -1802,11 +1798,8 @@ app.get('/scrapesemua', async (req, res) => {
                     console.log("File lazada-laptop-halaman-"+(x+1)+".json tersimpan!");
                 });
                 await page.waitForTimeout(1000)
-            } else {
-            }
+            } else {}
             
-
-
         } catch (err) {
             console.error(err);
         }
@@ -1991,21 +1984,22 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-            var selectorGambarBlibli = ".blu-product__img-wrapper img.blu-product__img-main[lazy~='loaded']";
-            var selectorGambarAlternatifBlibli = ".blu-product__img-wrapper img.carousel-container__slide__content[lazy~='loaded']";
-            var selectorJudulBlibli = ".blu-product__name";
-            var selectorHargaBlibli = ".blu-product__price-after";
-            var selectorTerjualBlibli = ".blu-product__sold";
-            var selectorTokoBlibli = ".blu-product__location-text";
+            var selectorSingleItemBlibli = `#productContentDiv .product .product__card .product__container`;
+            var selectorGambarBlibli = `.blu-product__img-wrapper img.blu-product__img-main[lazy~='loaded']`;
+            var selectorGambarAlternatifBlibli = `.blu-product__img-wrapper img.carousel-container__slide__content[lazy~='loaded']`;
+            var selectorJudulBlibli = `.blu-product__name`;
+            var selectorHargaBlibli = `.blu-product__price-after`;
+            var selectorTerjualBlibli = `.blu-product__sold`;
+            var selectorTokoBlibli = `.blu-product__location-text`;
 
        
 
 
 
             //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
-            var tesgambar = await page.evaluate( (selectorGambarBlibli) => {
+            var tesgambar = await page.evaluate( ({selectorSingleItemBlibli, selectorGambarBlibli}) => {
 
-                    var tessatuproduk = document.querySelectorAll("#productContentDiv .product .product__card .product__container");
+                    var tessatuproduk = document.querySelectorAll(selectorSingleItemBlibli);
                     var tesurlgambar;
                     arraytesurlgambar = [];
 
@@ -2023,18 +2017,18 @@ app.get('/scrapesemua', async (req, res) => {
                         arraytesurlgambar.push(tesurlgambar)
                     }
                     return arraytesurlgambar;
-            }, selectorGambarBlibli)
+            }, {selectorSingleItemBlibli, selectorGambarBlibli})
 
             console.log(tesgambar);
             var percobaanscrollke = 1;
-            while (tesgambar.includes("TIDAK") && percobaanscrollke < 10) {
+            while (tesgambar.includes("TIDAK") && percobaanscrollke < 3) {
                 await autoScroll(page);
                 await autoScrollNaik(page);
                 percobaanscrollke = percobaanscrollke + 1;
                 console.log("percobaan scroll ke "+percobaanscrollke);
 
-                    var tesgambar = await page.evaluate( (selectorGambarBlibli) => {
-                        var tessatuproduk = document.querySelectorAll("#productContentDiv .product .product__card .product__container");
+                    var tesgambar = await page.evaluate( ({selectorSingleItemBlibli, selectorGambarBlibli}) => {
+                        var tessatuproduk = document.querySelectorAll(selectorSingleItemBlibli);
                         var tesurlgambar;
                         arraytesurlgambar = [];
 
@@ -2052,7 +2046,7 @@ app.get('/scrapesemua', async (req, res) => {
                             arraytesurlgambar.push(tesurlgambar)
                         }
                         return arraytesurlgambar; 
-                    }, selectorGambarBlibli)
+                    }, {selectorSingleItemBlibli, selectorGambarBlibli})
             }
             //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
@@ -2068,9 +2062,9 @@ app.get('/scrapesemua', async (req, res) => {
             //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
 
-            const array = await page.evaluate( ({blibli, cekduplikat, barang, merek, posisi_TIDAK, selectorGambarBlibli, selectorGambarAlternatifBlibli, selectorJudulBlibli, selectorHargaBlibli, selectorTerjualBlibli, selectorTokoBlibli}) => {
+            const array = await page.evaluate( ({blibli, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli, selectorJudulBlibli, selectorHargaBlibli, selectorTerjualBlibli, selectorTokoBlibli}) => {
                 
-                const satuproduk = document.querySelectorAll("#productContentDiv .product .product__card .product__container");
+                const satuproduk = document.querySelectorAll(selectorSingleItemBlibli);
                 arrayproduk = [];
                 cekduplikat = JSON.stringify(cekduplikat)
                 blibli = JSON.stringify(blibli)
@@ -2097,10 +2091,10 @@ app.get('/scrapesemua', async (req, res) => {
                     }
 
                     if (satuproduk[zi].querySelector(selectorTokoBlibli)) {//pembungkus nama toko (span pertama) dan lokasi toko (span kedua)
-                        if (satuproduk[zi].querySelector(selectorTokoBlibli + " " + "span:nth-child(2)")) { //lokasi toko ada di span kedua
-                            var lokasitokoraw = satuproduk[zi].querySelector(selectorTokoBlibli + " " + "span:nth-child(2)").textContent.trim();
-                        } else if (satuproduk[zi].querySelector(selectorTokoBlibli + " " + "span:nth-child(1)")) { //kalau tidak ada nama toko, maka lokasi toko ada di span pertama 
-                            var lokasitokoraw = satuproduk[zi].querySelector(selectorTokoBlibli + " " + "span:nth-child(1)").textContent.trim();
+                        if (satuproduk[zi].querySelector(selectorTokoBlibli + " span:nth-child(2)")) { //lokasi toko ada di span kedua
+                            var lokasitokoraw = satuproduk[zi].querySelector(selectorTokoBlibli + " span:nth-child(2)").textContent.trim();
+                        } else if (satuproduk[zi].querySelector(selectorTokoBlibli + " span:nth-child(1)")) { //kalau tidak ada nama toko, maka lokasi toko ada di span pertama 
+                            var lokasitokoraw = satuproduk[zi].querySelector(selectorTokoBlibli + " span:nth-child(1)").textContent.trim();
                         }
                     } else {
                         var lokasitokoraw = "Jakarta";
@@ -2332,7 +2326,7 @@ app.get('/scrapesemua', async (req, res) => {
 
                 return arrayproduk;
                 
-            }, {blibli, cekduplikat, barang, merek, posisi_TIDAK, selectorGambarBlibli, selectorGambarAlternatifBlibli, selectorJudulBlibli, selectorHargaBlibli, selectorTerjualBlibli, selectorTokoBlibli})
+            }, {blibli, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli, selectorJudulBlibli, selectorHargaBlibli, selectorTerjualBlibli, selectorTokoBlibli})
 
 
             if (array.length > 0) {
@@ -2349,9 +2343,7 @@ app.get('/scrapesemua', async (req, res) => {
                     console.log("File blibli-laptop-halaman-"+(z+1)+".json tersimpan!");
                 });
                 await page.waitForTimeout(1000)
-            } else {
-            }
-
+            } else {}
 
         } catch (err) {
             console.error(err);
@@ -2578,6 +2570,20 @@ app.get('/downloadgambar', async (req, res) => {
         fs.mkdirSync(folder_gambar_shopee);
     }
 
+    const browser = await puppeteer.launch({
+        dumpio: true,
+        defaultViewport: null,
+        args: ['--start-maximized'],
+        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+        headless: false,
+        userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
+        ignoreDefaultArgs: ['--enable-automation'],
+    })
+    const page = await browser.newPage();
+    await page.emulateTimezone('Asia/Jakarta');
+    await page.setDefaultNavigationTimeout(0);
+
+
     for (let i = 0; i < array_file_gabungan.length; i++) {
         if (fs.existsSync(array_file_gabungan[i])) {
             let fileSekarang = JSON.parse(fs.readFileSync(array_file_gabungan[i]));
@@ -2605,45 +2611,36 @@ app.get('/downloadgambar', async (req, res) => {
                 }
 
                 try {
-                    const browser = await puppeteer.launch({
-                        dumpio: true,
-                        defaultViewport: null,
-                        args: ['--start-maximized'],
-                        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-                        headless: false,
-                        userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
-                        ignoreDefaultArgs: ['--enable-automation'],
-                    })
-                    const page = await browser.newPage();
-                    await page.emulateTimezone('Asia/Jakarta');
-                    await page.setDefaultNavigationTimeout(0); 
                     await page.goto(alamatGambar, { waitUntil: "networkidle0" })
-
                     // Download and save the image
                     const response = await axios.get(alamatGambar, { responseType: 'stream' });
                     const imageStream = response.data;
                     const imageWriteStream = fs.createWriteStream(filePath);
                     imageStream.pipe(imageWriteStream);
-
                     // Wait for the image to finish downloading
                     await new Promise((resolve, reject) => {
                         imageWriteStream.on('finish', resolve);
                         imageWriteStream.on('error', reject);
                     });
-
-                    await browser.close();
                     console.log(`terdownload gambar ${j} dari total ${produk.length} di ${array_file_gabungan[i]} dengan judul ${namaGambar}`);
                 } catch (err) {
-                    await killChrome();
                     console.error(err);
                 } 
             }
         } else {
-        console.log(`error: no file found at ${array_file_gabungan[i]}`);
+            console.log(`error: no file found at ${array_file_gabungan[i]}`);
         }
     }
-      res.send(`Selesai download semua gambar`);
-      console.log('Selesai download semua gambar')
+
+    try {
+        await browser.close();
+    } catch (err) {
+        await killChrome();
+        console.error(err);
+    }
+
+    res.send(`Selesai download semua gambar`);
+    console.log('Selesai download semua gambar')
 });
 //------------------------------------------SELESAI DOWNLOAD GAMBAR------------------------------------------//
 
