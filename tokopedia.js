@@ -56,12 +56,32 @@ rule.minute = 15;
 //UNTUK KILL TASK CHROME
 const { spawn } = require('child_process');
 async function killChrome() {
-  return new Promise((resolve, reject) => {
-    const child = spawn('taskkill', ['/F', '/IM', 'chrome.exe']);
-    child.on('exit', (code, signal) => {
-      resolve();
+    return new Promise((resolve, reject) => {
+        const child = spawn('taskkill', ['/F', '/IM', 'chrome.exe']);
+        // Error handling for the spawn process
+        child.on('error', (err) => {
+            reject(new Error("Gagal memunculkan child process. Error:" + err.message));
+        });
+        child.on('exit', (code, signal) => {
+            // Checking exit code to ensure successful execution
+            if(code === 0) {
+                resolve("Chrome has been successfully terminated.");
+            } else {
+                // Handle specific non-zero error codes if needed
+                reject(new Error(`Sukses menutup chrome. Exit code: ${code}${signal ? ', Signal: ' + signal : ''}`));
+            }
+        });
     });
-  });
+}
+async function jalankanKillChrome() {
+    try {
+        const result = await killChrome();
+        console.log(result); // Print the success message from resolving the promise
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        console.log("Melanjutkan setelah menunggu 2 detik");
+    } catch (error) {
+        console.error("Error:", error.message); // Log error message in case of rejection
+    }
 }
 //SELESAI UNTUK KILL TASK CHROME
             
@@ -70,8 +90,9 @@ async function killChrome() {
 //----------------------------------------SCRAPE SEMUA (akses di http://localhost:5000/scrapesemua)----------------------------------------//
 app.get('/scrapesemua', async (req, res) => {
 
+
     //Tutup dulu semua chrome//
-    await killChrome();
+    jalankanKillChrome();
     //selesai tutup dulu semua chrome//
 
     //Untuk bikin folder baru tempat menyimpan hasil scrape-an
@@ -724,8 +745,6 @@ app.get('/scrapesemua', async (req, res) => {
         console.log("File shopee tersimpan!");
     }
     //----------------------------------------SELESAI SCRAPE SHOPEE----------------------------------------//
-
-    res.send("oke"); //Gak penting, cuma output hasil scrape terakhir ke browser. Gak akan ada lagi respon ke browser
 
 
 
@@ -2536,7 +2555,7 @@ app.get('/bersihkanproduk', async (req, res) => {
 app.get('/downloadgambar', async (req, res) => {
 
     //Tutup dulu semua chrome//
-    await killChrome();
+    jalankanKillChrome();
     //selesai tutup dulu semua chrome//
 
     res.set("X-Robots-Tag","noindex, nofollow");
@@ -2635,7 +2654,7 @@ app.get('/downloadgambar', async (req, res) => {
     try {
         await browser.close();
     } catch (err) {
-        await killChrome();
+        jalankanKillChrome();
         console.error(err);
     }
 
