@@ -328,11 +328,11 @@ app.get('/scrapesemua', async (req, res) => {
 
 
             var selectorSingleItemShopee = `.shopee-search-item-result__item`;
-            var selectorGambarShopee = `img.MX65be`;
-            var selectorJudulShopee = `.kieGYp`;
-            var selectorHargaShopee = `.wT9Rlu`;
-            var selectorTerjualShopee = `.hlb67y`;
-            var selectorLokasiShopee = `.D45qEQ`;
+            var selectorGambarShopee = `img.HsJDLN`;
+            var selectorJudulShopee = `.wupGTj`;
+            var selectorHargaShopee = `._7s1MaR`;
+            var selectorTerjualShopee = `.L68Ib9`;
+            var selectorLokasiShopee = `.wZEyNc`;
             var selectorUrlShopee = `a`;
 
 
