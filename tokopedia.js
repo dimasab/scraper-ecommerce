@@ -2104,7 +2104,7 @@ app.get('/scrapesemua', async (req, res) => {
                     }
 
                     if (satuproduk[zi].querySelector(selectorTerjualBlibli)) {//jumlah terjual
-                        var terjualraw = satuproduk[zi].querySelector(selectorterjua).textContent.trim();
+                        var terjualraw = satuproduk[zi].querySelector(selectorTerjualBlibli).textContent.trim();
                     } else {
                         var terjualraw = Math.floor(Math.random() * 50);
                     }
