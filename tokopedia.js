@@ -2024,7 +2024,7 @@ app.get('/scrapesemua', async (req, res) => {
 
                     if ( tessatuproduk ) {
                         for (zi = 0; zi < tessatuproduk.length; zi++) {
-                            if (tessatuproduk[zi].querySelector(selectorGambarBlibli) || tessatuproduk[zi].querySelector(selectorGambarBlibli)) { // cek url gambar kalau src nya sudah ada class loaded
+                            if (tessatuproduk[zi].querySelector(selectorGambarBlibli) || tessatuproduk[zi].querySelector(selectorGambarAlternatifBlibli)) { // cek url gambar kalau src nya sudah ada class loaded
                                 var tesurlgambar = "ADA";
                             } else {
                                 var tesurlgambar = "TIDAK";
@@ -2053,7 +2053,7 @@ app.get('/scrapesemua', async (req, res) => {
 
                         if ( tessatuproduk ) {
                             for (zi = 0; zi < tessatuproduk.length; zi++) {
-                                if (tessatuproduk[zi].querySelector(selectorGambarBlibli) || tessatuproduk[zi].querySelector(selectorGambarBlibli)) { // cek url gambar kalau src nya sudah ada class loaded
+                                if (tessatuproduk[zi].querySelector(selectorGambarBlibli) || tessatuproduk[zi].querySelector(selectorGambarAlternatifBlibli)) { // cek url gambar kalau src nya sudah ada class loaded
                                     var tesurlgambar = "ADA";
                                 } else {
                                     var tesurlgambar = "TIDAK";
