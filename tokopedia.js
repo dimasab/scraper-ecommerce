@@ -1,17 +1,17 @@
-const express = require('express');
-const request = require('request-promise');
 require('dotenv').config({path: './.env'});
+const express = require('express');
+const app = express();
+const request = require('request-promise');
 const puppeteer = require('puppeteer-extra');
 const fs = require('fs')
-var Promise = require('promise');
+const Promise = require('promise');
 const { URL } = require('url');
-const axios = require('axios'); // Import the axios library
+const axios = require('axios');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-puppeteer.use(StealthPlugin());
-
-const app = express();
+const os = require('os');
 const PORT = process.env.PORT || 5000;
 
+puppeteer.use(StealthPlugin());
 app.use(express.json());
 
 const blocked_domains = [
@@ -29,16 +29,13 @@ const blocked_domains = [
 ];
 
 
-const schedule = require('node-schedule');
-const http = require('http');
-
-const url = 'http://localhost:5000/scrapesemua'; // The URL to access
-
-const rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 18;
-rule.minute = 15;
-
+// const schedule = require('node-schedule');
+// const http = require('http');
+// const url = 'http://localhost:5000/scrapesemua'; // The URL to access
+// const rule = new schedule.RecurrenceRule();
+// rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+// rule.hour = 18;
+// rule.minute = 15;
 // const job = schedule.scheduleJob(rule, function() {
 //     http.get(url, (res) => {
 //         console.log(`statusCode: ${res.statusCode}`);
@@ -50,14 +47,16 @@ rule.minute = 15;
 //     });
 // });
 
-
-
-
 //UNTUK KILL TASK CHROME
 const { spawn } = require('child_process');
 async function killChrome() {
     return new Promise((resolve, reject) => {
-        const child = spawn('taskkill', ['/F', '/IM', 'chrome.exe']);
+        let child;
+        if (os.platform == 'win32') { //kalau Windows
+            child = spawn('taskkill', ['/F', '/IM', 'chrome.exe']);
+        } else if (os.platform =='darwin') { //kalau MacOS
+            child = spawn('killall', ['Google Chrome']);
+        }
         // Error handling for the spawn process
         child.on('error', (err) => {
             reject(new Error("Gagal memunculkan child process. Error:" + err.message));
@@ -65,14 +64,15 @@ async function killChrome() {
         child.on('exit', (code, signal) => {
             // Checking exit code to ensure successful execution
             if(code === 0) {
-                resolve("Chrome has been successfully terminated.");
+                resolve(`Chrome selesai ditutup di ${os.platform}`);
             } else {
                 // Handle specific non-zero error codes if needed
-                reject(new Error(`Sukses menutup chrome. Exit code: ${code}${signal ? ', Signal: ' + signal : ''}`));
+                reject(new Error(`Exit code: ${code}${signal ? ', Signal: ' + signal : ''}`));
             }
         });
     });
 }
+
 async function jalankanKillChrome() {
     try {
         const result = await killChrome();
@@ -91,9 +91,9 @@ async function jalankanKillChrome() {
 app.get('/scrapesemua', async (req, res) => {
 
 
-    //Tutup dulu semua chrome//
+    //Tutup dulu semua chrome
     await jalankanKillChrome();
-    //selesai tutup dulu semua chrome//
+    //selesai tutup dulu semua chrome
 
     //Untuk bikin folder baru tempat menyimpan hasil scrape-an
     let objekwaktu = new Date();
@@ -114,7 +114,7 @@ app.get('/scrapesemua', async (req, res) => {
     var blibli = [];
     var shopee = [];
 
-    //Mulai define file gabungan sebagai variabel
+    //Define file gabungan sebagai variabel
     var direktori_file_lazada_gabungan = './hasil/TERBARU/lazada.json';
     var direktori_file_tokopedia_gabungan = './hasil/TERBARU/tokopedia.json';
     var direktori_file_blibli_gabungan = './hasil/TERBARU/blibli.json';
@@ -124,40 +124,56 @@ app.get('/scrapesemua', async (req, res) => {
 
     res.set("X-Robots-Tag","noindex, nofollow");
 
-    //ambil parameter hanyaecommerec (isi "lazada", "tokopedia", "blibli", atau "shopee")
-    // akses /scrapesemua?hanyaecommerce=[PILIHANNYA]
+    //Cek query parameter ?hanyaecommerce=[ECOMMERCE] (isi dengan lazada", "tokopedia", "blibli", atau "shopee")
     if (!req.query.hanyaecommerce) {
         hanyaecommerce = '';
     } else {
         hanyaecommerce = req.query.hanyaecommerce;
     };
+    //Selesai cek query parameter ?hanyaecommerce=[ECOMMERCE] (isi dengan lazada", "tokopedia", "blibli", atau "shopee")
 
+    //Buka chrome dengan puppeteer
+    let browser;
+    if (os.platform == 'win32') { //kalau Windows
+        browser = await puppeteer.launch({
+            dumpio: true,
+            defaultViewport: null,
+            args: ['--start-maximized'],
+            headless: false,
+            executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+            userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
+            ignoreDefaultArgs: ['--enable-automation'],
+        })
+    } else if (os.platform == 'darwin') { //kalau MacOS
+        browser = await puppeteer.launch({
+            dumpio: true,
+            defaultViewport: null,
+            args: ['--start-maximized'], // Note: This might not have the exact desired effect on Mac
+            headless: false,
+            executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+            userDataDir: '/Users/dimas/Library/Application Support/Google/Chrome/Default',
+            ignoreDefaultArgs: ['--enable-automation'],
+        });
+    }
+    //Selesai buka chrome dengan puppeteer
 
-    const browser = await puppeteer.launch({
-        dumpio: true,
-        defaultViewport: null,
-        args: ['--start-maximized'],
-        headless: false,
-        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-        userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
-        ignoreDefaultArgs: ['--enable-automation'],
-    })
     const page = await browser.newPage();
     await page.emulateTimezone('Asia/Jakarta');
     await page.setDefaultNavigationTimeout(0); 
     await page.waitForTimeout(1000);
-
-    //await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36')            
-
     await page.setRequestInterception(true);
+
+
+    //Blokir berbagai url yang ada di variabel blocked_domains
     page.on('request', request => {
-      const url = request.url()
-      if (blocked_domains.some(domain => url.includes(domain))) {
-        request.abort();
-      } else {
-        request.continue();
-      }
+        const url = request.url()
+        if (blocked_domains.some(domain => url.includes(domain))) {
+            request.abort();
+        } else {
+            request.continue();
+        }
     });
+    //Selesai blokir akses ke berbagai url yang ada di variabel blocked_domains
 
 
 
