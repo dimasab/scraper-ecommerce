@@ -92,7 +92,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
     //Tutup dulu semua chrome//
-    jalankanKillChrome();
+    await jalankanKillChrome();
     //selesai tutup dulu semua chrome//
 
     //Untuk bikin folder baru tempat menyimpan hasil scrape-an
