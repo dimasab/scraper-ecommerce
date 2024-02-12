@@ -2158,6 +2158,13 @@ app.get('/scrapesemua', async (req, res) => {
                 
                 for (zi = 0; zi < satuproduk.length; zi++) {
 
+                    let judul;
+                    let harga;
+                    let urlgambar;
+                    let terjual;
+                    let namatoko;
+                    let urlproduk;
+
                     if (posisi_TIDAK.includes(zi)) {
                         continue;
                     }
@@ -2166,9 +2173,9 @@ app.get('/scrapesemua', async (req, res) => {
                     var hargaraw = satuproduk[zi].querySelector(selectorHargaBlibli).textContent; //harga barang 
 
                     if (satuproduk[zi].querySelector(selectorGambarBlibli)) {
-                        var urlgambar = satuproduk[zi].querySelector(selectorGambarBlibli).src.split('?')[0];
+                        urlgambar = satuproduk[zi].querySelector(selectorGambarBlibli).src.split('?')[0];
                     } else { 
-                        var urlgambar = satuproduk[zi].querySelector(selectorGambarAlternatifBlibli).src.split('?')[0];
+                        urlgambar = satuproduk[zi].querySelector(selectorGambarAlternatifBlibli).src.split('?')[0];
                     }
 
                     if (satuproduk[zi].querySelector(selectorTerjualBlibli)) {//jumlah terjual
@@ -2360,20 +2367,20 @@ app.get('/scrapesemua', async (req, res) => {
                     var judulraw = judulraw.replace(/\?+/gi, " ") //adalah ?
 
                     var judulraw = judulraw.replace(/\s+/gi, " ") //satu spasi atau lebih jadi satu spaso
-                    const judul = judulraw.trim();
+                    judul = judulraw.trim();
 
                     var hargaraw = hargaraw.split('-')[0]
                     var hargaraw = hargaraw.replace(/rp/gi, "");
                     var hargaraw = hargaraw.replace(/\,/gi, "");
                     var hargaraw = hargaraw.replace(/\./gi,"");
                     var hargaraw = hargaraw.replace(/[^0-9]/g, "");
-                    const harga = hargaraw.trim();
+                    harga = hargaraw.trim();
 
 
                     var terjualraw = terjualraw.toString();
                     var terjualraw = terjualraw.replace(/,.*/, '000'); //kalau ada koma, ganti koma dan semua setelahnya jadi '000' karena koma berarti ribu
                     var terjualraw = terjualraw.replace(/\D/g, ''); //hapus semua karakter non-numeric
-                    const terjual = terjualraw.trim(); //trim spasi depan belakang
+                    terjual = terjualraw.trim(); //trim spasi depan belakang
 
 
                     var lokasitokoraw = lokasitokoraw.split('&')[0]
@@ -2381,15 +2388,15 @@ app.get('/scrapesemua', async (req, res) => {
                     var lokasitokoraw = lokasitokoraw.replace(/kab/gi, "")
                     var lokasitokoraw = lokasitokoraw.replace(/\./gi, "")
                     var lokasitokoraw = lokasitokoraw.trim();
-                    const namatoko = "Blibli "+lokasitokoraw
+                    namatoko = "Blibli "+lokasitokoraw
 
 
                     // Check if urlproduk contains "blibli.com"
                     if (urlprodukraw.indexOf("blibli.com") === -1) {
                         // If it doesn't contain "blibli.com", add "https://www.blibli.com" at the beginning and only get the part before query params (before "?")
-                        const urlproduk = "https://www.blibli.com" + urlprodukraw.split("?")[0];
+                        urlproduk = "https://www.blibli.com" + urlprodukraw.split("?")[0];
                     } else {
-                        const urlproduk = urlprodukraw.split("?")[0];
+                        urlproduk = urlprodukraw.split("?")[0];
                     }
 
 
