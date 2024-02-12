@@ -2084,7 +2084,7 @@ app.get('/scrapesemua', async (req, res) => {
 
 
             //UNTUK CEK GAMBAR SUDAH TERLOAD ATAU BELUM
-            var tesgambar = await page.evaluate( ({selectorSingleItemBlibli, selectorGambarBlibli}) => {
+            var tesgambar = await page.evaluate( ({selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli}) => {
 
                     var tessatuproduk = document.querySelectorAll(selectorSingleItemBlibli);
                     var tesurlgambar;
@@ -2104,7 +2104,7 @@ app.get('/scrapesemua', async (req, res) => {
                         arraytesurlgambar.push(tesurlgambar)
                     }
                     return arraytesurlgambar;
-            }, {selectorSingleItemBlibli, selectorGambarBlibli})
+            }, {selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli})
 
             console.log(tesgambar);
             var percobaanscrollke = 1;
@@ -2114,7 +2114,7 @@ app.get('/scrapesemua', async (req, res) => {
                 percobaanscrollke = percobaanscrollke + 1;
                 console.log("percobaan scroll ke "+percobaanscrollke);
 
-                    var tesgambar = await page.evaluate( ({selectorSingleItemBlibli, selectorGambarBlibli}) => {
+                    var tesgambar = await page.evaluate( ({selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli}) => {
                         var tessatuproduk = document.querySelectorAll(selectorSingleItemBlibli);
                         var tesurlgambar;
                         arraytesurlgambar = [];
@@ -2133,7 +2133,7 @@ app.get('/scrapesemua', async (req, res) => {
                             arraytesurlgambar.push(tesurlgambar)
                         }
                         return arraytesurlgambar; 
-                    }, {selectorSingleItemBlibli, selectorGambarBlibli})
+                    }, {selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli})
             }
             //SELESAI CEK GAMBAR SUDAH TERLOAD ATAU BELUM
 
