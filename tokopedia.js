@@ -465,9 +465,9 @@ app.get('/scrapesemua', async (req, res) => {
                 
                 for (vi = 0; vi < satuproduk.length; vi++) {
 
+                    let urlgambar;
                     let judul;
                     let harga;
-                    let urlgambar;
                     let terjual;
                     let namatoko;
                     let urlproduk;
@@ -476,9 +476,9 @@ app.get('/scrapesemua', async (req, res) => {
                         continue;
                     }
 
+                    urlgambar = satuproduk[vi].querySelector(selectorGambarShopee).src.split('?')[0]; // url gambar
                     var judulraw = satuproduk[vi].querySelector(selectorJudulShopee).textContent; //judul produk
                     var hargaraw = satuproduk[vi].querySelector(selectorHargaShopee).textContent; //harga produk
-                    urlgambar = satuproduk[vi].querySelector(selectorGambarShopee).src.split('?')[0]; // url gambar
                     var namatokoraw = "Shopee";
                     
                     if (satuproduk[vi].querySelector(selectorTerjualShopee).textContent.length < 1) {
@@ -1059,9 +1059,9 @@ app.get('/scrapesemua', async (req, res) => {
                 
                 for (wi = 0; wi < satuproduk.length; wi++) {
 
+                    let urlgambar;
                     let judul;
                     let harga;
-                    let urlgambar;
                     let terjual;
                     let namatoko;
                     let urlproduk;
@@ -1070,9 +1070,9 @@ app.get('/scrapesemua', async (req, res) => {
                         continue;
                     }
 
+                    urlgambar = satuproduk[wi].querySelector(selectorGambarTokopedia).src.split('?')[0]; // url gambar
                     var judulraw = satuproduk[wi].querySelector(selectorJudulTokopedia).textContent; //judul produk
                     var hargaraw = satuproduk[wi].querySelector(selectorHargaTokopedia).textContent; //harga produk
-                    urlgambar = satuproduk[wi].querySelector(selectorGambarTokopedia).src.split('?')[0]; // url gambar
                     if (satuproduk[wi].querySelector(selectorTerjualTokopedia)) {//jumlah terjual
                         var terjualraw = satuproduk[wi].querySelector(selectorTerjualTokopedia).textContent.trim();
                     } else {
@@ -1636,9 +1636,9 @@ app.get('/scrapesemua', async (req, res) => {
                 
                 for (xi = 0; xi < satuproduk.length; xi++) {
 
+                    let urlgambar;
                     let judul;
                     let harga;
-                    let urlgambar;
                     let terjual;
                     let namatoko;
                     let urlproduk;
@@ -1647,9 +1647,9 @@ app.get('/scrapesemua', async (req, res) => {
                         continue;
                     }
 
+                    urlgambar = satuproduk[xi].querySelector(selectorGambarLazada).src.split('?')[0]; //url gambar
                     var judulraw = satuproduk[xi].querySelector(selectorJudulLazada).textContent;
                     var hargaraw = satuproduk[xi].querySelector(selectorHargaLazada).textContent;
-                    urlgambar = satuproduk[xi].querySelector(selectorGambarLazada).src.split('?')[0]; //url gambar
                     if (satuproduk[xi].querySelector(selectorTerjualLazada)) {//jumlah terjual
                         var terjualraw = satuproduk[xi].querySelector(selectorTerjualLazada).textContent.trim();
                     } else {
@@ -2179,9 +2179,9 @@ app.get('/scrapesemua', async (req, res) => {
                 
                 for (zi = 0; zi < satuproduk.length; zi++) {
 
+                    let urlgambar;
                     let judul;
                     let harga;
-                    let urlgambar;
                     let terjual;
                     let namatoko;
                     let urlproduk;
@@ -2190,14 +2190,14 @@ app.get('/scrapesemua', async (req, res) => {
                         continue;
                     }
 
-                    var judulraw = satuproduk[zi].querySelector(selectorJudulBlibli).textContent; //nama barang
-                    var hargaraw = satuproduk[zi].querySelector(selectorHargaBlibli).textContent; //harga barang 
-
                     if (satuproduk[zi].querySelector(selectorGambarBlibli)) {
                         urlgambar = satuproduk[zi].querySelector(selectorGambarBlibli).src.split('?')[0];
                     } else { 
                         urlgambar = satuproduk[zi].querySelector(selectorGambarAlternatifBlibli).src.split('?')[0];
                     }
+
+                    var judulraw = satuproduk[zi].querySelector(selectorJudulBlibli).textContent; //nama barang
+                    var hargaraw = satuproduk[zi].querySelector(selectorHargaBlibli).textContent; //harga barang 
 
                     if (satuproduk[zi].querySelector(selectorTerjualBlibli)) {//jumlah terjual
                         var terjualraw = satuproduk[zi].querySelector(selectorTerjualBlibli).textContent.trim();
