@@ -48,8 +48,8 @@ const blocked_domains = [
 // });
 
 //UNTUK KILL TASK CHROME
-const { spawn } = require('child_process');
 async function killChrome() {
+    const { spawn } = require('child_process');
     return new Promise((resolve, reject) => {
         let child;
         if (os.platform == 'win32') { //kalau Windows
@@ -84,6 +84,15 @@ async function jalankanKillChrome() {
     }
 }
 //SELESAI UNTUK KILL TASK CHROME
+
+
+//FUNGSI TUNGGU
+async function tunggu(time) {
+    return new Promise(function(resolve) { 
+        setTimeout(resolve, time)
+    });
+ }
+ //SELESAI FUNGSI TUNGGU
             
 
 
@@ -157,23 +166,17 @@ app.get('/scrapesemua', async (req, res) => {
     }
     //Selesai buka chrome dengan puppeteer
 
-    const page = await browser.newPage();
-    await page.emulateTimezone('Asia/Jakarta');
-    await page.setDefaultNavigationTimeout(0); 
-    await page.waitForTimeout(1000);
-    await page.setRequestInterception(true);
 
-
-    //Blokir berbagai url yang ada di variabel blocked_domains
-    page.on('request', request => {
-        const url = request.url()
-        if (blocked_domains.some(domain => url.includes(domain))) {
-            request.abort();
-        } else {
-            request.continue();
-        }
-    });
-    //Selesai blokir akses ke berbagai url yang ada di variabel blocked_domains
+    // //Blokir berbagai url yang ada di variabel blocked_domains
+    // page.on('request', request => {
+    //     const url = request.url()
+    //     if (blocked_domains.some(domain => url.includes(domain))) {
+    //         request.abort();
+    //     } else {
+    //         request.continue();
+    //     }
+    // });
+    // //Selesai blokir akses ke berbagai url yang ada di variabel blocked_domains
 
 
 
@@ -285,15 +288,25 @@ app.get('/scrapesemua', async (req, res) => {
 
 
     for (v=0; v < listalamat.length; v++) {
-    console.log("Mulai scraping shopee halaman "+(v+1)+" dari total "+(listalamat.length))
-        
-    alamat = listalamat[v][0]
-    
+
+        await tunggu(1000);
+
+        console.log("Mulai scraping shopee halaman "+(v+1)+" dari total "+(listalamat.length))
+            
+        alamat = listalamat[v][0]
     
         try {
 
             const barang = listalamat[v][1]
             const merek = listalamat[v][2]
+
+            //buka tab baru
+            const page = await browser.newPage();
+            await page.waitForTimeout(1000);
+            await page.emulateTimezone('Asia/Jakarta');
+            await page.setDefaultNavigationTimeout(0); 
+            //await page.setRequestInterception(true);
+            //selesai buka tab baru
 
             await page.goto(alamat, { waitUntil: "networkidle0" });
             
@@ -706,16 +719,18 @@ app.get('/scrapesemua', async (req, res) => {
                 fs.writeFile('./hasil/'+namafoldersekarang+'/shopee-laptop-halaman-'+(v+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
+                    } else {
+                        console.log("File shopee-laptop-halaman-"+(v+1)+".json tersimpan!");
                     }
                 }); 
-                console.log("File shopee-laptop-halaman-"+(v+1)+".json tersimpan!");
-                await page.waitForTimeout(1000)
             } else {}
+
+            await page.waitForTimeout(1000);
+            await page.close();
 
         } catch (err) {
             console.error(err);
         }
-
     }
 
     if (shopee.length > 0) {
@@ -867,14 +882,25 @@ app.get('/scrapesemua', async (req, res) => {
     }
 
     for (w=0; w < listalamat.length; w++) {
-    console.log("Mulai scraping tokopedia halaman "+(w+1)+" dari total "+(listalamat.length))
-        
-    alamat = listalamat[w][0]    
+
+        await tunggu(1000);
+
+        console.log("Mulai scraping tokopedia halaman "+(w+1)+" dari total "+(listalamat.length))
+            
+        alamat = listalamat[w][0]    
     
         try {
 
             const barang = listalamat[w][1]
             const merek = listalamat[w][2]
+
+            //buka tab baru
+            const page = await browser.newPage();
+            await page.waitForTimeout(1000);
+            await page.emulateTimezone('Asia/Jakarta');
+            await page.setDefaultNavigationTimeout(0); 
+            //await page.setRequestInterception(true);
+            //selesai buka tab baru
 
             await page.goto(alamat, { waitUntil: "networkidle0" });
 
@@ -1275,17 +1301,20 @@ app.get('/scrapesemua', async (req, res) => {
                 fs.writeFile('./hasil/'+namafoldersekarang+'/tokopedia-laptop-halaman-'+(w+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
+                    } else {
+                        console.log("File tokopedia-laptop-halaman-"+(w+1)+".json tersimpan!");
                     }
                 }); 
-                console.log("File tokopedia-laptop-halaman-"+(w+1)+".json tersimpan!");
-                await page.waitForTimeout(1000)
             } else {}
+
+            await page.waitForTimeout(1000);
+            await page.close();
 
         } catch (err) {
             console.error(err);
         }
-
     }
+
     if (tokopedia.length > 0) {
         bungkusnodes_tokopedia = {"nodes":tokopedia};
         bungkusproductOfferV2_tokopedia = {"productOfferV2":bungkusnodes_tokopedia};
@@ -1421,15 +1450,25 @@ app.get('/scrapesemua', async (req, res) => {
     }
 
     for (x=0; x < listalamat.length; x++) {
-    console.log("Mulai scraping lazada halaman "+(x+1)+" dari total "+(listalamat.length))
-        
-    alamat = listalamat[x][0]
 
+        await tunggu(1000);
+
+        console.log("Mulai scraping lazada halaman "+(x+1)+" dari total "+(listalamat.length))
+            
+        alamat = listalamat[x][0]
     
         try {
 
             const barang = listalamat[x][1]
             const merek = listalamat[x][2]
+
+            //buka tab baru
+            const page = await browser.newPage();
+            await page.waitForTimeout(1000);
+            await page.emulateTimezone('Asia/Jakarta');
+            await page.setDefaultNavigationTimeout(0); 
+            //await page.setRequestInterception(true);
+            //selesai buka tab baru
 
             await page.goto(alamat, { waitUntil: "networkidle0" })
 
@@ -1829,17 +1868,20 @@ app.get('/scrapesemua', async (req, res) => {
                 fs.writeFile('./hasil/'+namafoldersekarang+'/lazada-laptop-halaman-'+(x+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
+                    } else {
+                        console.log("File lazada-laptop-halaman-"+(x+1)+".json tersimpan!");
                     }
-                    console.log("File lazada-laptop-halaman-"+(x+1)+".json tersimpan!");
                 });
-                await page.waitForTimeout(1000)
             } else {}
-            
+
+            await page.waitForTimeout(1000);
+            await page.close();
+
         } catch (err) {
             console.error(err);
         }
-
     }
+
     if (lazada.length > 0) {
         bungkusnodes_lazada = {"nodes":lazada};
         bungkusproductOfferV2_lazada = {"productOfferV2":bungkusnodes_lazada};
@@ -1940,15 +1982,25 @@ app.get('/scrapesemua', async (req, res) => {
 
 
     for (z=0; z < listalamat.length; z++) {
-    console.log("Mulai scraping BLIBLI halaman "+(z+1)+" dari total "+(listalamat.length))
-        
-    alamat = listalamat[z][0]
 
+        await tunggu(1000);
+
+        console.log("Mulai scraping BLIBLI halaman "+(z+1)+" dari total "+(listalamat.length))
+            
+        alamat = listalamat[z][0]
     
         try {
 
             const barang = listalamat[z][1]
             const merek = listalamat[z][2]
+        
+            //buka tab baru
+            const page = await browser.newPage();
+            await page.waitForTimeout(1000);
+            await page.emulateTimezone('Asia/Jakarta');
+            await page.setDefaultNavigationTimeout(0); 
+            //await page.setRequestInterception(true);
+            //selesai buka tab baru
 
             await page.goto(alamat, { waitUntil: "networkidle0" })
 
@@ -2374,16 +2426,18 @@ app.get('/scrapesemua', async (req, res) => {
                 fs.writeFile('./hasil/'+namafoldersekarang+'/blibli-laptop-halaman-'+(z+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
+                    } else {
+                        console.log("File blibli-laptop-halaman-"+(z+1)+".json tersimpan!");
                     }
-                    console.log("File blibli-laptop-halaman-"+(z+1)+".json tersimpan!");
                 });
-                await page.waitForTimeout(1000)
             } else {}
+
+            await page.waitForTimeout(1000);
+            await page.close();
 
         } catch (err) {
             console.error(err);
         }
-
     }
 
     if (blibli.length > 0) {
@@ -2615,6 +2669,7 @@ app.get('/downloadgambar', async (req, res) => {
         ignoreDefaultArgs: ['--enable-automation'],
     })
     const page = await browser.newPage();
+    await page.waitForTimeout(1000);
     await page.emulateTimezone('Asia/Jakarta');
     await page.setDefaultNavigationTimeout(0);
 
