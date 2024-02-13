@@ -287,18 +287,18 @@ app.get('/scrapesemua', async (req, res) => {
 
 
 
-    for (v=0; v < listalamat.length; v++) {
+    for (i = 0; i < listalamat.length; i++) {
 
         await tunggu(1000);
 
-        console.log("Mulai scraping shopee halaman "+(v+1)+" dari total "+(listalamat.length))
+        console.log("Mulai scraping shopee halaman "+(i+1)+" dari total "+(listalamat.length))
             
-        alamat = listalamat[v][0]
+        alamat = listalamat[i][0]
     
         try {
 
-            const barang = listalamat[v][1]
-            const merek = listalamat[v][2]
+            const barang = listalamat[i][1]
+            const merek = listalamat[i][2]
 
             //buka tab baru
             const page = await browser.newPage();
@@ -394,9 +394,9 @@ app.get('/scrapesemua', async (req, res) => {
                 arraytesurlgambar = [];
                 
                 if ( tessatuproduk ) {
-                    for (vi = 0; vi < tessatuproduk.length; vi++) {
+                    for (j = 0; j < tessatuproduk.length; j++) {
                         if (
-                            tessatuproduk[vi].querySelector(selectorGambarShopee)?.src.includes("shopee.co.id") || tessatuproduk[vi].querySelector(selectorGambarShopee)?.src.includes("down-id.img.susercontent.com")
+                            tessatuproduk[j].querySelector(selectorGambarShopee)?.src.includes("shopee.co.id") || tessatuproduk[j].querySelector(selectorGambarShopee)?.src.includes("down-id.img.susercontent.com")
                             ) 
                         {
                             var tesurlgambar = "ADA";
@@ -424,9 +424,9 @@ app.get('/scrapesemua', async (req, res) => {
                     var tesurlgambar;
                     arraytesurlgambar = [];
                     if ( tessatuproduk ) {
-                        for (vi = 0; vi < tessatuproduk.length; vi++) {
+                        for (j = 0; j < tessatuproduk.length; j++) {
                                if (
-                                tessatuproduk[vi].querySelector(selectorGambarShopee)?.src.includes("shopee.co.id") || tessatuproduk[vi].querySelector(selectorGambarShopee)?.src.includes("down-id.img.susercontent.com")
+                                tessatuproduk[j].querySelector(selectorGambarShopee)?.src.includes("shopee.co.id") || tessatuproduk[j].querySelector(selectorGambarShopee)?.src.includes("down-id.img.susercontent.com")
                                 ) 
                             {
                                 var tesurlgambar = "ADA";
@@ -463,8 +463,9 @@ app.get('/scrapesemua', async (req, res) => {
                 cekduplikat = JSON.stringify(cekduplikat)
                 shopee = JSON.stringify(shopee)
                 
-                for (vi = 0; vi < satuproduk.length; vi++) {
+                for (j = 0; j < satuproduk.length; j++) {
 
+                    let ecommerce;
                     let urlgambar;
                     let judul;
                     let harga;
@@ -472,28 +473,29 @@ app.get('/scrapesemua', async (req, res) => {
                     let namatoko;
                     let urlproduk;
 
-                    if (posisi_TIDAK.includes(vi)) {
+                    if (posisi_TIDAK.includes(j)) {
                         continue;
                     }
 
-                    urlgambar = satuproduk[vi].querySelector(selectorGambarShopee).src.split('?')[0]; // url gambar
-                    var judulraw = satuproduk[vi].querySelector(selectorJudulShopee).textContent; //judul produk
-                    var hargaraw = satuproduk[vi].querySelector(selectorHargaShopee).textContent; //harga produk
+                    ecommerce = 'shp';
+                    urlgambar = satuproduk[j].querySelector(selectorGambarShopee).src.split('?')[0]; // url gambar
+                    var judulraw = satuproduk[j].querySelector(selectorJudulShopee).textContent; //judul produk
+                    var hargaraw = satuproduk[j].querySelector(selectorHargaShopee).textContent; //harga produk
                     var namatokoraw = "Shopee";
                     
-                    if (satuproduk[vi].querySelector(selectorTerjualShopee).textContent.length < 1) {
+                    if (satuproduk[j].querySelector(selectorTerjualShopee).textContent.length < 1) {
                         var terjualraw = "0"; //jumlah terjual
                     } else {
-                        var terjualraw = satuproduk[vi].querySelector(selectorTerjualShopee).textContent //jumlah terjual
+                        var terjualraw = satuproduk[j].querySelector(selectorTerjualShopee).textContent //jumlah terjual
                     }
 
-                    if (satuproduk[vi].querySelector(selectorLokasiShopee)) { //lokasi toko
-                        var lokasitokoraw = satuproduk[vi].querySelector(selectorLokasiShopee).textContent;
+                    if (satuproduk[j].querySelector(selectorLokasiShopee)) { //lokasi toko
+                        var lokasitokoraw = satuproduk[j].querySelector(selectorLokasiShopee).textContent;
                     } else {
                         var lokasitokoraw = "Indonesia";
                     }
 
-                    var urlprodukraw = satuproduk[vi].querySelector(selectorUrlShopee).href
+                    var urlprodukraw = satuproduk[j].querySelector(selectorUrlShopee).href
 
 
 
@@ -689,8 +691,8 @@ app.get('/scrapesemua', async (req, res) => {
                     urlproduk = urlprodukraw.split('?')[0].replace("/shopee.co.id/", "/shopee.co.id/product/");
 
                     if (
-                        !satuproduk[vi].querySelector(".F7xq8U div[data-sqe='ad']") && 
-                        vi > 9 && 
+                        !satuproduk[j].querySelector(".F7xq8U div[data-sqe='ad']") && 
+                        j > 9 && 
                         !cekduplikat.includes(urlproduk) && 
                         ( urlgambar.includes("shopee.co.id") || urlgambar.includes("down-id.img.susercontent.com") )
                         ) 
@@ -704,7 +706,7 @@ app.get('/scrapesemua', async (req, res) => {
                             productLink:urlproduk,
                             namaBarang:barang,
                             namaMerek:merek,
-                            namaEcommerce: 'shp',
+                            namaEcommerce:ecommerce,
                             statusScrape: 1
                         })));
                     }
@@ -723,11 +725,11 @@ app.get('/scrapesemua', async (req, res) => {
                 //cekduplikat.push(array);
                 cekduplikat = cekduplikat.concat(array);
                 shopee = shopee.concat(array);
-                fs.writeFile('./hasil/'+namafoldersekarang+'/shopee-laptop-halaman-'+(v+1)+'.json', JSON.stringify(bungkusdata), function(err) {
+                fs.writeFile('./hasil/'+namafoldersekarang+'/shopee-laptop-halaman-'+(i+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
                     } else {
-                        console.log("File shopee-laptop-halaman-"+(v+1)+".json tersimpan!");
+                        console.log("File shopee-laptop-halaman-"+(i+1)+".json tersimpan!");
                     }
                 }); 
             } else {}
@@ -888,18 +890,18 @@ app.get('/scrapesemua', async (req, res) => {
         listalamat = [];
     }
 
-    for (w=0; w < listalamat.length; w++) {
+    for (i = 0; i < listalamat.length; i++) {
 
         await tunggu(1000);
 
-        console.log("Mulai scraping tokopedia halaman "+(w+1)+" dari total "+(listalamat.length))
+        console.log("Mulai scraping tokopedia halaman "+(i+1)+" dari total "+(listalamat.length))
             
-        alamat = listalamat[w][0]    
+        alamat = listalamat[i][0]    
     
         try {
 
-            const barang = listalamat[w][1]
-            const merek = listalamat[w][2]
+            const barang = listalamat[i][1]
+            const merek = listalamat[i][2]
 
             //buka tab baru
             const page = await browser.newPage();
@@ -993,8 +995,8 @@ app.get('/scrapesemua', async (req, res) => {
                 arraytesurlgambar = [];
 
                 if ( tessatuproduk ) {
-                    for (wi = 0; wi < tessatuproduk.length; wi++) {
-                        if (tessatuproduk[wi].querySelector(selectorGambarTokopedia)) { // URL GAMBAR
+                    for (j = 0; j < tessatuproduk.length; j++) {
+                        if (tessatuproduk[j].querySelector(selectorGambarTokopedia)) { // URL GAMBAR
                             var tesurlgambar = "ADA";
                         } else {
                             var tesurlgambar = "TIDAK";
@@ -1021,8 +1023,8 @@ app.get('/scrapesemua', async (req, res) => {
                     arraytesurlgambar = [];
                     
                     if ( tessatuproduk ) {
-                        for (wi = 0; wi < tessatuproduk.length; wi++) {
-                            if (tessatuproduk[wi].querySelector(selectorGambarTokopedia)) { // url gambar
+                        for (j = 0; j < tessatuproduk.length; j++) {
+                            if (tessatuproduk[j].querySelector(selectorGambarTokopedia)) { // url gambar
                                 var tesurlgambar = "ADA";
                             } else {
                                 var tesurlgambar = "TIDAK";
@@ -1057,8 +1059,9 @@ app.get('/scrapesemua', async (req, res) => {
                 cekduplikat = JSON.stringify(cekduplikat)
                 tokopedia = JSON.stringify(tokopedia)
                 
-                for (wi = 0; wi < satuproduk.length; wi++) {
+                for (j = 0; j < satuproduk.length; j++) {
 
+                    let ecommerce;
                     let urlgambar;
                     let judul;
                     let harga;
@@ -1066,30 +1069,31 @@ app.get('/scrapesemua', async (req, res) => {
                     let namatoko;
                     let urlproduk;
 
-                    if (posisi_TIDAK.includes(wi)) {
+                    if (posisi_TIDAK.includes(j)) {
                         continue;
                     }
 
-                    urlgambar = satuproduk[wi].querySelector(selectorGambarTokopedia).src.split('?')[0]; // url gambar
-                    var judulraw = satuproduk[wi].querySelector(selectorJudulTokopedia).textContent; //judul produk
-                    var hargaraw = satuproduk[wi].querySelector(selectorHargaTokopedia).textContent; //harga produk
-                    if (satuproduk[wi].querySelector(selectorTerjualTokopedia)) {//jumlah terjual
-                        var terjualraw = satuproduk[wi].querySelector(selectorTerjualTokopedia).textContent.trim();
+                    ecommerce = 'tkp';
+                    urlgambar = satuproduk[j].querySelector(selectorGambarTokopedia).src.split('?')[0]; // url gambar
+                    var judulraw = satuproduk[j].querySelector(selectorJudulTokopedia).textContent; //judul produk
+                    var hargaraw = satuproduk[j].querySelector(selectorHargaTokopedia).textContent; //harga produk
+                    if (satuproduk[j].querySelector(selectorTerjualTokopedia)) {//jumlah terjual
+                        var terjualraw = satuproduk[j].querySelector(selectorTerjualTokopedia).textContent.trim();
                     } else {
                         var terjualraw = Math.floor(Math.random() * 50);
                     }
-                    if (satuproduk[wi].querySelector(selectorTokoTokopedia)) {//nama toko
-                        var namatokoraw = satuproduk[wi].querySelector(selectorTokoTokopedia).textContent;
+                    if (satuproduk[j].querySelector(selectorTokoTokopedia)) {//nama toko
+                        var namatokoraw = satuproduk[j].querySelector(selectorTokoTokopedia).textContent;
                     } else {
                         var namatokoraw = "Tokopedia";
                     }
-                    if (satuproduk[wi].querySelector(selectorLokasiTokopedia)) {//lokasi toko
-                        var lokasitokoraw = satuproduk[wi].querySelector(selectorLokasiTokopedia).textContent;
+                    if (satuproduk[j].querySelector(selectorLokasiTokopedia)) {//lokasi toko
+                        var lokasitokoraw = satuproduk[j].querySelector(selectorLokasiTokopedia).textContent;
                     } else {
-                            var lokasitokoraw = "Indonesia";
+                        var lokasitokoraw = "Indonesia";
                     }
-                    //var urlproduk = satuproduk[wi].querySelector("a").href.split('?')[0]; //url produk
-                    var urlprodukraw = satuproduk[wi].querySelector(selectorUrlTokopedia).href;
+                    //var urlproduk = satuproduk[j].querySelector("a").href.split('?')[0]; //url produk
+                    var urlprodukraw = satuproduk[j].querySelector(selectorUrlTokopedia).href;
 
 
 
@@ -1293,7 +1297,7 @@ app.get('/scrapesemua', async (req, res) => {
                             productLink:urlproduk,
                             namaBarang:barang,
                             namaMerek:merek,
-                            namaEcommerce: 'tkp',
+                            namaEcommerce:ecommerce,
                             statusScrape: 1
                         })));
                     }
@@ -1312,11 +1316,11 @@ app.get('/scrapesemua', async (req, res) => {
                 //cekduplikat.push(array);
                 cekduplikat = cekduplikat.concat(array);
                 tokopedia = tokopedia.concat(array);
-                fs.writeFile('./hasil/'+namafoldersekarang+'/tokopedia-laptop-halaman-'+(w+1)+'.json', JSON.stringify(bungkusdata), function(err) {
+                fs.writeFile('./hasil/'+namafoldersekarang+'/tokopedia-laptop-halaman-'+(i+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
                     } else {
-                        console.log("File tokopedia-laptop-halaman-"+(w+1)+".json tersimpan!");
+                        console.log("File tokopedia-laptop-halaman-"+(i+1)+".json tersimpan!");
                     }
                 }); 
             } else {}
@@ -1463,18 +1467,18 @@ app.get('/scrapesemua', async (req, res) => {
         listalamat = [];
     }
 
-    for (x=0; x < listalamat.length; x++) {
+    for (i = 0; i < listalamat.length; i++) {
 
         await tunggu(1000);
 
-        console.log("Mulai scraping lazada halaman "+(x+1)+" dari total "+(listalamat.length))
+        console.log("Mulai scraping lazada halaman "+(i+1)+" dari total "+(listalamat.length))
             
-        alamat = listalamat[x][0]
+        alamat = listalamat[i][0]
     
         try {
 
-            const barang = listalamat[x][1]
-            const merek = listalamat[x][2]
+            const barang = listalamat[i][1]
+            const merek = listalamat[i][2]
 
             //buka tab baru
             const page = await browser.newPage();
@@ -1568,8 +1572,8 @@ app.get('/scrapesemua', async (req, res) => {
                     arraytesurlgambar = [];
 
                     if ( tessatuproduk ) {
-                        for (xi = 0; xi < tessatuproduk.length; xi++) {
-                            if (tessatuproduk[xi].querySelector(selectorGambarLazada).src.includes("data:image") == false) { // cek url gambar kalau src nya sudah jadi http
+                        for (j = 0; j < tessatuproduk.length; j++) {
+                            if (tessatuproduk[j].querySelector(selectorGambarLazada).src.includes("data:image") == false) { // cek url gambar kalau src nya sudah jadi http
                                 var tesurlgambar = "ADA";
                             } else {
                                 var tesurlgambar = "TIDAK";
@@ -1597,8 +1601,8 @@ app.get('/scrapesemua', async (req, res) => {
                         arraytesurlgambar = [];
 
                         if ( tessatuproduk ) {
-                            for (xi = 0; xi < tessatuproduk.length; xi++) {
-                                if (tessatuproduk[xi].querySelector(selectorGambarLazada).src.includes("data:image") == false) { // cek url gambar kalau src nya sudah jadi http
+                            for (j = 0; j < tessatuproduk.length; j++) {
+                                if (tessatuproduk[j].querySelector(selectorGambarLazada).src.includes("data:image") == false) { // cek url gambar kalau src nya sudah jadi http
                                     var tesurlgambar = "ADA";
                                 } else {
                                     var tesurlgambar = "TIDAK";
@@ -1634,8 +1638,9 @@ app.get('/scrapesemua', async (req, res) => {
                 cekduplikat = JSON.stringify(cekduplikat)
                 lazada = JSON.stringify(lazada)
                 
-                for (xi = 0; xi < satuproduk.length; xi++) {
+                for (j = 0; j < satuproduk.length; j++) {
 
+                    let ecommerce;
                     let urlgambar;
                     let judul;
                     let harga;
@@ -1643,26 +1648,27 @@ app.get('/scrapesemua', async (req, res) => {
                     let namatoko;
                     let urlproduk;
 
-                    if (posisi_TIDAK.includes(xi)) {
+                    if (posisi_TIDAK.includes(j)) {
                         continue;
                     }
 
-                    urlgambar = satuproduk[xi].querySelector(selectorGambarLazada).src.split('?')[0]; //url gambar
-                    var judulraw = satuproduk[xi].querySelector(selectorJudulLazada).textContent;
-                    var hargaraw = satuproduk[xi].querySelector(selectorHargaLazada).textContent;
-                    if (satuproduk[xi].querySelector(selectorTerjualLazada)) {//jumlah terjual
-                        var terjualraw = satuproduk[xi].querySelector(selectorTerjualLazada).textContent.trim();
+                    ecommerce = 'lzd';
+                    urlgambar = satuproduk[j].querySelector(selectorGambarLazada).src.split('?')[0]; //url gambar
+                    var judulraw = satuproduk[j].querySelector(selectorJudulLazada).textContent;
+                    var hargaraw = satuproduk[j].querySelector(selectorHargaLazada).textContent;
+                    if (satuproduk[j].querySelector(selectorTerjualLazada)) {//jumlah terjual
+                        var terjualraw = satuproduk[j].querySelector(selectorTerjualLazada).textContent.trim();
                     } else {
                         var terjualraw = Math.floor(Math.random() * 50);
                     }
-                    if (satuproduk[xi].querySelector(selectorLokasiLazada)) {//lokasi toko
-                        var lokasitokoraw = satuproduk[xi].querySelector(selectorLokasiLazada).textContent.trim();
+                    if (satuproduk[j].querySelector(selectorLokasiLazada)) {//lokasi toko
+                        var lokasitokoraw = satuproduk[j].querySelector(selectorLokasiLazada).textContent.trim();
                     } else {
                         var lokasitokoraw = "Indonesia";
                     }
-                    //var urlproduk = satuproduk[xi].querySelector(".RfADt a").href.split('?')[0];
+                    //var urlproduk = satuproduk[j].querySelector(".RfADt a").href.split('?')[0];
 
-                    var urlprodukraw = satuproduk[xi].querySelector(selectorUrlLazada).href;
+                    var urlprodukraw = satuproduk[j].querySelector(selectorUrlLazada).href;
 
 
                     //UNTUK HAPUS 
@@ -1866,7 +1872,7 @@ app.get('/scrapesemua', async (req, res) => {
                             productLink:urlproduk,
                             namaBarang:barang,
                             namaMerek:merek,
-                            namaEcommerce: 'lzd',
+                            namaEcommerce:ecommerce,
                             statusScrape: 1
                         })));
                     }
@@ -1886,11 +1892,11 @@ app.get('/scrapesemua', async (req, res) => {
                 //cekduplikat.push(array);
                 cekduplikat = cekduplikat.concat(array);
                 lazada = lazada.concat(array)
-                fs.writeFile('./hasil/'+namafoldersekarang+'/lazada-laptop-halaman-'+(x+1)+'.json', JSON.stringify(bungkusdata), function(err) {
+                fs.writeFile('./hasil/'+namafoldersekarang+'/lazada-laptop-halaman-'+(i+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
                     } else {
-                        console.log("File lazada-laptop-halaman-"+(x+1)+".json tersimpan!");
+                        console.log("File lazada-laptop-halaman-"+(i+1)+".json tersimpan!");
                     }
                 });
             } else {}
@@ -2002,18 +2008,18 @@ app.get('/scrapesemua', async (req, res) => {
     }
 
 
-    for (z=0; z < listalamat.length; z++) {
+    for (i = 0; i < listalamat.length; i++) {
 
         await tunggu(1000);
 
-        console.log("Mulai scraping BLIBLI halaman "+(z+1)+" dari total "+(listalamat.length))
+        console.log("Mulai scraping BLIBLI halaman "+(i+1)+" dari total "+(listalamat.length))
             
-        alamat = listalamat[z][0]
+        alamat = listalamat[i][0]
     
         try {
 
-            const barang = listalamat[z][1]
-            const merek = listalamat[z][2]
+            const barang = listalamat[i][1]
+            const merek = listalamat[i][2]
         
             //buka tab baru
             const page = await browser.newPage();
@@ -2112,8 +2118,8 @@ app.get('/scrapesemua', async (req, res) => {
                     arraytesurlgambar = [];
 
                     if ( tessatuproduk ) {
-                        for (zi = 0; zi < tessatuproduk.length; zi++) {
-                            if (tessatuproduk[zi].querySelector(selectorGambarBlibli) || tessatuproduk[zi].querySelector(selectorGambarAlternatifBlibli)) { // cek url gambar kalau src nya sudah ada class loaded
+                        for (j = 0; j < tessatuproduk.length; j++) {
+                            if (tessatuproduk[j].querySelector(selectorGambarBlibli) || tessatuproduk[j].querySelector(selectorGambarAlternatifBlibli)) { // cek url gambar kalau src nya sudah ada class loaded
                                 var tesurlgambar = "ADA";
                             } else {
                                 var tesurlgambar = "TIDAK";
@@ -2141,8 +2147,8 @@ app.get('/scrapesemua', async (req, res) => {
                         arraytesurlgambar = [];
 
                         if ( tessatuproduk ) {
-                            for (zi = 0; zi < tessatuproduk.length; zi++) {
-                                if (tessatuproduk[zi].querySelector(selectorGambarBlibli) || tessatuproduk[zi].querySelector(selectorGambarAlternatifBlibli)) { // cek url gambar kalau src nya sudah ada class loaded
+                            for (j = 0; j < tessatuproduk.length; j++) {
+                                if (tessatuproduk[j].querySelector(selectorGambarBlibli) || tessatuproduk[j].querySelector(selectorGambarAlternatifBlibli)) { // cek url gambar kalau src nya sudah ada class loaded
                                     var tesurlgambar = "ADA";
                                 } else {
                                     var tesurlgambar = "TIDAK";
@@ -2177,8 +2183,9 @@ app.get('/scrapesemua', async (req, res) => {
                 cekduplikat = JSON.stringify(cekduplikat)
                 blibli = JSON.stringify(blibli)
                 
-                for (zi = 0; zi < satuproduk.length; zi++) {
+                for (j = 0; j < satuproduk.length; j++) {
 
+                    let ecommerce;
                     let urlgambar;
                     let judul;
                     let harga;
@@ -2186,37 +2193,39 @@ app.get('/scrapesemua', async (req, res) => {
                     let namatoko;
                     let urlproduk;
 
-                    if (posisi_TIDAK.includes(zi)) {
+                    if (posisi_TIDAK.includes(j)) {
                         continue;
                     }
 
-                    if (satuproduk[zi].querySelector(selectorGambarBlibli)) {
-                        urlgambar = satuproduk[zi].querySelector(selectorGambarBlibli).src.split('?')[0];
+                    ecommerce = 'bli';
+
+                    if (satuproduk[j].querySelector(selectorGambarBlibli)) {
+                        urlgambar = satuproduk[j].querySelector(selectorGambarBlibli).src.split('?')[0];
                     } else { 
-                        urlgambar = satuproduk[zi].querySelector(selectorGambarAlternatifBlibli).src.split('?')[0];
+                        urlgambar = satuproduk[j].querySelector(selectorGambarAlternatifBlibli).src.split('?')[0];
                     }
 
-                    var judulraw = satuproduk[zi].querySelector(selectorJudulBlibli).textContent; //nama barang
-                    var hargaraw = satuproduk[zi].querySelector(selectorHargaBlibli).textContent; //harga barang 
+                    var judulraw = satuproduk[j].querySelector(selectorJudulBlibli).textContent; //nama barang
+                    var hargaraw = satuproduk[j].querySelector(selectorHargaBlibli).textContent; //harga barang 
 
-                    if (satuproduk[zi].querySelector(selectorTerjualBlibli)) {//jumlah terjual
-                        var terjualraw = satuproduk[zi].querySelector(selectorTerjualBlibli).textContent.trim();
+                    if (satuproduk[j].querySelector(selectorTerjualBlibli)) {//jumlah terjual
+                        var terjualraw = satuproduk[j].querySelector(selectorTerjualBlibli).textContent.trim();
                     } else {
                         var terjualraw = Math.floor(Math.random() * 50);
                     }
 
-                    if (satuproduk[zi].querySelector(selectorTokoBlibli)) {//pembungkus nama toko (span pertama) dan lokasi toko (span kedua)
-                        if (satuproduk[zi].querySelector(selectorTokoBlibli + " span:nth-child(2)")) { //lokasi toko ada di span kedua
-                            var lokasitokoraw = satuproduk[zi].querySelector(selectorTokoBlibli + " span:nth-child(2)").textContent.trim();
-                        } else if (satuproduk[zi].querySelector(selectorTokoBlibli + " span:nth-child(1)")) { //kalau tidak ada nama toko, maka lokasi toko ada di span pertama 
-                            var lokasitokoraw = satuproduk[zi].querySelector(selectorTokoBlibli + " span:nth-child(1)").textContent.trim();
+                    if (satuproduk[j].querySelector(selectorTokoBlibli)) {//pembungkus nama toko (span pertama) dan lokasi toko (span kedua)
+                        if (satuproduk[j].querySelector(selectorTokoBlibli + " span:nth-child(2)")) { //lokasi toko ada di span kedua
+                            var lokasitokoraw = satuproduk[j].querySelector(selectorTokoBlibli + " span:nth-child(2)").textContent.trim();
+                        } else if (satuproduk[j].querySelector(selectorTokoBlibli + " span:nth-child(1)")) { //kalau tidak ada nama toko, maka lokasi toko ada di span pertama 
+                            var lokasitokoraw = satuproduk[j].querySelector(selectorTokoBlibli + " span:nth-child(1)").textContent.trim();
                         }
                     } else {
                         var lokasitokoraw = "Jakarta";
                     }
 
                     if (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}) {
-                        var urlprodukraw = (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}).itemListElement[zi].item.url;
+                        var urlprodukraw = (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}).itemListElement[j].item.url;
                     }
 
 
@@ -2432,7 +2441,7 @@ app.get('/scrapesemua', async (req, res) => {
                             productLink:urlproduk,
                             namaBarang:barang,
                             namaMerek:merek,
-                            namaEcommerce: 'bli',
+                            namaEcommerce:ecommerce,
                             statusScrape: 1
                         })));
                     }
@@ -2451,11 +2460,11 @@ app.get('/scrapesemua', async (req, res) => {
                 //cekduplikat.push(array);
                 cekduplikat = cekduplikat.concat(array);
                 blibli = blibli.concat(array);
-                fs.writeFile('./hasil/'+namafoldersekarang+'/blibli-laptop-halaman-'+(z+1)+'.json', JSON.stringify(bungkusdata), function(err) {
+                fs.writeFile('./hasil/'+namafoldersekarang+'/blibli-laptop-halaman-'+(i+1)+'.json', JSON.stringify(bungkusdata), function(err) {
                     if(err) {
                         return console.log(err);
                     } else {
-                        console.log("File blibli-laptop-halaman-"+(z+1)+".json tersimpan!");
+                        console.log("File blibli-laptop-halaman-"+(i+1)+".json tersimpan!");
                     }
                 });
             } else {}
@@ -2653,7 +2662,7 @@ app.get('/bersihkanproduk', async (req, res) => {
 app.get('/downloadgambar', async (req, res) => {
 
     //Tutup dulu semua chrome//
-    jalankanKillChrome();
+    await jalankanKillChrome();
     //selesai tutup dulu semua chrome//
 
     res.set("X-Robots-Tag","noindex, nofollow");
@@ -2687,15 +2696,31 @@ app.get('/downloadgambar', async (req, res) => {
         fs.mkdirSync(folder_gambar_shopee);
     }
 
-    const browser = await puppeteer.launch({
-        dumpio: true,
-        defaultViewport: null,
-        args: ['--start-maximized'],
-        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-        headless: false,
-        userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
-        ignoreDefaultArgs: ['--enable-automation'],
-    })
+    //Buka chrome dengan puppeteer
+    let browser;
+    if (os.platform == 'win32') { //kalau Windows
+        browser = await puppeteer.launch({
+            dumpio: true,
+            defaultViewport: null,
+            args: ['--start-maximized'],
+            headless: false,
+            executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+            userDataDir: 'C:\\Users\\gbbl12345\\AppData\\Local\\Google\\Chrome\\User Data\\',
+            ignoreDefaultArgs: ['--enable-automation'],
+        })
+    } else if (os.platform == 'darwin') { //kalau MacOS
+        browser = await puppeteer.launch({
+            dumpio: true,
+            defaultViewport: null,
+            args: ['--start-maximized'], // Note: This might not have the exact desired effect on Mac
+            headless: false,
+            executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+            userDataDir: '/Users/dimas/Library/Application Support/Google/Chrome/Default',
+            ignoreDefaultArgs: ['--enable-automation'],
+        });
+    }
+    //Selesai buka chrome dengan puppeteer
+
     const page = await browser.newPage();
     await page.waitForTimeout(1000);
     await page.emulateTimezone('Asia/Jakarta');
