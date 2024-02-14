@@ -228,7 +228,7 @@ app.get('/bersihkanproduk', async (req, res) => {
 app.get('/downloadgambar', async (req, res) => {
 
     //Tutup dulu semua chrome//
-    jalankanKillChrome();
+    await jalankanKillChrome();
     //selesai tutup dulu semua chrome//
 
     res.set("X-Robots-Tag","noindex, nofollow");
