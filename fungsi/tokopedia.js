@@ -6,94 +6,94 @@ async function scrapeTokopedia(browser, namafoldersekarang, cekduplikat, tokoped
     const request = require('request-promise');
     //----------------------------------------SCRAPE TOKOPEDIA----------------------------------------//
     var listalamat = [
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5030', 'LAPTOP', 'RAZER'], // 1 - LAPTOP RAZER HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5030', 'LAPTOP', 'RAZER'], // 1 - LAPTOP RAZER HALAMAN 1
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4775', 'LAPTOP', 'INFINIX'], // 2 - LAPTOP INFINIX HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4775', 'LAPTOP', 'INFINIX'], // 2 - LAPTOP INFINIX HALAMAN 1
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5004', 'LAPTOP', 'MICROSOFT'], // 3 - LAPTOP MICROSOFT HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5004', 'LAPTOP', 'MICROSOFT'], // 3 - LAPTOP MICROSOFT HALAMAN 1
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 4 - LAPTOP AXIOO HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 5 - LAPTOP AXIOO HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 6 - LAPTOP AXIOO HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 7 - LAPTOP AXIOO HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 8 - LAPTOP AXIOO HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 4 - LAPTOP AXIOO HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 5 - LAPTOP AXIOO HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 6 - LAPTOP AXIOO HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 7 - LAPTOP AXIOO HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=8204', 'LAPTOP', 'AXIOO'], // 8 - LAPTOP AXIOO HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 9 - LAPTOP ZYREX HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 10 - LAPTOP ZYREX HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 11 - LAPTOP ZYREX HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 12 - LAPTOP ZYREX HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 13 - LAPTOP ZYREX HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 9 - LAPTOP ZYREX HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 10 - LAPTOP ZYREX HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 11 - LAPTOP ZYREX HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 12 - LAPTOP ZYREX HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5023', 'LAPTOP', 'ZYREX'], // 13 - LAPTOP ZYREX HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 14 - LAPTOP ACER HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 15 - LAPTOP ACER HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 16 - LAPTOP ACER HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 17 - LAPTOP ACER HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 18 - LAPTOP ACER HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 14 - LAPTOP ACER HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 15 - LAPTOP ACER HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 16 - LAPTOP ACER HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 17 - LAPTOP ACER HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5020', 'LAPTOP', 'ACER'], // 18 - LAPTOP ACER HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 19 - LAPTOP ASUS HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 20 - LAPTOP ASUS HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 21 - LAPTOP ASUS HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 22 - LAPTOP ASUS HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 23 - LAPTOP ASUS HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 19 - LAPTOP ASUS HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 20 - LAPTOP ASUS HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 21 - LAPTOP ASUS HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 22 - LAPTOP ASUS HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5019', 'LAPTOP', 'ASUS'], // 23 - LAPTOP ASUS HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 24 - LAPTOP APPLE HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 25 - LAPTOP APPLE HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 26 - LAPTOP APPLE HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 27 - LAPTOP APPLE HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 28 - LAPTOP APPLE HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 24 - LAPTOP APPLE HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 25 - LAPTOP APPLE HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 26 - LAPTOP APPLE HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 27 - LAPTOP APPLE HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=4870', 'LAPTOP', 'APPLE'], // 28 - LAPTOP APPLE HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 29 - LAPTOP DELL HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 30 - LAPTOP DELL HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 31 - LAPTOP DELL HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 32 - LAPTOP DELL HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 33 - LAPTOP DELL HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 29 - LAPTOP DELL HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 30 - LAPTOP DELL HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 31 - LAPTOP DELL HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 32 - LAPTOP DELL HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5022', 'LAPTOP', 'DELL'], // 33 - LAPTOP DELL HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 34 - LAPTOP HP HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 35 - LAPTOP HP HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 36 - LAPTOP HP HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 37 - LAPTOP HP HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 38 - LAPTOP HP HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 34 - LAPTOP HP HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 35 - LAPTOP HP HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 36 - LAPTOP HP HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 37 - LAPTOP HP HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5002', 'LAPTOP', 'HP'], // 38 - LAPTOP HP HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 39 - LAPTOP HUAWEI HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 40 - LAPTOP HUAWEI HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 41 - LAPTOP HUAWEI HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 42 - LAPTOP HUAWEI HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 43 - LAPTOP HUAWEI HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 39 - LAPTOP HUAWEI HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 40 - LAPTOP HUAWEI HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 41 - LAPTOP HUAWEI HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 42 - LAPTOP HUAWEI HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5053', 'LAPTOP', 'HUAWEI'], // 43 - LAPTOP HUAWEI HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 44 - LAPTOP LENOVO HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 45 - LAPTOP LENOVO HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 46 - LAPTOP LENOVO HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 47 - LAPTOP LENOVO HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 48 - LAPTOP LENOVO HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 44 - LAPTOP LENOVO HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 45 - LAPTOP LENOVO HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 46 - LAPTOP LENOVO HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 47 - LAPTOP LENOVO HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5021', 'LAPTOP', 'LENOVO'], // 48 - LAPTOP LENOVO HALAMAN 5
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 49 - LAPTOP MSI HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 50 - LAPTOP MSI HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 51 - LAPTOP MSI HALAMAN 3
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 52 - LAPTOP MSI HALAMAN 4
-        // ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 53 - LAPTOP MSI HALAMAN 5
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=1&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 49 - LAPTOP MSI HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=2&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 50 - LAPTOP MSI HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=3&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 51 - LAPTOP MSI HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=4&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 52 - LAPTOP MSI HALAMAN 4
+        ['https://www.tokopedia.com/p/komputer-laptop/laptop?page=5&shop_tier=1-3-2&pmin=1500000&anno_id_merek=5061', 'LAPTOP', 'MSI'], // 53 - LAPTOP MSI HALAMAN 5
 
         ['https://www.tokopedia.com/p/komputer-laptop/aksesoris-komputer-laptop/keyboard?page=1&shop_tier=1-3-2&pmin=50000&anno_id_merek=5001', 'KEYBOARD', 'LOGITECH'], // 54 - KEYBOARD LOGITECH HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/aksesoris-komputer-laptop/keyboard?page=2&shop_tier=1-3-2&pmin=50000&anno_id_merek=5001', 'KEYBOARD', 'LOGITECH'], // 55 - KEYBOARD LOGITECH HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/aksesoris-komputer-laptop/keyboard?page=3&shop_tier=1-3-2&pmin=50000&anno_id_merek=5001', 'KEYBOARD', 'LOGITECH'], // 56 - KEYBOARD LOGITECH HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/aksesoris-komputer-laptop/keyboard?page=2&shop_tier=1-3-2&pmin=50000&anno_id_merek=5001', 'KEYBOARD', 'LOGITECH'], // 55 - KEYBOARD LOGITECH HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/aksesoris-komputer-laptop/keyboard?page=3&shop_tier=1-3-2&pmin=50000&anno_id_merek=5001', 'KEYBOARD', 'LOGITECH'], // 56 - KEYBOARD LOGITECH HALAMAN 3
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/komponen-laptop/ram-laptop?page=1&shop_tier=1-3-2&pmin=50000', 'RAM', 'SEMUAMEREK'], // 57 RAM SEMUAMEREK HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/komponen-laptop/ram-laptop?page=2&shop_tier=1-3-2&pmin=50000', 'RAM', 'SEMUAMEREK'], // 58 RAM SEMUAMEREK HALAMAN 2
-        // ['https://www.tokopedia.com/p/komputer-laptop/komponen-laptop/ram-laptop?page=3&shop_tier=1-3-2&pmin=50000', 'RAM', 'SEMUAMEREK'], // 59 RAM SEMUAMEREK HALAMAN 3
+        ['https://www.tokopedia.com/p/komputer-laptop/komponen-laptop/ram-laptop?page=1&shop_tier=1-3-2&pmin=50000', 'RAM', 'SEMUAMEREK'], // 57 RAM SEMUAMEREK HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/komponen-laptop/ram-laptop?page=2&shop_tier=1-3-2&pmin=50000', 'RAM', 'SEMUAMEREK'], // 58 RAM SEMUAMEREK HALAMAN 2
+        ['https://www.tokopedia.com/p/komputer-laptop/komponen-laptop/ram-laptop?page=3&shop_tier=1-3-2&pmin=50000', 'RAM', 'SEMUAMEREK'], // 59 RAM SEMUAMEREK HALAMAN 3
 
-        // ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=4999', 'SSD', 'ADATA'], // 60 SSD ADATA HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=4997', 'SSD', 'SAMSUNG'], // 61 SSD SAMSUNG HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=4994', 'SSD', 'SANDISK'], // 62 SSD SANDISK HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=5012', 'SSD', 'SEAGATE'], // 63 SSD SEAGATE HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=4995', 'SSD', 'VGEN'], // 64 SSD VGEN HALAMAN 1
-        // ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=5011', 'SSD', 'WD'], // 65 SSD WD HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=4999', 'SSD', 'ADATA'], // 60 SSD ADATA HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=4997', 'SSD', 'SAMSUNG'], // 61 SSD SAMSUNG HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=4994', 'SSD', 'SANDISK'], // 62 SSD SANDISK HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=5012', 'SSD', 'SEAGATE'], // 63 SSD SEAGATE HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=4995', 'SSD', 'VGEN'], // 64 SSD VGEN HALAMAN 1
+        ['https://www.tokopedia.com/p/komputer-laptop/media-penyimpanan-data/ssd?page=1&shop_tier=1-3-2&pmin=100000&anno_id_merek=5011', 'SSD', 'WD'], // 65 SSD WD HALAMAN 1
 
-        // ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=4870', 'SMARTPHONE', 'APPLE'], // 66 - SMARTPHONE APPLE HALAMAN 1
-        // ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=4912', 'SMARTPHONE', 'VIVO'], // 67 - SMARTPHONE VIVO HALAMAN 1
-        // ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=4902', 'SMARTPHONE', 'OPPO'], // 68 - SMARTPHONE OOPO HALAMAN 1
-        // ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=5114', 'SMARTPHONE', 'XIAOMI'], // 69 - SMARTPHONE XIAOMI HALAMAN 1
-        // ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=4997', 'SMARTPHONE', 'SAMSUNG'], // 70 - SMARTPHONE SAMSUNG HALAMAN 1
-        // ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=5019', 'SMARTPHONE', 'ASUS'], // 71 - SMARTPHONE ASUS HALAMAN 1
-        // ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=5053', 'SMARTPHONE', 'HUAWEI'], // 72 - SMARTPHONE HUAWEI HALAMAN 1
+        ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=4870', 'SMARTPHONE', 'APPLE'], // 66 - SMARTPHONE APPLE HALAMAN 1
+        ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=4912', 'SMARTPHONE', 'VIVO'], // 67 - SMARTPHONE VIVO HALAMAN 1
+        ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=4902', 'SMARTPHONE', 'OPPO'], // 68 - SMARTPHONE OOPO HALAMAN 1
+        ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=5114', 'SMARTPHONE', 'XIAOMI'], // 69 - SMARTPHONE XIAOMI HALAMAN 1
+        ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=4997', 'SMARTPHONE', 'SAMSUNG'], // 70 - SMARTPHONE SAMSUNG HALAMAN 1
+        ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=5019', 'SMARTPHONE', 'ASUS'], // 71 - SMARTPHONE ASUS HALAMAN 1
+        ['https://www.tokopedia.com/p/handphone-tablet/handphone?page=1&shop_tier=1-3-2&pmin=1000000&anno_id_merek=5053', 'SMARTPHONE', 'HUAWEI'], // 72 - SMARTPHONE HUAWEI HALAMAN 1
     ]
 
     if (hanyaecommerce == "lazada" || hanyaecommerce == "blibli" || hanyaecommerce == "shopee") {

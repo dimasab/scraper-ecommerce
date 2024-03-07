@@ -6,78 +6,78 @@ async function scrapeLazada(browser, namafoldersekarang, cekduplikat, lazada, di
     const request = require('request-promise');
     //----------------------------------------SCRAPE LAZADA----------------------------------------//
     var listalamat = [
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 2
-        // ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 3
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20lenovo', 'LAPTOP', 'LENOVO'], //LAPTOP LENOVO HALAMAN 3
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20asus', 'LAPTOP', 'ASUS'], //LAPTOP ASUS HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20asus', 'LAPTOP', 'ASUS'], //LAPTOP ASUS HALAMAN 2
-        // ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20asus', 'LAPTOP', 'ASUS'], //LAPTOP ASUS HALAMAN 3
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20asus', 'LAPTOP', 'ASUS'], //LAPTOP ASUS HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20asus', 'LAPTOP', 'ASUS'], //LAPTOP ASUS HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20asus', 'LAPTOP', 'ASUS'], //LAPTOP ASUS HALAMAN 3
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20acer', 'LAPTOP', 'ACER'], //LAPTOP ACER HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20acer', 'LAPTOP', 'ACER'], //LAPTOP ACER HALAMAN 2
-        // ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20acer', 'LAPTOP', 'ACER'], //LAPTOP ACER HALAMAN 3
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20acer', 'LAPTOP', 'ACER'], //LAPTOP ACER HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20acer', 'LAPTOP', 'ACER'], //LAPTOP ACER HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20acer', 'LAPTOP', 'ACER'], //LAPTOP ACER HALAMAN 3
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20hp', 'LAPTOP', 'HP'], //LAPTOP HP HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20hp', 'LAPTOP', 'HP'], //LAPTOP HP HALAMAN 2
-        // ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20hp', 'LAPTOP', 'HP'], //LAPTOP HP HALAMAN 3
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20hp', 'LAPTOP', 'HP'], //LAPTOP HP HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20hp', 'LAPTOP', 'HP'], //LAPTOP HP HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20hp', 'LAPTOP', 'HP'], //LAPTOP HP HALAMAN 3
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20dell', 'LAPTOP', 'DELL'], //LAPTOP DELL HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20dell', 'LAPTOP', 'DELL'], //LAPTOP DELL HALAMAN 2
-        // ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20dell', 'LAPTOP', 'DELL'], //LAPTOP DELL HALAMAN 3
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=laptop%20dell', 'LAPTOP', 'DELL'], //LAPTOP DELL HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=laptop%20dell', 'LAPTOP', 'DELL'], //LAPTOP DELL HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=laptop%20dell', 'LAPTOP', 'DELL'], //LAPTOP DELL HALAMAN 3
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=macbook', 'LAPTOP', 'APPLE'], //LAPTOP APPLE HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=macbook', 'LAPTOP', 'APPLE'], //LAPTOP APPLE HALAMAN 2
-        // ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=macbook', 'LAPTOP', 'APPLE'], //LAPTOP APPLE HALAMAN 3
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1500000-&q=macbook', 'LAPTOP', 'APPLE'], //LAPTOP APPLE HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1500000-&q=macbook', 'LAPTOP', 'APPLE'], //LAPTOP APPLE HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=3&price=1500000-&q=macbook', 'LAPTOP', 'APPLE'], //LAPTOP APPLE HALAMAN 3
 
         ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20samsung', 'SSD', 'SAMSUNG'], //SSD SAMSUNG HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20samsung', 'SSD', 'SAMSUNG'], //SSD SAMSUNG HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20samsung', 'SSD', 'SAMSUNG'], //SSD SAMSUNG HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20wd', 'SSD', 'WD'], //SSD WD HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20wd', 'SSD', 'WD'], //SSD WD HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20wd', 'SSD', 'WD'], //SSD WD HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20wd', 'SSD', 'WD'], //SSD WD HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20adata', 'SSD', 'ADATA'], //SSD WD HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20adata', 'SSD', 'ADATA'], //SSD WD HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20adata', 'SSD', 'ADATA'], //SSD WD HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20adata', 'SSD', 'ADATA'], //SSD WD HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20sandisk', 'SSD', 'SANDISK'], //SSD SANDISK HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20sandisk', 'SSD', 'SANDISK'], //SSD SANDISK HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20sandisk', 'SSD', 'SANDISK'], //SSD SANDISK HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20sandisk', 'SSD', 'SANDISK'], //SSD SANDISK HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20seagate', 'SSD', 'SEAGATE'], //SSD SEAGATE HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20seagate', 'SSD', 'SEAGATE'], //SSD SEAGATE HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20seagate', 'SSD', 'SEAGATE'], //SSD SEAGATE HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20seagate', 'SSD', 'SEAGATE'], //SSD SEAGATE HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20vgen', 'SSD', 'VGEN'], //SSD VGEN HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20vgen', 'SSD', 'VGEN'], //SSD VGEN HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=100000-&q=ssd%20vgen', 'SSD', 'VGEN'], //SSD VGEN HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=100000-&q=ssd%20vgen', 'SSD', 'VGEN'], //SSD VGEN HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=50000-&q=keyboard%20logitech', 'KEYBOARD', 'LOGITECH'], //KEYBOARD LOGITECH HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=50000-&q=keyboard%20logitech', 'KEYBOARD', 'LOGITECH'], //KEYBOARD LOGITECH HALAMAN 1
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=50000-&q=ram%20sodimm', 'RAM', 'SEMUAMEREK'], //RAM SEMUAMEREK HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=50000-&q=ram%20sodimm', 'RAM', 'SEMUAMEREK'], //RAM SEMUAMEREK HALAMAN 1
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20samsung', 'SMARTPHONE', 'SAMSUNG'], //SMARTPHONE SAMSUNG HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20samsung', 'SMARTPHONE', 'SAMSUNG'], //SMARTPHONE SAMSUNG HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20samsung', 'SMARTPHONE', 'SAMSUNG'], //SMARTPHONE SAMSUNG HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20samsung', 'SMARTPHONE', 'SAMSUNG'], //SMARTPHONE SAMSUNG HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20xiaomi', 'SMARTPHONE', 'XIAOMI'], //SMARTPHONE XIAOMI HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20xiaomi', 'SMARTPHONE', 'XIAOMI'], //SMARTPHONE XIAOMI HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20xiaomi', 'SMARTPHONE', 'XIAOMI'], //SMARTPHONE XIAOMI HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20xiaomi', 'SMARTPHONE', 'XIAOMI'], //SMARTPHONE XIAOMI HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20huawei', 'SMARTPHONE', 'HUAWEI'], //SMARTPHONE HUAWEI HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20huawei', 'SMARTPHONE', 'HUAWEI'], //SMARTPHONE HUAWEI HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20huawei', 'SMARTPHONE', 'HUAWEI'], //SMARTPHONE HUAWEI HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20huawei', 'SMARTPHONE', 'HUAWEI'], //SMARTPHONE HUAWEI HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20oppo', 'SMARTPHONE', 'OPPO'], //SMARTPHONE OPPO HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20oppo', 'SMARTPHONE', 'OPPO'], //SMARTPHONE OPPO HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20oppo', 'SMARTPHONE', 'OPPO'], //SMARTPHONE OPPO HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20oppo', 'SMARTPHONE', 'OPPO'], //SMARTPHONE OPPO HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20vivo', 'SMARTPHONE', 'VIVO'], //SMARTPHONE VIVO HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20vivo', 'SMARTPHONE', 'VIVO'], //SMARTPHONE VIVO HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20vivo', 'SMARTPHONE', 'VIVO'], //SMARTPHONE VIVO HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20vivo', 'SMARTPHONE', 'VIVO'], //SMARTPHONE VIVO HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=iphone', 'SMARTPHONE', 'APPLE'], //SMARTPHONE APPLE HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=iphone', 'SMARTPHONE', 'APPLE'], //SMARTPHONE APPLE HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=iphone', 'SMARTPHONE', 'APPLE'], //SMARTPHONE APPLE HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=iphone', 'SMARTPHONE', 'APPLE'], //SMARTPHONE APPLE HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20realme', 'SMARTPHONE', 'REALME'], //SMARTPHONE REALME HALAMAN 1
-        // ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20realme', 'SMARTPHONE', 'REALME'], //SMARTPHONE REALME HALAMAN 2
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20realme', 'SMARTPHONE', 'REALME'], //SMARTPHONE REALME HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=2&price=1000000-&q=hp%20realme', 'SMARTPHONE', 'REALME'], //SMARTPHONE REALME HALAMAN 2
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20infinix', 'SMARTPHONE', 'INFINIX'], //SMARTPHONE INFINIX HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20infinix', 'SMARTPHONE', 'INFINIX'], //SMARTPHONE INFINIX HALAMAN 1
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20asus', 'SMARTPHONE', 'ASUS'], //SMARTPHONE ASUS HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20asus', 'SMARTPHONE', 'ASUS'], //SMARTPHONE ASUS HALAMAN 1
 
-        // ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20nokia', 'SMARTPHONE', 'NOKIA'], //SMARTPHONE NOKIA HALAMAN 1
+        ['https://www.lazada.co.id/catalog/?from=input&page=1&price=1000000-&q=hp%20nokia', 'SMARTPHONE', 'NOKIA'], //SMARTPHONE NOKIA HALAMAN 1
 
     ]
 

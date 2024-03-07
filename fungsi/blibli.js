@@ -6,42 +6,42 @@ async function scrapeBlibli(browser, namafoldersekarang, cekduplikat, blibli, di
     const request = require('request-promise');
     //----------------------------------------SCRAPE BLIBLI----------------------------------------//
     var listalamat = [
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 1
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 2
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 3
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 2
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Acer&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'ACER'],// LAPTOP ACER HALAMAN 3
 
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Asus&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'ASUS'],// LAPTOP ASUS HALAMAN 1
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Asus&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'ASUS'],// LAPTOP ASUS HALAMAN 2
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Asus&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'ASUS'],// LAPTOP ASUS HALAMAN 3
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Asus&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'ASUS'],// LAPTOP ASUS HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Asus&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'ASUS'],// LAPTOP ASUS HALAMAN 2
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Asus&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'ASUS'],// LAPTOP ASUS HALAMAN 3
 
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Lenovo&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'LENOVO'],// LAPTOP LENOVO HALAMAN 1
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Lenovo&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'LENOVO'],// LAPTOP LENOVO HALAMAN 2
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Lenovo&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'LENOVO'],// LAPTOP LENOVO HALAMAN 3
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Lenovo&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'LENOVO'],// LAPTOP LENOVO HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Lenovo&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'LENOVO'],// LAPTOP LENOVO HALAMAN 2
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Lenovo&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'LENOVO'],// LAPTOP LENOVO HALAMAN 3
 
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=HP&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'HP'],// LAPTOP HP HALAMAN 1
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=HP&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'HP'],// LAPTOP HP HALAMAN 2
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=HP&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'HP'],// LAPTOP HP HALAMAN 3
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=HP&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'HP'],// LAPTOP HP HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=HP&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'HP'],// LAPTOP HP HALAMAN 2
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=HP&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=3&start=80', 'LAPTOP', 'HP'],// LAPTOP HP HALAMAN 3
 
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Dell&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'DELL'],// LAPTOP DELL HALAMAN 1
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Dell&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'DELL'],// LAPTOP DELL HALAMAN 2
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Dell&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'DELL'],// LAPTOP DELL HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Dell&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=2&start=40', 'LAPTOP', 'DELL'],// LAPTOP DELL HALAMAN 2
 
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Axioo&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'AXIOO'],// LAPTOP AXIOO HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Axioo&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'AXIOO'],// LAPTOP AXIOO HALAMAN 1
 
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Huawei&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'HUAWEI'],// LAPTOP HUAWEI HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Huawei&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'HUAWEI'],// LAPTOP HUAWEI HALAMAN 1
 
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Infinix&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'INFINIX'],// LAPTOP INFINIX HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=Infinix&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'INFINIX'],// LAPTOP INFINIX HALAMAN 1
 
-        // ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=MSI&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'MSI'],// LAPTOP MSI HALAMAN 1
+        ['https://www.blibli.com/c/3/laptop/LA-1000004/53270?brand=MSI&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=1500000&maxPrice=&sort=7&page=1&start=0', 'LAPTOP', 'MSI'],// LAPTOP MSI HALAMAN 1
 
         ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=SAMSUNG&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'SAMSUNG'],// SSD SAMSUNG HALAMAN 1
 
-        // ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=V-GEN&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'VGEN'],// SSD VGEN HALAMAN 1
+        ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=V-GEN&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'VGEN'],// SSD VGEN HALAMAN 1
 
-        // ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=ADATA&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'ADATA'],// SSD ADATA HALAMAN 1
+        ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=ADATA&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'ADATA'],// SSD ADATA HALAMAN 1
 
-        // ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=SANDISK&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'SANDISK'],// SSD SANDISK HALAMAN 1
+        ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=SANDISK&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'SANDISK'],// SSD SANDISK HALAMAN 1
 
-        // ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=MIDASFORCE&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'MIDASFORCE'],// SSD MIDASFORCE HALAMAN 1
+        ['https://www.blibli.com/c/3/ssd/SS-1000001/53270?brand=MIDASFORCE&rating=4&seller=Official%20Store&seller=Top%20rated%20seller&minPrice=100000&maxPrice=&sort=7&page=1&start=0', 'SSD', 'MIDASFORCE'],// SSD MIDASFORCE HALAMAN 1
 
     ]
 
