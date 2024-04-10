@@ -129,7 +129,7 @@ async function scrapeShopee(browser, namafoldersekarang, cekduplikat, shopee, di
             await page.waitForTimeout(1000);
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
-            await page.setRequestInterception(true);
+            // await page.setRequestInterception(true);
             //selesai buka tab baru
 
             const blocked_domains = [
@@ -146,16 +146,16 @@ async function scrapeShopee(browser, namafoldersekarang, cekduplikat, shopee, di
                 'crazyegg.com'
               ];
 
-            page.on('request', request => {
-              const url = request.url()
-              if (blocked_domains.some(domain => url.includes(domain))) {
-                request.abort();
-              } else {
-                request.continue();
-              }
-            });
+            // page.on('request', request => {
+            //   const url = request.url()
+            //   if (blocked_domains.some(domain => url.includes(domain))) {
+            //     request.abort();
+            //   } else {
+            //     request.continue();
+            //   }
+            // });
 
-            await page.goto(alamat, { waitUntil: "networkidle0", timeout: 360000 });
+            await page.goto(alamat, { waitUntil: "networkidle0" });
             
             async function autoScroll(page){
                 await page.evaluate(async () => {
@@ -225,12 +225,12 @@ async function scrapeShopee(browser, namafoldersekarang, cekduplikat, shopee, di
 
 
             var selectorSingleItemShopee = `.shopee-search-item-result__item`;
-            var selectorGambarShopee = `img.wOiuiE`;
-            var selectorJudulShopee = `div._6HM3s0`;
-            var selectorHargaShopee = `span.Q1tsgQ`;
-            var selectorTerjualShopee = `div.Fe9fkg`;
-            var selectorLokasiShopee = `div.btehDL`;
-            var selectorUrlShopee = `a`;
+            var selectorGambarShopee = `div.shopee_ic a.contents > div > div:nth-of-type(1) img`;
+            var selectorJudulShopee = `div.shopee_ic a.contents > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)`;
+            var selectorHargaShopee = `div.shopee_ic a.contents > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)`;
+            var selectorTerjualShopee = `div.shopee_ic a.contents > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)`;
+            var selectorLokasiShopee = `div.shopee_ic a.contents > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(3)`;
+            var selectorUrlShopee = `div.shopee_ic a.contents`;
 
 
 
