@@ -9,6 +9,7 @@ const downloadgambarJS = require("./fungsi/downloadgambar.js");
 const express = require('express');
 const app = express();
 const puppeteer = require('puppeteer-extra');
+// const puppeteer = require('puppeteer');
 const fs = require('fs')
 const Promise = require('promise');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
@@ -16,7 +17,28 @@ const os = require('os');
 const PORT = process.env.PORT || 5000;
 const nodemailer = require("nodemailer");
 
-puppeteer.use(StealthPlugin());
+puppeteer.use(
+    StealthPlugin({
+      enabledEvasions: new Set([
+        // "chrome.app",
+        // "chrome.csi",
+        // "chrome.loadTimes",
+        // "chrome.runtime",
+        // Remove following line to fix tokopedia issue
+        // "iframe.contentWindow",
+        // "media.codecs",
+        // "navigator.hardwareConcurrency",
+        // "navigator.languages",
+        // "navigator.permissions",
+        // "navigator.plugins",
+        "navigator.webdriver",
+        // "sourceurl",
+        "user-agent-override",
+        // "webgl.vendor",
+        // "window.outerdimensions",
+      ]),
+    })
+  );
 app.use(express.json());
 
 //UNTUK KILL TASK CHROME
