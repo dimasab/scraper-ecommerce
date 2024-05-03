@@ -528,9 +528,10 @@ async function scrapeShopee(browser, namafoldersekarang, cekduplikat, shopee, di
                     terjual = terjualraw.trim(); //trim spasi depan belakang
 
 
+                    var lokasitokoraw = lokasitokoraw.replace(/[^a-zA-Z ]/g, "");
+                    var lokasitokoraw = lokasitokoraw.replace(/hari/gi, "")
                     var lokasitokoraw = lokasitokoraw.replace(/kota/gi, "")
                     var lokasitokoraw = lokasitokoraw.replace(/kab/gi, "")
-                    var lokasitokoraw = lokasitokoraw.replace(/\./gi, "")
                     var lokasitokoraw = lokasitokoraw.trim(); //trim spasi depan belakang
                     var lokasitokoraw = lokasitokoraw.toLowerCase();
                     namatoko = namatokoraw+" "+lokasitokoraw;
