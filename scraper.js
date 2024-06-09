@@ -14,7 +14,7 @@ const fs = require('fs')
 const Promise = require('promise');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const os = require('os');
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 const nodemailer = require("nodemailer");
 
 puppeteer.use(
@@ -287,7 +287,7 @@ app.get('/bersihkanproduk', async (req, res) => {
     await bersihkanJS.bersihkanSemua()
     .then( (totalDibersihkan) => {
         dibersihkan = totalDibersihkan;
-        console.log(`Selesai membersihkan ${dibersihkan} produk`);
+        console.log(`Selesai membersihkan ${dibersihkan} gambar`);
     })
     .catch((error) => {
         console.error("Bersihkan produk bermasalah:", error.message);
