@@ -55,7 +55,7 @@ async function bersihkanSemua() {
                   node.productName = aturKapital(node.productName);
               });
 
-              // aturKapital("macbook laptop 9 juta-an pro generasi 9 - - - - - - ---- haha ")
+              // aturKapital("macbook, laptop 9 juta-an , pro, 13.3\" generasi 9 - - - - - - ---- haha ")
 
               resolve(oldData);
           });
@@ -309,19 +309,20 @@ function aturKapital(judulraw) {
   ];
 
   judulraw = arrayhapusteks.reduce((str, pattern) => str.replace(pattern, ''), judulraw).trim();
-  judulraw = judulraw.trim().replace(/\bgenerasi\b/gi, 'gen');
-  judulraw = judulraw.trim().replace(/\s+/g, ' ');
-  judulraw = judulraw.trim().replace(/ \,+/g, ',');
-  judulraw = judulraw.trim().replace(/ \.+/g, '.');
-  judulraw = judulraw.trim().replace(/\(+\ +/g, '(');
-  judulraw = judulraw.trim().replace(/ \)+/g, ')');
-  judulraw = judulraw.trim().replace(/\[+\ +/g, '[');
-  judulraw = judulraw.trim().replace(/ \]+/g, ']');
-  judulraw = judulraw.trim().replace(/\(+/g, ' (');
-  judulraw = judulraw.trim().replace(/\)+/g, ') ');
-  judulraw = judulraw.trim().replace(/\[+/g, ' [');
-  judulraw = judulraw.trim().replace(/\]+/g, '] ');
-  judulraw = judulraw.trim().replace(/\-+\ +\-+\ +\-+/gi, '-');
+
+  judulraw = judulraw.trim().replace(/\bgenerasi\b/gi, 'gen')
+    .trim().replace(/\s+/g, ' ')
+    .trim().replace(/ \,+/g, ',')
+    .trim().replace(/ \.+/g, '.')
+    .trim().replace(/\(+\ +/g, '(')
+    .trim().replace(/ \)+/g, ')')
+    .trim().replace(/\[+\ +/g, '[')
+    .trim().replace(/ \]+/g, ']')
+    .trim().replace(/\(+/g, ' (')
+    .trim().replace(/\)+/g, ') ')
+    .trim().replace(/\[+/g, ' [')
+    .trim().replace(/\]+/g, '] ')
+    .trim().replace(/\-+\ +\-+\ +\-+/gi, '-')
 
   const untuksisaan = [
     /(\- )\1+/, // adalah - - dan - - - dan seterusnya
@@ -355,30 +356,32 @@ function aturKapital(judulraw) {
   judulraw = judulraw.split(/ BUKAN | NOT /)[0];
 
   for (let i = 0; i < 10; i++) {
-      judulraw = judulraw.trim().replace(/\/| -|,|\./g, '');
+    judulraw = judulraw.trim().replace(/^[-\/|.,]+|[-\/|.,]+$/g, '');
   }
 
-  const judulraw_CHECKER = judulraw.replace(/[^a-zA-Z0-9]+/g, '').toUpperCase();
-  const splitChecker = judulraw.split(' ').map(word => word.toUpperCase().replace(/[^a-zA-Z0-9]+/g, ''));
-  const judulrawWords = judulraw.split(' ');
-  const array_kata_unik = [];
-  const array_kata_unik_KAPITAL = [];
-
-  for (let i = 0; i < splitChecker.length; i++) {
-      const checker_sekarang = splitChecker[i];
+  const judulraw_CHECKER = judulraw.toUpperCase().split(' ').map(word => word.replace(/[^a-zA-Z0-9]+/g, ''));
+  const judulrawArray = judulraw.split(' ');
+  let array_kata_unik = [];
+  let array_kata_unik_KAPITAL = [];
+  
+  for (let i = 0; i < judulraw_CHECKER.length; i++) {
+      const checker_sekarang = judulraw_CHECKER[i];
+  
       if ((!array_kata_unik_KAPITAL.includes(checker_sekarang) || checker_sekarang.length < 3) && !abaikan.includes(checker_sekarang)) {
-
           array_kata_unik_KAPITAL.push(checker_sekarang);
-
+  
           if (!paksa_kapital.includes(checker_sekarang) && !/\d/.test(checker_sekarang)) {
-              judulrawWords[i] = judulrawWords[i].charAt(0).toUpperCase() + judulrawWords[i].slice(1).toLowerCase();
+              judulrawArray[i] = judulrawArray[i].toLowerCase();
+              judulrawArray[i] = judulrawArray[i][0].toUpperCase() + judulrawArray[i].slice(1);
           } else if (paksa_kapital.includes(checker_sekarang)) {
-              judulrawWords[i] = judulrawWords[i].toUpperCase();
+              judulrawArray[i] = judulrawArray[i].toUpperCase();
           } else if (paksa_kecil_depan.includes(checker_sekarang)) {
-              judulrawWords[i] = judulrawWords[i].charAt(0).toLowerCase() + judulrawWords[i].slice(1).toUpperCase();
+              judulrawArray[i] = judulrawArray[i][0].toLowerCase() + judulrawArray[i].slice(1);
           }
-
-          array_kata_unik.push(judulrawWords[i]);
+  
+          array_kata_unik.push(judulrawArray[i]);
+      } else {
+          continue;
       }
   }
 
