@@ -287,7 +287,7 @@ app.get('/bersihkanproduk', async (req, res) => {
     await bersihkanJS.bersihkanSemua()
     .then( (totalDibersihkan) => {
         dibersihkan = totalDibersihkan;
-        console.log(`Selesai membersihkan ${dibersihkan} gambar`);
+        console.log(`Selesai membersihkan ${dibersihkan} produk`);
     })
     .catch((error) => {
         console.error("Bersihkan produk bermasalah:", error.message);
