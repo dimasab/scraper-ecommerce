@@ -124,7 +124,7 @@ async function scrapeTokopedia(browser, namafoldersekarang, cekduplikat, tokoped
             await page.waitForTimeout(1000);
             await page.emulateTimezone('Asia/Jakarta');
             await page.setDefaultNavigationTimeout(0); 
-            await page.setRequestInterception(true);
+            // await page.setRequestInterception(true);
             //selesai buka tab baru
 
             const blocked_domains = [
@@ -141,16 +141,16 @@ async function scrapeTokopedia(browser, namafoldersekarang, cekduplikat, tokoped
                 'crazyegg.com'
               ];
 
-            page.on('request', request => {
-              const url = request.url()
-              if (blocked_domains.some(domain => url.includes(domain))) {
-                request.abort();
-              } else {
-                request.continue();
-              }
-            });
+            // page.on('request', request => {
+            //   const url = request.url()
+            //   if (blocked_domains.some(domain => url.includes(domain))) {
+            //     request.abort();
+            //   } else {
+            //     request.continue();
+            //   }
+            // });
 
-            await page.goto(alamat, { waitUntil: "networkidle0", timeout: 360000 });
+            await page.goto(alamat, { waitUntil: "networkidle0" });
 
             async function autoScroll(page){
                 await page.evaluate(async () => {
