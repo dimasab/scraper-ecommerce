@@ -100,7 +100,7 @@ async function scrapeBlibli(browser, namafoldersekarang, cekduplikat, blibli, di
               }
             });
 
-            await page.goto(alamat, { waitUntil: "networkidle0", timeout: 360000 });
+            await page.goto(alamat, { waitUntil: "networkidle0" });
 
             async function autoScroll(page){
                 await page.evaluate(async () => {
@@ -169,13 +169,14 @@ async function scrapeBlibli(browser, namafoldersekarang, cekduplikat, blibli, di
 
 
 
-            var selectorSingleItemBlibli = `#productContentDiv .product .product__card .product__container`;
-            var selectorGambarBlibli = `.blu-product__img-wrapper img.blu-product__img-main[lazy~='loaded']`;
-            var selectorGambarAlternatifBlibli = `.blu-product__img-wrapper img.carousel-container__slide__content[lazy~='loaded']`;
+            var selectorSingleItemBlibli = `#productContentDiv .product-list .product-card`;
+            var selectorGambarBlibli = `.blu-product__img-wrapper .blu-product__img-main img.b-active`;
+            var selectorGambarAlternatifBlibli = `.blu-product__img-wrapper .blu-product__img-main img`;
             var selectorJudulBlibli = `.blu-product__name`;
             var selectorHargaBlibli = `.blu-product__price-after`;
             var selectorTerjualBlibli = `.blu-product__sold`;
             var selectorTokoBlibli = `.blu-product__location-text`;
+            var selectorUrlBlibli = `a`;
 
        
 
@@ -247,7 +248,7 @@ async function scrapeBlibli(browser, namafoldersekarang, cekduplikat, blibli, di
             //SELESAI CARI POSISI "TIDAK" UNTUK FILTER PRODUK KETIKA OUTPUT NANTI
 
 
-            const array = await page.evaluate( ({blibli, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli, selectorJudulBlibli, selectorHargaBlibli, selectorTerjualBlibli, selectorTokoBlibli}) => {
+            const array = await page.evaluate( ({blibli, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli, selectorJudulBlibli, selectorHargaBlibli, selectorTerjualBlibli, selectorTokoBlibli, selectorUrlBlibli}) => {
                 
                 const satuproduk = document.querySelectorAll(selectorSingleItemBlibli);
                 arrayproduk = [];
@@ -295,9 +296,7 @@ async function scrapeBlibli(browser, namafoldersekarang, cekduplikat, blibli, di
                         var lokasitokoraw = "Jakarta";
                     }
 
-                    if (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}) {
-                        var urlprodukraw = (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(script => JSON.parse(script.textContent)).find(jsonObject => jsonObject['@type'] === 'ItemList') || {}).itemListElement[j].item.url;
-                    }
+                    var urlprodukraw = satuproduk[j].querySelector(selectorUrlBlibli).href;
 
 
                     //UNTUK HAPUS 
@@ -521,7 +520,7 @@ async function scrapeBlibli(browser, namafoldersekarang, cekduplikat, blibli, di
 
                 return arrayproduk;
                 
-            }, {blibli, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli, selectorJudulBlibli, selectorHargaBlibli, selectorTerjualBlibli, selectorTokoBlibli})
+            }, {blibli, cekduplikat, barang, merek, posisi_TIDAK, selectorSingleItemBlibli, selectorGambarBlibli, selectorGambarAlternatifBlibli, selectorJudulBlibli, selectorHargaBlibli, selectorTerjualBlibli, selectorTokoBlibli, selectorUrlBlibli})
 
 
             if (array.length > 0) {
