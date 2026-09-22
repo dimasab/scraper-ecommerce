@@ -1,0 +1,8 @@
+.env
+/node_modules
+.DS_Store
+/hasil/*
+!/hasil/.gitignore
+!/hasil/TERBARU/
+/hasil/TERBARU/*
+!/hasil/TERBARU/.gitignore
